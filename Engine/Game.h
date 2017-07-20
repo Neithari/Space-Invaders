@@ -23,6 +23,11 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Location.h"
+#include "Dimention.h"
+#include "Shot.h"
+#include <random>
+#include <assert.h>
 
 class Game
 {
@@ -42,5 +47,8 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	std::mt19937 rng;
+	static constexpr int alienShotMax = 10;
+	Shot alienShot[alienShotMax];
 	/********************************/
 };

@@ -24,7 +24,8 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	rng( std::random_device()() )
 {
 }
 
@@ -38,6 +39,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	std::uniform_int_distribution<int> colorDist( 0,255 );
+	Color c = colorDist( rng );
+	alienShot[0].Initialize( { 200,200 } );
+	alienShot[0].DrawAlien( gfx );
 }
 
 void Game::ComposeFrame()
