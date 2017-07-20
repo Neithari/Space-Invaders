@@ -1,8 +1,9 @@
 #include "House.h"
 
-House::House( const Location & in_loc )
+House::House( const Location& in_loc )
+	:
+	loc( in_loc )
 {
-	loc = in_loc;
 }
 
 Dimention House::GetDimention() const

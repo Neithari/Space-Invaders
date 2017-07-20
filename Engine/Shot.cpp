@@ -4,14 +4,14 @@ Shot::Shot()
 {
 }
 
-Shot::Shot( const Location & in_loc )
+Shot::Shot( const Location& in_loc )
 	:
 	loc( in_loc ),
 	isInit( true )
 {
 }
 
-void Shot::DrawAlien( Graphics & gfx )
+void Shot::DrawAlien( Graphics& gfx )
 {
 	//width = 3;
 	//height = 5;
@@ -52,7 +52,7 @@ void Shot::DrawAlien( Graphics & gfx )
 	}
 }
 
-void Shot::DrawTank( Graphics & gfx ) const
+void Shot::DrawTank( Graphics& gfx ) const
 {
 	if ( isInit )
 	{
@@ -74,7 +74,7 @@ void Shot::DrawTank( Graphics & gfx ) const
 	}
 }
 
-void Shot::Initialize( const Location & in_loc )
+void Shot::Initialize( const Location& in_loc )
 {
 	if ( !isInit )
 	{
@@ -87,21 +87,21 @@ void Shot::Update()
 {
 }
 
-bool Shot::Colliding( const Tank & tank )
+bool Shot::Colliding( const Tank& tank )
 {
 	Location in_loc = tank.GetLocation();
 	Dimention in_dim = tank.GetDimention();
 	return CollidingTank( in_loc,in_dim );
 }
 
-bool Shot::Colliding( const Alien & alien )
+bool Shot::Colliding( const Alien& alien )
 {
 	Location in_loc = alien.GetLocation();
 	Dimention in_dim = alien.GetDimention();
 	return CollidingAlien( in_loc,in_dim );
 }
 
-bool Shot::CollidingAlien( const Location & objL,const Dimention & objD )
+bool Shot::CollidingAlien( const Location& objL,const Dimention& objD )
 {
 
 	const int objright = objL.x + objD.width;
@@ -115,7 +115,7 @@ bool Shot::CollidingAlien( const Location & objL,const Dimention & objD )
 		objL.y <= shotbottom;
 }
 
-bool Shot::CollidingTank( const Location & objL,const Dimention & objD )
+bool Shot::CollidingTank( const Location& objL,const Dimention& objD )
 {
 
 	const int objright = objL.x + objD.width;

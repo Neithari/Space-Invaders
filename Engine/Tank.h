@@ -7,6 +7,7 @@
 class Tank
 {
 public:
+	Tank( const Location& in_loc);
 	Dimention GetDimention() const;
 	Location GetLocation() const;
 	void Draw( Graphics& gfx );

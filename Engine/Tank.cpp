@@ -1,5 +1,11 @@
 #include "Tank.h"
 
+Tank::Tank( const Location& in_loc )
+	:
+	loc( in_loc )
+{
+}
+
 Dimention Tank::GetDimention() const
 {
 	return dim;

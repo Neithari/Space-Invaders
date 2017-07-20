@@ -45,4 +45,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	Location tankLoc = { 300,250 };
+	Tank tank( tankLoc );
+	tank.Draw( gfx );
 }
