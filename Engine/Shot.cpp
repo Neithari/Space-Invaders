@@ -87,12 +87,41 @@ void Shot::Update()
 {
 }
 
-bool Shot::Colliding( const Location & objL,const Dimention & objD )
+bool Shot::Colliding( const Tank & tank )
 {
+	Location in_loc = tank.GetLocation();
+	Dimention in_dim = tank.GetDimention();
+	return CollidingTank( in_loc,in_dim );
+}
+
+bool Shot::Colliding( const Alien & alien )
+{
+	Location in_loc = alien.GetLocation();
+	Dimention in_dim = alien.GetDimention();
+	return CollidingAlien( in_loc,in_dim );
+}
+
+bool Shot::CollidingAlien( const Location & objL,const Dimention & objD )
+{
+
 	const int objright = objL.x + objD.width;
 	const int objbottom = objL.y + objD.height;
-	const int shotright = loc.x + dim.width;
-	const int shotbottom = loc.y + dim.height;
+	const int shotright = loc.x + dimAlien.width;
+	const int shotbottom = loc.y + dimAlien.height;
+
+	return objright >= loc.x &&
+		objL.x <= shotright &&
+		objbottom >= loc.y &&
+		objL.y <= shotbottom;
+}
+
+bool Shot::CollidingTank( const Location & objL,const Dimention & objD )
+{
+
+	const int objright = objL.x + objD.width;
+	const int objbottom = objL.y + objD.height;
+	const int shotright = loc.x + dimTank.width;
+	const int shotbottom = loc.y + dimTank.height;
 
 	return objright >= loc.x &&
 		objL.x <= shotright &&

@@ -16,15 +16,10 @@ public:
 	void DrawAlien( Graphics& gfx );
 	void Initialize( const Location& in_loc );
 	void Update();
-	/*bool Colliding( const Tank& tank )
-	{
-		Colliding( tank.GetLocation(),tank.GetDimention );
-	};
-	bool Colliding( const Alien& alien )
-	{
-		Colliding( alien.GetLocation(),alien.GetDimention );
-	};*/
-	bool Colliding( const Location& objL,const Dimention& objD );
+	bool Colliding( const Tank& tank );
+	bool Colliding( const Alien& alien );
+	bool CollidingAlien( const Location& objL,const Dimention& objD );
+	bool CollidingTank( const Location& objL,const Dimention& objD );
 
 private:
 	static constexpr Dimention dimAlien = { 3,5 };
