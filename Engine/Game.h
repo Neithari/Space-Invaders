@@ -28,6 +28,7 @@
 #include "Shot.h"
 #include <random>
 #include <assert.h>
+#include "Sprite.h"
 
 class Game
 {

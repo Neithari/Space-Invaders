@@ -145,6 +145,7 @@
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="House.h" />
     <ClInclude Include="InvaderBig.h" />
     <ClInclude Include="InvaderMid.h" />
     <ClInclude Include="InvaderSmall.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Shot.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Tank.h" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +166,7 @@
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="House.cpp" />
     <ClCompile Include="InvaderBig.cpp" />
     <ClCompile Include="InvaderMid.cpp" />
     <ClCompile Include="InvaderSmall.cpp" />
@@ -173,6 +176,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Tank.cpp" />
   </ItemGroup>
   <ItemGroup>

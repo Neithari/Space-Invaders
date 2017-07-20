@@ -47,4 +47,6 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	Sprite title;
+	title.DrawTitle( gfx,{ 100,200 } );
 }
