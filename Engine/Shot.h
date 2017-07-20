@@ -3,7 +3,6 @@
 #include "Graphics.h"
 #include "Location.h"
 #include "Dimention.h"
-#include <assert.h>
 #include "Tank.h"
 #include "Alien.h"
 
@@ -11,12 +10,12 @@ class Shot
 {
 public:
 	Shot();
-	Shot( const Location& in_loc );
+	Shot( const Location in_loc );
 	void DrawTank( Graphics& gfx ) const;
 	void DrawAlien( Graphics& gfx );
-	void Initialize( const Location& in_loc );
+	void Initialize( const Location in_loc );
 	void Update();
-	bool Colliding( const Tank& tank );
+//	bool Colliding( const Tank& tank);
 	bool Colliding( const Alien& alien );
 	bool CollidingAlien( const Location& objL,const Dimention& objD );
 	bool CollidingTank( const Location& objL,const Dimention& objD );

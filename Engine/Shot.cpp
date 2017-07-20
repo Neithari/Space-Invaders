@@ -4,7 +4,7 @@ Shot::Shot()
 {
 }
 
-Shot::Shot( const Location& in_loc )
+Shot::Shot( const Location in_loc )
 	:
 	loc( in_loc ),
 	isInit( true )
@@ -79,7 +79,7 @@ void Shot::DrawTank( Graphics& gfx ) const
 	}
 }
 
-void Shot::Initialize( const Location& in_loc )
+void Shot::Initialize( const Location in_loc )
 {
 	if ( !isInit )
 	{
@@ -92,12 +92,12 @@ void Shot::Update()
 {
 }
 
-bool Shot::Colliding( const Tank& tank )
+/*bool Shot::Colliding( const Tank& tank )
 {
 	Location in_loc = tank.GetLocation();
 	Dimention in_dim = tank.GetDimention();
 	return CollidingTank( in_loc,in_dim );
-}
+}*/
 
 bool Shot::Colliding( const Alien& alien )
 {

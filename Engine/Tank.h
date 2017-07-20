@@ -8,13 +8,14 @@
 class Tank
 {
 public:
-	Tank( const Location& in_loc);
-	Dimention GetDimention() const;
-	Location GetLocation() const;
+	Tank();
+	Tank( const Location& in_loc );
+	const Dimention& GetDimention() const;
+	const Location& GetLocation() const;
 	void Draw( Graphics& gfx );
 	void Update( const Keyboard& kbd );
 private:
 	static constexpr Dimention dim = { 20,18 };
-	static constexpr float speed = 1.0f;
+	static constexpr float speed = 1.5f;
 	Location loc;
 };

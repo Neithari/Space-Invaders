@@ -7,8 +7,8 @@
 class Alien
 {
 public:
-	Dimention GetDimention() const;
-	Location GetLocation() const;
+	const Dimention& GetDimention() const;
+	const Location& GetLocation() const;
 
 private:
 	Dimention dim;

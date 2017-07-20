@@ -26,9 +26,9 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	rng( rd() ),
-	xDist( 0,800 ),
-	yDist( 0,600 ),
-	tank( { 300.0f,250.0f } )
+	xDist( 0.0f,800.0f ),
+	yDist( 0.0f,600.0f ),
+	tank( { 400.0f,500.0f } )
 {
 }
 
@@ -43,9 +43,16 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	tank.Update( wnd.kbd );
+	if ( wnd.kbd.KeyIsPressed( VK_SPACE ) )
+	{
+		Location shot_loc = {8.0f,0};
+		shot_loc.Add( tank.GetLocation() );
+		tankShot[0].Initialize( shot_loc );
+	}
 }
 
 void Game::ComposeFrame()
 {
 	tank.Draw( gfx );
+	tankShot[0].DrawTank( gfx );
 }

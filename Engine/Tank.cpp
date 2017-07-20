@@ -1,17 +1,21 @@
 #include "Tank.h"
 
+Tank::Tank()
+{
+}
+
 Tank::Tank( const Location& in_loc )
 	:
 	loc( in_loc )
 {
 }
 
-Dimention Tank::GetDimention() const
+const Dimention& Tank::GetDimention() const
 {
 	return dim;
 }
 
-Location Tank::GetLocation() const
+const Location& Tank::GetLocation() const
 {
 	return loc;
 }
@@ -277,9 +281,5 @@ void Tank::Update( const Keyboard & kbd )
 	if ( kbd.KeyIsPressed( VK_LEFT ) )
 	{
 		loc.x -= speed;
-	}
-	if ( kbd.KeyIsPressed( VK_SPACE ) )
-	{
-		//shoot
 	}
 }
