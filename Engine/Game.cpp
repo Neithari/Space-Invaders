@@ -41,12 +41,10 @@ void Game::UpdateModel()
 {
 	std::uniform_int_distribution<int> colorDist( 0,255 );
 	Color c = colorDist( rng );
-	alienShot[0].Initialize( { 200,200 } );
-	alienShot[0].DrawAlien( gfx );
 }
 
 void Game::ComposeFrame()
 {
-	Sprite title;
-	title.DrawTitle( gfx,{ 100,200 } );
+	Sprite GameOver;
+	GameOver.DrawGameOver( gfx,{ 350,250 } );
 }

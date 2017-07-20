@@ -5,6 +5,7 @@
 class Sprite
 {
 public:
-	void DrawTitle( Graphics& gfx, const Location& loc );
+	void DrawTitle( Graphics& gfx,const Location& loc );
+	void DrawGameOver( Graphics& gfx,const Location& loc );
 private:
 };
