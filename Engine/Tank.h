@@ -9,6 +9,7 @@ class Tank
 public:
 	Dimention GetDimention() const;
 	Location GetLocation() const;
+	void Draw( Graphics& gfx );
 
 private:
 	Dimention dim;
