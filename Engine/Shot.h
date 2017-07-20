@@ -27,7 +27,8 @@ public:
 	bool Colliding( const Location& objL,const Dimention& objD );
 
 private:
-	static constexpr Dimention dim = { 3,5 };
+	static constexpr Dimention dimAlien = { 3,5 };
+	static constexpr Dimention dimTank = { 2,6 };
 	static constexpr int toggleTime = 15;
 	int toggleIndex = 0;
 	Location loc;
