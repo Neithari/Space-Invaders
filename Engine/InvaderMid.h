@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Graphics.h"
+#include "Dimention.h"
+#include "Location.h"
 
 class InvaderMid
 {
@@ -11,9 +13,7 @@ public:
 	void DrawExplosion( Graphics& gfx ) const;
 
 private:
-	static constexpr int width = 20;
-	static constexpr int height = 16;
-	int x;
-	int y;
+	static constexpr Dimention dim = { 20,16 };
+	Location loc;
 	bool hit = false;
 };

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Graphics.h"
+#include "Dimention.h"
+#include "Location.h"
 
 class InvaderBig
 {
@@ -9,10 +11,8 @@ public:
 	void Draw( Graphics& gfx ) const;
 	void DrawMove( Graphics& gfx ) const;
 	void DrawExplosion( Graphics& gfx ) const;
-
-	static constexpr int width = 24;
-	static constexpr int height = 16;
-	int x;
-	int y;
+private:
+	static constexpr Dimention dim = { 24,16 };
+	Location loc;
 	bool hit = false;
 };

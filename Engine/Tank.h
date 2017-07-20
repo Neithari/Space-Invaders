@@ -12,6 +12,6 @@ public:
 	void Draw( Graphics& gfx );
 
 private:
-	Dimention dim;
+	static constexpr Dimention dim = { 20,18 };
 	Location loc;
 };

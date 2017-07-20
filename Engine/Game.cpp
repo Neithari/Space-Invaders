@@ -45,6 +45,4 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	Sprite GameOver;
-	GameOver.DrawGameOver( gfx,{ 350,250 } );
 }
