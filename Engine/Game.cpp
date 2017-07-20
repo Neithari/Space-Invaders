@@ -27,7 +27,8 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	rng( rd() ),
 	xDist( 0,800 ),
-	yDist( 0,600 )
+	yDist( 0,600 ),
+	tank( { 300.0f,250.0f } )
 {
 }
 
@@ -41,13 +42,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	std::uniform_int_distribution<int> colorDist( 0,255 );
-	Color c = colorDist( rng );
+	tank.Update( wnd.kbd );
 }
 
 void Game::ComposeFrame()
 {
-	Location tankLoc = { 300,250 };
-	Tank tank( tankLoc );
 	tank.Draw( gfx );
 }

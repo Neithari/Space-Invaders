@@ -56,6 +56,6 @@ private:
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
 	static constexpr int alienShotMax = 10;
-	Shot alienShot[alienShotMax];
+	Tank tank;
 	/********************************/
 };
