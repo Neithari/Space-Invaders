@@ -29,6 +29,9 @@
 #include <random>
 #include <assert.h>
 #include "Sprite.h"
+#include "Tank.h"
+#include "House.h"
+#include "Alien.h"
 
 class Game
 {
@@ -48,7 +51,10 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	std::random_device rd;
 	std::mt19937 rng;
+	std::uniform_real_distribution<float> xDist;
+	std::uniform_real_distribution<float> yDist;
 	static constexpr int alienShotMax = 10;
 	Shot alienShot[alienShotMax];
 	/********************************/

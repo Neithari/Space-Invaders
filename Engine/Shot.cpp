@@ -17,14 +17,17 @@ void Shot::DrawAlien( Graphics& gfx )
 	//height = 5;
 	if ( isInit )
 	{
+		int x = int( loc.x );
+		int y = int( loc.y );
+
 		if ( toggle )
 		{
 			//Shot1
-			gfx.PutPixel( 1 + loc.x,0 + loc.y,1,131,111 );
-			gfx.PutPixel( 2 + loc.x,1 + loc.y,1,163,138 );
-			gfx.PutPixel( 1 + loc.x,2 + loc.y,1,191,162 );
-			gfx.PutPixel( 0 + loc.x,3 + loc.y,1,221,187 );
-			gfx.PutPixel( 1 + loc.x,4 + loc.y,0,255,216 );
+			gfx.PutPixel( 1 + x,0 + y,1,131,111 );
+			gfx.PutPixel( 2 + x,1 + y,1,163,138 );
+			gfx.PutPixel( 1 + x,2 + y,1,191,162 );
+			gfx.PutPixel( 0 + x,3 + y,1,221,187 );
+			gfx.PutPixel( 1 + x,4 + y,0,255,216 );
 
 			if ( toggleIndex >= toggleTime )
 			{
@@ -36,11 +39,11 @@ void Shot::DrawAlien( Graphics& gfx )
 		else
 		{
 			//Shot2
-			gfx.PutPixel( 1 + loc.x,0 + loc.y,1,131,111 );
-			gfx.PutPixel( 0 + loc.x,1 + loc.y,1,163,138 );
-			gfx.PutPixel( 1 + loc.x,2 + loc.y,1,191,162 );
-			gfx.PutPixel( 2 + loc.x,3 + loc.y,1,221,187 );
-			gfx.PutPixel( 1 + loc.x,4 + loc.y,0,255,216 );
+			gfx.PutPixel( 1 + x,0 + y,1,131,111 );
+			gfx.PutPixel( 0 + x,1 + y,1,163,138 );
+			gfx.PutPixel( 1 + x,2 + y,1,191,162 );
+			gfx.PutPixel( 2 + x,3 + y,1,221,187 );
+			gfx.PutPixel( 1 + x,4 + y,0,255,216 );
 
 			if ( toggleIndex >= toggleTime )
 			{
@@ -56,21 +59,23 @@ void Shot::DrawTank( Graphics& gfx ) const
 {
 	if ( isInit )
 	{
+		int x = int( loc.x );
+		int y = int( loc.y );
 		//width = 2;
 		//height = 6;
 
-		gfx.PutPixel( 0 + loc.x,0 + loc.y,254,0,0 );
-		gfx.PutPixel( 1 + loc.x,0 + loc.y,254,0,0 );
-		gfx.PutPixel( 0 + loc.x,1 + loc.y,186,4,4 );
-		gfx.PutPixel( 1 + loc.x,1 + loc.y,186,4,4 );
-		gfx.PutPixel( 0 + loc.x,2 + loc.y,137,2,2 );
-		gfx.PutPixel( 1 + loc.x,2 + loc.y,137,2,2 );
-		gfx.PutPixel( 0 + loc.x,3 + loc.y,104,1,1 );
-		gfx.PutPixel( 1 + loc.x,3 + loc.y,104,1,1 );
-		gfx.PutPixel( 0 + loc.x,4 + loc.y,79,1,1 );
-		gfx.PutPixel( 1 + loc.x,4 + loc.y,79,1,1 );
-		gfx.PutPixel( 0 + loc.x,5 + loc.y,46,0,0 );
-		gfx.PutPixel( 1 + loc.x,5 + loc.y,46,0,0 );
+		gfx.PutPixel( 0 + x,0 + y,254,0,0 );
+		gfx.PutPixel( 1 + x,0 + y,254,0,0 );
+		gfx.PutPixel( 0 + x,1 + y,186,4,4 );
+		gfx.PutPixel( 1 + x,1 + y,186,4,4 );
+		gfx.PutPixel( 0 + x,2 + y,137,2,2 );
+		gfx.PutPixel( 1 + x,2 + y,137,2,2 );
+		gfx.PutPixel( 0 + x,3 + y,104,1,1 );
+		gfx.PutPixel( 1 + x,3 + y,104,1,1 );
+		gfx.PutPixel( 0 + x,4 + y,79,1,1 );
+		gfx.PutPixel( 1 + x,4 + y,79,1,1 );
+		gfx.PutPixel( 0 + x,5 + y,46,0,0 );
+		gfx.PutPixel( 1 + x,5 + y,46,0,0 );
 	}
 }
 
@@ -104,10 +109,10 @@ bool Shot::Colliding( const Alien& alien )
 bool Shot::CollidingAlien( const Location& objL,const Dimention& objD )
 {
 
-	const int objright = objL.x + objD.width;
-	const int objbottom = objL.y + objD.height;
-	const int shotright = loc.x + dimAlien.width;
-	const int shotbottom = loc.y + dimAlien.height;
+	const float objright = objL.x + float( objD.width );
+	const float objbottom = objL.y + float( objD.height );
+	const float shotright = loc.x + float( dimAlien.width );
+	const float shotbottom = loc.y + float( dimAlien.height );
 
 	return objright >= loc.x &&
 		objL.x <= shotright &&
@@ -118,10 +123,10 @@ bool Shot::CollidingAlien( const Location& objL,const Dimention& objD )
 bool Shot::CollidingTank( const Location& objL,const Dimention& objD )
 {
 
-	const int objright = objL.x + objD.width;
-	const int objbottom = objL.y + objD.height;
-	const int shotright = loc.x + dimTank.width;
-	const int shotbottom = loc.y + dimTank.height;
+	const float objright = objL.x + float( objD.width );
+	const float objbottom = objL.y + float( objD.height );
+	const float shotright = loc.x + float( dimTank.width );
+	const float shotbottom = loc.y + float( dimTank.height );
 
 	return objright >= loc.x &&
 		objL.x <= shotright &&

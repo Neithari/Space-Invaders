@@ -25,7 +25,9 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	rng( std::random_device()() )
+	rng( rd() ),
+	xDist( 0,800 ),
+	yDist( 0,600 )
 {
 }
 
