@@ -25,13 +25,14 @@
 #include "Graphics.h"
 #include "Location.h"
 #include "Dimention.h"
-#include "Shot.h"
 #include <random>
 #include <assert.h>
 #include "Sprite.h"
 #include "Tank.h"
+#include "TankShot.h"
 #include "House.h"
 #include "Alien.h"
+#include "AlienShot.h"
 
 class Game
 {
@@ -56,9 +57,10 @@ private:
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
-	static constexpr int alienShotMax = 10;
-	static constexpr int tankShotMax = 20;
+	static constexpr int tankShotMax = 30;
+	static constexpr int alienShotMax = 30;
 	Tank tank;
-	Shot tankShot[tankShotMax];
+	TankShot tankShot[tankShotMax];
+	AlienShot alienShot[alienShotMax];
 	/********************************/
 };

@@ -45,17 +45,21 @@ void Game::UpdateModel()
 	tank.Update( wnd.kbd );
 	if ( wnd.kbd.KeyIsPressed( VK_SPACE ) )
 	{
-		Location shot_loc = {8.0f,0};
-		shot_loc.Add( tank.GetLocation() );
-		tankShot[0].Initialize( shot_loc );
+		tankShot[0].Initialize( tank.GetLocation() );
+	}
+	if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
+	{
+		alienShot[0].Initialize( tank.GetLocation() );
 	}
 	tankShot[0].Update();
+	alienShot[0].Update();
 }
 
 void Game::ComposeFrame()
 {
 	tank.Draw( gfx );
-	tankShot[0].DrawTank( gfx );
+	tankShot[0].Draw( gfx );
+	alienShot[0].Draw( gfx );
 }
 
 float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
