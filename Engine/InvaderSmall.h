@@ -8,12 +8,16 @@ class InvaderSmall
 {
 public:
 	void Update();
-	void Draw( Graphics& gfx ) const;
-	void DrawMove( Graphics& gfx ) const;
+	void Draw( Graphics& gfx );
+	void DrawMove0( Graphics& gfx ) const;
+	void DrawMove1( Graphics& gfx ) const;
 	void DrawExplosion( Graphics& gfx ) const;
-
+	bool IsAlive() const;
 private:
 	static constexpr Dimention dim = { 16,16 };
 	Location loc;
-	bool hit = false;
+	bool isAlive = true;
+	static constexpr int toggleTime = 60;
+	int toggleIndex = 0;
+	bool toggle = true;
 };
