@@ -19,12 +19,16 @@ public:
 	bool Colliding( const Alien& alien );
 	bool CollidingAlien( const Location& objL,const Dimention& objD );
 	bool CollidingTank( const Location& objL,const Dimention& objD );
+	float ClampToScreen();
 
 private:
 	static constexpr Dimention dimAlien = { 3,5 };
 	static constexpr Dimention dimTank = { 2,6 };
+	static constexpr float screenWidth = 800.0f;
+	static constexpr float screenHeight = 600.0f;
 	static constexpr int toggleTime = 15;
 	int toggleIndex = 0;
+	float vShot = 2.0f;
 	Location loc;
 	bool isInit = false;
 	bool toggle = true;

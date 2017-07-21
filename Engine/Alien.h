@@ -3,6 +3,9 @@
 #include "Graphics.h"
 #include "Location.h"
 #include "Dimention.h"
+#include "InvaderBig.h"
+#include "InvaderMid.h"
+#include "InvaderSmall.h"
 
 class Alien
 {

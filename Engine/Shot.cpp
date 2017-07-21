@@ -90,6 +90,7 @@ void Shot::Initialize( const Location in_loc )
 
 void Shot::Update()
 {
+	loc.y -= vShot;
 }
 
 /*bool Shot::Colliding( const Tank& tank )

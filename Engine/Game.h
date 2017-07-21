@@ -45,6 +45,7 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	float ClampToScreen( const Location& in_loc,const Dimention& in_dim );
 	/********************************/
 private:
 	MainWindow& wnd;
