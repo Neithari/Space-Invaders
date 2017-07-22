@@ -57,9 +57,9 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	tank.Draw( gfx );
 	tankShot[0].Draw( gfx );
 	alienShot[0].Draw( gfx );
+	tank.Draw( gfx );
 }
 
 float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
