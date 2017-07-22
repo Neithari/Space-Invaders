@@ -9,10 +9,11 @@ class InvaderBig
 public:
 	void Update();
 	void Draw( Graphics& gfx );
+	bool IsAlive() const;
+private:
 	void DrawMove0( Graphics& gfx ) const;
 	void DrawMove1( Graphics& gfx ) const;
 	void DrawExplosion( Graphics& gfx ) const;
-	bool IsAlive() const;
 private:
 	static constexpr Dimention dim = { 24,16 };
 	Location loc;
