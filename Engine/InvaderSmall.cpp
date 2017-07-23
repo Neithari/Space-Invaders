@@ -436,3 +436,14 @@ bool InvaderSmall::IsAlive() const
 {
 	return isAlive;
 }
+
+Dimention InvaderSmall::GetDim() const
+{
+	return dim;
+}
+
+void InvaderSmall::Init( const Location & in_loc )
+{
+	loc = in_loc;
+	isAlive = true;
+}

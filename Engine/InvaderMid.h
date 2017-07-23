@@ -10,6 +10,8 @@ public:
 	void Update();
 	void Draw( Graphics& gfx );
 	bool IsAlive() const;
+	Dimention GetDim() const;
+	void Init( const Location& in_loc );
 private:
 	void DrawMove0( Graphics& gfx ) const;
 	void DrawMove1( Graphics& gfx ) const;
@@ -17,7 +19,7 @@ private:
 private:
 	static constexpr Dimention dim = { 20,16 };
 	Location loc;
-	bool isAlive = true;
+	bool isAlive = false;
 	static constexpr int toggleTime = 60;
 	int toggleIndex = 0;
 	bool toggle = true;

@@ -60,6 +60,7 @@ private:
 	static constexpr int tankShotMax = 30;
 	static constexpr int alienShotMax = 30;
 	Tank tank;
+	Alien alien;
 	TankShot tankShot[tankShotMax];
 	AlienShot alienShot[alienShotMax];
 	/********************************/

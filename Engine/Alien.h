@@ -11,18 +11,17 @@ class Alien
 {
 public:
 	Alien( Graphics& gfx );
-	const Dimention& GetDimention() const;
-	const Location& GetLocation() const;
+	Location GetLocation() const;
 	void Draw();
 	void Update();
 
 private:
 	Graphics& gfx;
-	Dimention dim;
-	Location loc;
 	static constexpr int n_small = 15;
 	static constexpr int n_mid = 30;
 	static constexpr int n_big = 30;
+	static constexpr Location loc = { 50,50 };
+	static constexpr int alienSpacing = 10;
 	int count_small = n_small;
 	int count_mid = n_mid;
 	int count_big = n_big;

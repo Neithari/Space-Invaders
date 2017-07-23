@@ -496,3 +496,14 @@ bool InvaderMid::IsAlive() const
 {
 	return isAlive;
 }
+
+Dimention InvaderMid::GetDim() const
+{
+	return dim;
+}
+
+void InvaderMid::Init( const Location & in_loc )
+{
+	loc = in_loc;
+	isAlive = true;
+}

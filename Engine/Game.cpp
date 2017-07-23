@@ -28,7 +28,8 @@ Game::Game( MainWindow& wnd )
 	rng( rd() ),
 	xDist( 0.0f,800.0f ),
 	yDist( 0.0f,600.0f ),
-	tank( { 400.0f,500.0f } )
+	tank( { 400.0f,500.0f } ),
+	alien( gfx )
 {
 }
 
@@ -60,6 +61,7 @@ void Game::ComposeFrame()
 	tankShot[0].Draw( gfx );
 	alienShot[0].Draw( gfx );
 	tank.Draw( gfx );
+	alien.Draw();
 }
 
 float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )

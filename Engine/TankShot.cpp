@@ -54,7 +54,7 @@ bool TankShot::Colliding( const Alien & alien )
 {
 	if ( isAlive )
 	{
-		const Location targetLoc = alien.GetLocation();
+		/*const Location targetLoc = alien.GetLocation();
 		const Dimention targetDim = alien.GetDimention();
 		const float objright = targetLoc.x + float( targetDim.width );
 		const float objbottom = targetLoc.y + float( targetDim.height );
@@ -64,7 +64,8 @@ bool TankShot::Colliding( const Alien & alien )
 		return objright >= loc.x &&
 			targetLoc.x <= shotright &&
 			objbottom >= loc.y &&
-			targetLoc.y <= shotbottom;
+			targetLoc.y <= shotbottom;*/
+		return false;
 	}
 	else
 	{

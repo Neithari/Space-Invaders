@@ -644,3 +644,14 @@ bool InvaderBig::IsAlive() const
 {
 	return isAlive;
 }
+
+Dimention InvaderBig::GetDim() const
+{
+	return dim;
+}
+
+void InvaderBig::Init( const Location & in_loc )
+{
+	loc = in_loc;
+	isAlive = true;
+}
