@@ -8,7 +8,7 @@ Alien::Alien( Graphics & gfx )
 	Dimention i_dim = invaderSmall[0].GetDim();
 	Dimention iBig_dim = invaderBig[0].GetDim();
 	Location i_loc = loc;
-	float align= iBig_dim.width / 2 - i_dim.width / 2;
+	float align = float( iBig_dim.width / 2 - i_dim.width / 2 );
 	i_loc.x += align;
 	invaderSmall[0].Init( i_loc );
 	for ( int i = 1; i < n_small; i++ )
@@ -18,7 +18,7 @@ Alien::Alien( Graphics & gfx )
 	}
 	//mid
 	i_dim = invaderMid[0].GetDim();
-	align = iBig_dim.width / 2 - i_dim.width / 2;
+	align = float( iBig_dim.width / 2 - i_dim.width / 2 );
 	i_loc.x = loc.x;
 	i_loc.x += align;
 	i_loc.y += i_dim.height + alienSpacing;
