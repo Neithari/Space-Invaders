@@ -57,11 +57,6 @@ Alien::Alien( Graphics & gfx )
 	}
 }
 
-Location Alien::GetLocation() const
-{
-	return loc;
-}
-
 void Alien::Draw()
 {
 	for ( int i = 0; i < n_small; i++ )
@@ -108,6 +103,31 @@ void Alien::Update()
 		if ( invaderBig[i].IsAlive() )
 		{
 			invaderBig[i].Update();
+		}
+	}
+}
+
+void Alien::Collision( const Location& in_loc,const Dimention& in_dim )
+{
+	for ( int i = 0; i < n_small; i++ )
+	{
+		if ( invaderSmall[i].IsAlive() )
+		{
+			invaderSmall[i].Collision( in_loc,in_dim );
+		}
+	}
+	for ( int i = 0; i < n_mid; i++ )
+	{
+		if ( invaderMid[i].IsAlive() )
+		{
+			invaderMid[i].Collision( in_loc,in_dim );
+		}
+	}
+	for ( int i = 0; i < n_big; i++ )
+	{
+		if ( invaderBig[i].IsAlive() )
+		{
+			invaderBig[i].Collision( in_loc,in_dim );
 		}
 	}
 }

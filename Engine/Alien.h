@@ -11,9 +11,9 @@ class Alien
 {
 public:
 	Alien( Graphics& gfx );
-	Location GetLocation() const;
 	void Draw();
 	void Update();
+	void Collision( const Location& in_loc,const Dimention& in_dim );
 
 private:
 	Graphics& gfx;

@@ -12,10 +12,11 @@ public:
 	bool IsAlive() const;
 	Dimention GetDim() const;
 	void Init( const Location& in_loc );
+	void Collision( const Location& in_loc,const Dimention& in_dim );
+	void DrawExplosion( Graphics& gfx ) const;
 private:
 	void DrawMove0( Graphics& gfx ) const;
 	void DrawMove1( Graphics& gfx ) const;
-	void DrawExplosion( Graphics& gfx ) const;
 private:
 	static constexpr Dimention dim = { 16,16 };
 	Location loc;
