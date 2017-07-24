@@ -44,22 +44,11 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	tank.Update( wnd.kbd );
-	if ( wnd.kbd.KeyIsPressed( VK_SPACE ) )
-	{
-		tankShot[0].Initialize( tank.GetLocation() );
-	}
-	if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
-	{
-		alienShot[0].Initialize( tank.GetLocation() );
-	}
-	tankShot[0].Update();
-	alienShot[0].Update();
+	alien.Update();
 }
 
 void Game::ComposeFrame()
 {
-	tankShot[0].Draw( gfx );
-	alienShot[0].Draw( gfx );
 	tank.Draw( gfx );
 	alien.Draw();
 }

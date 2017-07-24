@@ -10,9 +10,10 @@ class TankShot
 public:
 	TankShot();
 	void Draw( Graphics& gfx ) const;
-	void Initialize( const Location& in_loc );
+	void Init( const Location& in_loc );
 	void Update();
 	bool Colliding( const Alien& alien);
+	bool IsAlive() const;
 
 private:
 	static constexpr Dimention dim = { 2,6 };

@@ -28,12 +28,12 @@ void TankShot::Draw( Graphics & gfx ) const
 	}
 }
 
-void TankShot::Initialize( const Location & in_loc )
+void TankShot::Init( const Location & in_loc )
 {
 	if ( !isAlive )
 	{
 		loc = in_loc;
-		loc.Add( { 8,0 } );
+		loc.Add( { 8,-3 } );
 		isAlive = true;
 	}
 }
@@ -71,4 +71,9 @@ bool TankShot::Colliding( const Alien & alien )
 	{
 		return false;
 	}
+}
+
+bool TankShot::IsAlive() const
+{
+	return isAlive;
 }

@@ -29,10 +29,8 @@
 #include <assert.h>
 #include "Sprite.h"
 #include "Tank.h"
-#include "TankShot.h"
 #include "House.h"
 #include "Alien.h"
-#include "AlienShot.h"
 
 class Game
 {
@@ -61,7 +59,5 @@ private:
 	static constexpr int alienShotMax = 30;
 	Tank tank;
 	Alien alien;
-	TankShot tankShot[tankShotMax];
-	AlienShot alienShot[alienShotMax];
 	/********************************/
 };

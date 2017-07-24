@@ -20,7 +20,19 @@ const Location& Tank::GetLocation() const
 	return loc;
 }
 
-void Tank::Draw( Graphics & gfx )
+void Tank::Draw( Graphics& gfx )
+{
+	DrawTank( gfx );
+	for ( int i = 0; i < shotMax; i++ )
+	{
+		if ( shot[i].IsAlive() )
+		{
+			shot[i].Draw( gfx );
+		}
+	}
+}
+
+void Tank::DrawTank( Graphics& gfx )
 {
 	//width = 20;
 	//height = 18;
@@ -272,8 +284,15 @@ void Tank::Draw( Graphics & gfx )
 	gfx.PutPixel( 15 + x,17 + y,159,80,17 );
 }
 
-void Tank::Update( const Keyboard & kbd )
+void Tank::Update( const Keyboard& kbd )
 {
+	for ( int i = 0; i < shotMax; i++ )
+	{
+		if ( shot[i].IsAlive() )
+		{
+			shot[i].Update();
+		}
+	}
 	if ( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
 		loc.x += speed;
@@ -281,5 +300,24 @@ void Tank::Update( const Keyboard & kbd )
 	if ( kbd.KeyIsPressed( VK_LEFT ) )
 	{
 		loc.x -= speed;
+	}
+	if ( kbd.KeyIsPressed( VK_SPACE ) )
+	{
+		if ( !rapidShotPrevent )
+		{
+			rapidShotPrevent = true;
+ 			for ( int i = 0; i < shotMax; i++ )
+			{
+				if ( !shot[i].IsAlive() )
+				{
+					shot[i].Init( loc );
+					break;
+				}
+			}
+		}
+	}
+	else
+	{
+		rapidShotPrevent = false;
 	}
 }
