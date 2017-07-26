@@ -9,7 +9,7 @@ class AlienShot
 public:
 	AlienShot();
 	void Draw( Graphics& gfx );
-	void Init( const Location in_loc );
+	void Init( const Location in_loc,const Dimention in_dim );
 	void Update();
 	//bool Colliding( const Tank& tank);
 	bool IsAlive() const;

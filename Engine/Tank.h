@@ -15,7 +15,7 @@ public:
 	const Location& GetLocation() const;
 	void Draw( Graphics& gfx );
 	void Update( const Keyboard& kbd );
-	const Location& GetShotLoc( const int i ) const;
+	const Location GetShotLoc( const int i ) const;
 	const Dimention& GetShotDim() const;
 private:
 	void DrawTank( Graphics& gfx );

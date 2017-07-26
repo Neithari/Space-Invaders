@@ -124,25 +124,31 @@ void Alien::Update()
 		{
 			//Get bottom Alien
 			Location shotLoc;
+			Dimention shotDim;
 			if ( invaderBig[i + 15].IsAlive() )
 			{
 				shotLoc = invaderBig[i + 15].GetLoc();
+				shotDim = invaderBig[0].GetDim();
 			}
 			else if ( invaderBig[i].IsAlive() )
 			{
 				shotLoc = invaderBig[i].GetLoc();
+				shotDim = invaderBig[0].GetDim();
 			}
 			else if ( invaderMid[i + 15].IsAlive() )
 			{
 				shotLoc = invaderMid[i + 15].GetLoc();
+				shotDim = invaderMid[0].GetDim();
 			}
 			else if ( invaderMid[i].IsAlive() )
 			{
 				shotLoc = invaderMid[i].GetLoc();
+				shotDim = invaderMid[0].GetDim();
 			}
 			else if ( invaderSmall[i].IsAlive() )
 			{
 				shotLoc = invaderSmall[i].GetLoc();
+				shotDim = invaderSmall[0].GetDim();
 			}
 			else
 			{
@@ -150,7 +156,7 @@ void Alien::Update()
 			}
 			if ( !columnClean[i] )
 			{
-				shot[i].Init( shotLoc );
+				shot[i].Init( shotLoc,shotDim );
 			}
 		}
 	}

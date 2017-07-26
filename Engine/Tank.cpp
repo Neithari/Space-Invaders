@@ -322,7 +322,7 @@ void Tank::Update( const Keyboard& kbd )
 	}
 }
 
-const Location & Tank::GetShotLoc( const int i ) const
+const Location Tank::GetShotLoc( const int i ) const
 {
 	if ( i < shotMax &&
 		shot[i].IsAlive() )

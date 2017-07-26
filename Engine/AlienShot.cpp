@@ -48,12 +48,12 @@ void AlienShot::Draw( Graphics & gfx )
 	}
 }
 
-void AlienShot::Init( const Location in_loc )
+void AlienShot::Init( const Location in_loc,const Dimention in_dim )
 {
 	if ( !isAlive )
 	{
 		loc = in_loc;
-		loc.Add( { 11,13 } );
+		loc.Add( { float(in_dim.width)/2.0f-1.0f,13 } );
 		isAlive = true;
 	}
 }
