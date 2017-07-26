@@ -650,6 +650,11 @@ Dimention InvaderBig::GetDim() const
 	return dim;
 }
 
+Location InvaderBig::GetLoc() const
+{
+	return loc;
+}
+
 void InvaderBig::Init( const Location& in_loc )
 {
 	if ( !isAlive )

@@ -502,6 +502,11 @@ Dimention InvaderMid::GetDim() const
 	return dim;
 }
 
+Location InvaderMid::GetLoc() const
+{
+	return loc;
+}
+
 void InvaderMid::Init( const Location& in_loc )
 {
 	if ( !isAlive )

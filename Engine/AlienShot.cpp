@@ -53,7 +53,7 @@ void AlienShot::Init( const Location in_loc )
 	if ( !isAlive )
 	{
 		loc = in_loc;
-		loc.Add( { 8,2 } );
+		loc.Add( { 11,13 } );
 		isAlive = true;
 	}
 }

@@ -4,7 +4,8 @@ Alien::Alien( Graphics & gfx )
 	:
 	gfx( gfx ),
 	rng( rd() ),
-	chanceDist( 1,100 )
+	chanceDist( 1,100 ),
+	shotDist( 0,14 )
 {
 	//small
 	Dimention i_dim = invaderSmall[0].GetDim();
@@ -114,16 +115,38 @@ void Alien::Update()
 			invaderBig[i].Update();
 		}
 	}
-	if ( chanceDist( rng ) <= 20 )
+	if ( chanceDist( rng ) <= chance )
 	{
-		for ( int i = 0; i < shotMax; i++ )
+		int i = shotDist( rng );
+		if ( !shot[i].IsAlive() )
 		{
-			if ( !shot[i].IsAlive() )
+			Location shotLoc;
+			if ( invaderBig[i + 15].IsAlive() )
 			{
-				shot[i].Init( {250,250} );
-				break;
+				shotLoc = invaderBig[i + 15].GetLoc();
 			}
+			else if ( invaderBig[i].IsAlive() )
+			{
+				shotLoc = invaderBig[i].GetLoc();
+			}
+			else if ( invaderMid[i + 15].IsAlive() )
+			{
+				shotLoc = invaderMid[i + 15].GetLoc();
+			}
+			else if ( invaderMid[i].IsAlive() )
+			{
+				shotLoc = invaderMid[i].GetLoc();
+			}
+			else if ( invaderSmall[i].IsAlive() )
+			{
+				shotLoc = invaderSmall[i].GetLoc();
+			}
+			shot[i].Init( shotLoc );
 		}
+	}
+	for ( int i = 0; i < shotMax; i++ )
+	{
+		shot[i].Update();
 	}
 }
 

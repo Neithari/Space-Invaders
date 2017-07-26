@@ -22,6 +22,8 @@ private:
 	std::random_device rd;
 	std::mt19937 rng;
 	std::uniform_int_distribution<int> chanceDist;
+	std::uniform_int_distribution<int> shotDist;
+	static constexpr int chance = 20;
 	static constexpr int n_small = 15;
 	static constexpr int n_mid = 30;
 	static constexpr int n_big = 30;
@@ -33,6 +35,6 @@ private:
 	InvaderSmall invaderSmall[n_small];
 	InvaderMid invaderMid[n_mid];
 	InvaderBig invaderBig[n_big];
-	static constexpr int shotMax = 15;
+	static constexpr int shotMax = 10;
 	AlienShot shot[shotMax];
 };

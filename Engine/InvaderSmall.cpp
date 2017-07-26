@@ -442,6 +442,11 @@ Dimention InvaderSmall::GetDim() const
 	return dim;
 }
 
+Location InvaderSmall::GetLoc() const
+{
+	return loc;
+}
+
 void InvaderSmall::Init( const Location& in_loc )
 {
 	if ( !isAlive )

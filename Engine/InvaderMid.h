@@ -11,6 +11,7 @@ public:
 	void Draw( Graphics& gfx );
 	bool IsAlive() const;
 	Dimention GetDim() const;
+	Location GetLoc() const;
 	void Init( const Location& in_loc );
 	void Collision( const Location& in_loc,const Dimention& in_dim );
 	void DrawExplosion( Graphics& gfx ) const;
