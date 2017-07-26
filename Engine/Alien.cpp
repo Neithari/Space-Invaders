@@ -94,6 +94,7 @@ void Alien::Draw()
 
 void Alien::Update()
 {
+	//invader update
 	for ( int i = 0; i < n_small; i++ )
 	{
 		if ( invaderSmall[i].IsAlive() )
@@ -115,11 +116,13 @@ void Alien::Update()
 			invaderBig[i].Update();
 		}
 	}
+	//Shot creation
 	if ( chanceDist( rng ) <= chance )
 	{
 		int i = shotDist( rng );
 		if ( !shot[i].IsAlive() )
 		{
+			//Get bottom Alien
 			Location shotLoc;
 			if ( invaderBig[i + 15].IsAlive() )
 			{
@@ -144,9 +147,13 @@ void Alien::Update()
 			shot[i].Init( shotLoc );
 		}
 	}
+	//update shot
 	for ( int i = 0; i < shotMax; i++ )
 	{
-		shot[i].Update();
+		if ( shot[i].IsAlive() )
+		{
+			shot[i].Update();
+		}
 	}
 }
 
