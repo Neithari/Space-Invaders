@@ -2,7 +2,9 @@
 
 Alien::Alien( Graphics & gfx )
 	:
-	gfx( gfx )
+	gfx( gfx ),
+	rng( rd() ),
+	chanceDist( 1,100 )
 {
 	//small
 	Dimention i_dim = invaderSmall[0].GetDim();
@@ -80,6 +82,13 @@ void Alien::Draw()
 			invaderBig[i].Draw( gfx );
 		}
 	}
+	for ( int i = 0; i < shotMax; i++ )
+	{
+		if ( shot[i].IsAlive() )
+		{
+			shot[i].Draw( gfx );
+		}
+	}
 }
 
 void Alien::Update()
@@ -103,6 +112,17 @@ void Alien::Update()
 		if ( invaderBig[i].IsAlive() )
 		{
 			invaderBig[i].Update();
+		}
+	}
+	if ( chanceDist( rng ) <= 20 )
+	{
+		for ( int i = 0; i < shotMax; i++ )
+		{
+			if ( !shot[i].IsAlive() )
+			{
+				shot[i].Init( {250,250} );
+				break;
+			}
 		}
 	}
 }

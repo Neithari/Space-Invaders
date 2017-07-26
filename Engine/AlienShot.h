@@ -3,16 +3,16 @@
 #include "Graphics.h"
 #include "Location.h"
 #include "Dimention.h"
-#include "Tank.h"
 
 class AlienShot
 {
 public:
 	AlienShot();
 	void Draw( Graphics& gfx );
-	void Initialize( const Location in_loc );
+	void Init( const Location in_loc );
 	void Update();
-	bool Colliding( const Tank& tank);
+	//bool Colliding( const Tank& tank);
+	bool IsAlive() const;
 
 private:
 	static constexpr Dimention dim = { 3,5 };

@@ -6,6 +6,8 @@
 #include "InvaderBig.h"
 #include "InvaderMid.h"
 #include "InvaderSmall.h"
+#include "AlienShot.h"
+#include <random>
 
 class Alien
 {
@@ -17,6 +19,9 @@ public:
 
 private:
 	Graphics& gfx;
+	std::random_device rd;
+	std::mt19937 rng;
+	std::uniform_int_distribution<int> chanceDist;
 	static constexpr int n_small = 15;
 	static constexpr int n_mid = 30;
 	static constexpr int n_big = 30;
@@ -28,4 +33,6 @@ private:
 	InvaderSmall invaderSmall[n_small];
 	InvaderMid invaderMid[n_mid];
 	InvaderBig invaderBig[n_big];
+	static constexpr int shotMax = 15;
+	AlienShot shot[shotMax];
 };

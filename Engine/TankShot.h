@@ -3,7 +3,6 @@
 #include "Graphics.h"
 #include "Location.h"
 #include "Dimention.h"
-#include "Alien.h"
 
 class TankShot
 {
@@ -12,7 +11,7 @@ public:
 	void Draw( Graphics& gfx ) const;
 	void Init( const Location& in_loc );
 	void Update();
-	bool Colliding( const Alien& alien);
+	//bool Colliding( const Alien& alien);
 	bool IsAlive() const;
 
 private:

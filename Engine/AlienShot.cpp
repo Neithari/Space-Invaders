@@ -48,12 +48,12 @@ void AlienShot::Draw( Graphics & gfx )
 	}
 }
 
-void AlienShot::Initialize( const Location in_loc )
+void AlienShot::Init( const Location in_loc )
 {
 	if ( !isAlive )
 	{
 		loc = in_loc;
-		loc.Add( { 8,0 } );
+		loc.Add( { 8,2 } );
 		isAlive = true;
 	}
 }
@@ -70,7 +70,7 @@ void AlienShot::Update()
 	}
 }
 
-bool AlienShot::Colliding( const Tank & tank )
+/*bool AlienShot::Colliding( const Tank & tank )
 {
 	if ( isAlive )
 	{
@@ -90,4 +90,9 @@ bool AlienShot::Colliding( const Tank & tank )
 	{
 		return false;
 	}
+}*/
+
+bool AlienShot::IsAlive() const
+{
+	return isAlive;
 }
