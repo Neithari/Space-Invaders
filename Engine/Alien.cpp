@@ -144,7 +144,14 @@ void Alien::Update()
 			{
 				shotLoc = invaderSmall[i].GetLoc();
 			}
-			shot[i].Init( shotLoc );
+			else
+			{
+				columnClean[i] = true;
+			}
+			if ( !columnClean[i] )
+			{
+				shot[i].Init( shotLoc );
+			}
 		}
 	}
 	//update shot

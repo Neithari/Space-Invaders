@@ -13,6 +13,8 @@ public:
 	void Update();
 	//bool Colliding( const Alien& alien);
 	bool IsAlive() const;
+	const Location& GetLoc() const;
+	const Dimention& GetDim() const;
 
 private:
 	static constexpr Dimention dim = { 2,6 };

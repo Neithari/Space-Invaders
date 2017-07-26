@@ -321,3 +321,21 @@ void Tank::Update( const Keyboard& kbd )
 		rapidShotPrevent = false;
 	}
 }
+
+const Location & Tank::GetShotLoc( const int i ) const
+{
+	if ( i < shotMax &&
+		shot[i].IsAlive() )
+	{
+		return shot[i].GetLoc();
+	}
+	else
+	{
+		return {0,0};
+	}
+}
+
+const Dimention & Tank::GetShotDim() const
+{
+	return shot[0].GetDim();
+}

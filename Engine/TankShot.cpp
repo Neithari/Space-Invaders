@@ -76,3 +76,13 @@ bool TankShot::IsAlive() const
 {
 	return isAlive;
 }
+
+const Location & TankShot::GetLoc() const
+{
+	return loc;
+}
+
+const Dimention & TankShot::GetDim() const
+{
+	return dim;
+}

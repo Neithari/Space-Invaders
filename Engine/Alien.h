@@ -37,4 +37,5 @@ private:
 	InvaderBig invaderBig[n_big];
 	static constexpr int shotMax = 15;
 	AlienShot shot[shotMax];
+	bool columnClean[15] = {};
 };

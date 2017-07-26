@@ -45,6 +45,10 @@ void Game::UpdateModel()
 {
 	tank.Update( wnd.kbd );
 	alien.Update();
+	for ( int i = 0; i < 15; i++ )
+	{
+		alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() );
+	}
 }
 
 void Game::ComposeFrame()
