@@ -20,6 +20,7 @@ public:
 	const Dimention& GetShotDim() const;
 	void DeleteShot( const int i );
 	bool IsAlive();
+	void Kill();
 private:
 	void DrawTank( Graphics& gfx );
 private:

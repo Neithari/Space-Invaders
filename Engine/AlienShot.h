@@ -14,7 +14,7 @@ public:
 	//bool Colliding( const Tank& tank);
 	bool IsAlive() const;
 	void Kill();
-	const Location& GetLoc() const;
+	const Location GetLoc() const;
 	const Dimention& GetDim() const;
 
 private:
