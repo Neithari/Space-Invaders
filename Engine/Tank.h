@@ -17,6 +17,7 @@ public:
 	void Update( const Keyboard& kbd );
 	const Location GetShotLoc( const int i ) const;
 	const Dimention& GetShotDim() const;
+	void DeleteShot( const int i );
 private:
 	void DrawTank( Graphics& gfx );
 private:

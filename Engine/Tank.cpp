@@ -339,3 +339,8 @@ const Dimention & Tank::GetShotDim() const
 {
 	return shot[0].GetDim();
 }
+
+void Tank::DeleteShot( const int i )
+{
+	shot[i].Kill();
+}

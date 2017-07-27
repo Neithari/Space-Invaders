@@ -47,7 +47,10 @@ void Game::UpdateModel()
 	alien.Update();
 	for ( int i = 0; i < 15; i++ )
 	{
-		alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() );
+		if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
+		{
+			tank.DeleteShot( i );
+		}
 	}
 }
 

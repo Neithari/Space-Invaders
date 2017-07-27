@@ -15,6 +15,7 @@ public:
 	bool IsAlive() const;
 	const Location& GetLoc() const;
 	const Dimention& GetDim() const;
+	void Kill();
 
 private:
 	static constexpr Dimention dim = { 2,6 };

@@ -86,3 +86,8 @@ const Dimention & TankShot::GetDim() const
 {
 	return dim;
 }
+
+void TankShot::Kill()
+{
+	isAlive = false;
+}

@@ -170,13 +170,17 @@ void Alien::Update()
 	}
 }
 
-void Alien::Collision( const Location& in_loc,const Dimention& in_dim )
+bool Alien::Collision( const Location& in_loc,const Dimention& in_dim )
 {
 	for ( int i = 0; i < n_small; i++ )
 	{
 		if ( invaderSmall[i].IsAlive() )
 		{
 			invaderSmall[i].Collision( in_loc,in_dim );
+			if ( !invaderSmall[i].IsAlive() )
+			{
+				return true;
+			}
 		}
 	}
 	for ( int i = 0; i < n_mid; i++ )
@@ -184,6 +188,10 @@ void Alien::Collision( const Location& in_loc,const Dimention& in_dim )
 		if ( invaderMid[i].IsAlive() )
 		{
 			invaderMid[i].Collision( in_loc,in_dim );
+			if ( !invaderMid[i].IsAlive() )
+			{
+				return true;
+			}
 		}
 	}
 	for ( int i = 0; i < n_big; i++ )
@@ -191,6 +199,11 @@ void Alien::Collision( const Location& in_loc,const Dimention& in_dim )
 		if ( invaderBig[i].IsAlive() )
 		{
 			invaderBig[i].Collision( in_loc,in_dim );
+			if ( !invaderBig[i].IsAlive() )
+			{
+				return true;
+			}
 		}
 	}
+	return false;
 }

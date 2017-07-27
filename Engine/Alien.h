@@ -15,7 +15,7 @@ public:
 	Alien( Graphics& gfx );
 	void Draw();
 	void Update();
-	void Collision( const Location& in_loc,const Dimention& in_dim );
+	bool Collision( const Location& in_loc,const Dimention& in_dim );
 
 private:
 	Graphics& gfx;
