@@ -336,7 +336,6 @@ bool Tank::Collision( const Location & in_loc,const Dimention & in_dim )
 			objbottom >= loc.y &&
 			in_loc.y <= shotbottom )
 		{
-			isAlive = false;
 			return true;
 		}
 	}
@@ -369,4 +368,9 @@ void Tank::DeleteShot( const int i )
 bool Tank::IsAlive()
 {
 	return isAlive;
+}
+
+void Tank::Kill()
+{
+	isAlive = false;
 }

@@ -43,36 +43,105 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	if ( tank.IsAlive() )
+	if ( gameStart )
 	{
-		tank.Update( wnd.kbd );
-	}
-	alien.Update();
-	//Tank shot collision
-	for ( int i = 0; i < 15; i++ )
-	{
-		if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
+		if ( !gameOver )
 		{
-			tank.DeleteShot( i );
+			if ( tank.IsAlive() )
+			{
+				if ( lives == livesOld )
+				{
+					tank.Update( wnd.kbd );
+				}
+			}
+			alien.Update();
+			//Tank shot collision
+			for ( int i = 0; i < 15; i++ )
+			{
+				if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
+				{
+					tank.DeleteShot( i );
+				}
+			}
+			//Alien shot collision
+			if ( lives == livesOld )
+			{
+				for ( int i = 0; i < 15; i++ )
+				{
+					if ( tank.Collision( alien.GetShotLoc( i ),alien.GetShotDim() ) )
+					{
+						alien.DeleteShot( i );
+						lives--;
+						break;
+					}
+				}
+			}
+			else
+			{
+				if ( deathTime <= 0 )
+				{
+					livesOld = lives;
+					deathTime = 120;
+				}
+				else
+				{
+					deathTime--;
+				}
+			}
+			if ( lives <= 0 )
+			{
+				gameOver = true;
+			}
 		}
 	}
-	//Alien shot collision
-	for ( int i = 0; i < 15; i++ )
+	else
 	{
-		if ( tank.Collision( alien.GetShotLoc( i ),alien.GetShotDim() ) )
+		if ( wnd.kbd.KeyIsPressed( VK_RETURN ) )
 		{
-			alien.DeleteShot( i );
+			gameStart = true;
 		}
 	}
 }
 
 void Game::ComposeFrame()
 {
-	if ( tank.IsAlive() )
+	if ( !gameOver && gameStart)
 	{
-		tank.Draw( gfx );
+		if ( lives == livesOld )
+		{
+			tank.Draw( gfx );
+		}
+		else
+		{
+			int t75 = 90;
+			int t50 = 60;
+			int t25 = 30;
+			if ( deathTime == t75 ||
+				deathTime == t75 - 1 ||
+				deathTime == t75 - 2 ||
+				deathTime == t50 ||
+				deathTime == t50 - 1 ||
+				deathTime == t50 - 2 ||
+				deathTime == t25 ||
+				deathTime == t25 - 1 ||
+				deathTime == t25 - 2 )
+			{
+				tank.Draw( gfx );
+			}
+		}
+		alien.Draw();
 	}
-	alien.Draw();
+	else
+	{
+		if ( !gameStart )
+		{
+			sprite.DrawTitle( gfx,{ 210,250 } );
+		}
+		if ( gameOver )
+		{
+			sprite.DrawGameOver( gfx,{ 350,250 } );
+		}
+	}
 }
 
 float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
