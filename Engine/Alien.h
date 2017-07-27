@@ -16,7 +16,9 @@ public:
 	void Draw();
 	void Update();
 	bool Collision( const Location& in_loc,const Dimention& in_dim );
-
+	const Location GetShotLoc( const int i ) const;
+	const Dimention& GetShotDim() const;
+	void DeleteShot( const int i );
 private:
 	Graphics& gfx;
 	std::random_device rd;

@@ -43,8 +43,12 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	tank.Update( wnd.kbd );
+	if ( tank.IsAlive() )
+	{
+		tank.Update( wnd.kbd );
+	}
 	alien.Update();
+	//Tank shot collision
 	for ( int i = 0; i < 15; i++ )
 	{
 		if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
@@ -52,11 +56,22 @@ void Game::UpdateModel()
 			tank.DeleteShot( i );
 		}
 	}
+	//Alien shot collision
+	for ( int i = 0; i < 15; i++ )
+	{
+		if ( tank.Collision( alien.GetShotLoc( i ),alien.GetShotDim() ) )
+		{
+			alien.DeleteShot( i );
+		}
+	}
 }
 
 void Game::ComposeFrame()
 {
-	tank.Draw( gfx );
+	if ( tank.IsAlive() )
+	{
+		tank.Draw( gfx );
+	}
 	alien.Draw();
 }
 

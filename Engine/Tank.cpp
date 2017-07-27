@@ -322,6 +322,27 @@ void Tank::Update( const Keyboard& kbd )
 	}
 }
 
+bool Tank::Collision( const Location & in_loc,const Dimention & in_dim )
+{
+	if ( isAlive )
+	{
+		const float objright = in_loc.x + float( in_dim.width );
+		const float objbottom = in_loc.y + float( in_dim.height );
+		const float shotright = loc.x + float( dim.width );
+		const float shotbottom = loc.y + float( dim.height );
+
+		if ( objright >= loc.x &&
+			in_loc.x <= shotright &&
+			objbottom >= loc.y &&
+			in_loc.y <= shotbottom )
+		{
+			isAlive = false;
+			return true;
+		}
+	}
+	return false;
+}
+
 const Location Tank::GetShotLoc( const int i ) const
 {
 	if ( i < shotMax &&
@@ -343,4 +364,9 @@ const Dimention & Tank::GetShotDim() const
 void Tank::DeleteShot( const int i )
 {
 	shot[i].Kill();
+}
+
+bool Tank::IsAlive()
+{
+	return isAlive;
 }

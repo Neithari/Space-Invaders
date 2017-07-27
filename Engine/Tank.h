@@ -15,9 +15,11 @@ public:
 	const Location& GetLocation() const;
 	void Draw( Graphics& gfx );
 	void Update( const Keyboard& kbd );
+	bool Collision( const Location& in_loc,const Dimention& in_dim );
 	const Location GetShotLoc( const int i ) const;
 	const Dimention& GetShotDim() const;
 	void DeleteShot( const int i );
+	bool IsAlive();
 private:
 	void DrawTank( Graphics& gfx );
 private:
@@ -27,4 +29,5 @@ private:
 	bool rapidShotPrevent = false;
 	TankShot shot[shotMax];
 	Location loc;
+	bool isAlive = true;
 };

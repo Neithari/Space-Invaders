@@ -13,6 +13,9 @@ public:
 	void Update();
 	//bool Colliding( const Tank& tank);
 	bool IsAlive() const;
+	void Kill();
+	const Location& GetLoc() const;
+	const Dimention& GetDim() const;
 
 private:
 	static constexpr Dimention dim = { 3,5 };

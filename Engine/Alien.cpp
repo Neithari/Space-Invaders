@@ -207,3 +207,18 @@ bool Alien::Collision( const Location& in_loc,const Dimention& in_dim )
 	}
 	return false;
 }
+
+const Location Alien::GetShotLoc( const int i ) const
+{
+	return shot[i].GetLoc();
+}
+
+const Dimention & Alien::GetShotDim() const
+{
+	return shot[0].GetDim();
+}
+
+void Alien::DeleteShot( const int i )
+{
+	shot[i].Kill();
+}

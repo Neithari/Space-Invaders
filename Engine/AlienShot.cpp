@@ -96,3 +96,18 @@ bool AlienShot::IsAlive() const
 {
 	return isAlive;
 }
+
+void AlienShot::Kill()
+{
+	isAlive = false;
+}
+
+const Location & AlienShot::GetLoc() const
+{
+	return loc;
+}
+
+const Dimention & AlienShot::GetDim() const
+{
+	return dim;
+}
