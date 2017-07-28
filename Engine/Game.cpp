@@ -28,7 +28,7 @@ Game::Game( MainWindow& wnd )
 	rng( rd() ),
 	xDist( 0.0f,800.0f ),
 	yDist( 0.0f,600.0f ),
-	tank( { 400.0f,500.0f } ),
+	tank( gfx,{ 400.0f,500.0f } ),
 	alien( gfx )
 {
 }
@@ -109,7 +109,7 @@ void Game::ComposeFrame()
 	{
 		if ( lives == livesOld )
 		{
-			tank.Draw( gfx );
+			tank.Draw();
 		}
 		else
 		{
@@ -126,7 +126,7 @@ void Game::ComposeFrame()
 				deathTime == t25 - 1 ||
 				deathTime == t25 - 2 )
 			{
-				tank.Draw( gfx );
+				tank.Draw();
 			}
 		}
 		alien.Draw();

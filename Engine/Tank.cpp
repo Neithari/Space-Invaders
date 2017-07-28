@@ -1,11 +1,14 @@
 #include "Tank.h"
 
-Tank::Tank()
+Tank::Tank( Graphics& gfx )
+	:
+	gfx( gfx )
 {
 }
 
-Tank::Tank( const Location& in_loc )
+Tank::Tank( Graphics& gfx ,const Location& in_loc )
 	:
+	gfx( gfx ),
 	loc( in_loc )
 {
 }
@@ -20,9 +23,9 @@ const Location& Tank::GetLocation() const
 	return loc;
 }
 
-void Tank::Draw( Graphics& gfx )
+void Tank::Draw()
 {
-	DrawTank( gfx );
+	DrawTank();
 	for ( int i = 0; i < shotMax; i++ )
 	{
 		if ( shot[i].IsAlive() )
@@ -32,7 +35,7 @@ void Tank::Draw( Graphics& gfx )
 	}
 }
 
-void Tank::DrawTank( Graphics& gfx )
+void Tank::DrawTank()
 {
 	//width = 20;
 	//height = 18;
@@ -284,6 +287,39 @@ void Tank::DrawTank( Graphics& gfx )
 	gfx.PutPixel( 15 + x,17 + y,159,80,17 );
 }
 
+float Tank::ClampToScreen()
+{
+	const float left = loc.x;
+	const float right = loc.x + dim.width;
+	const float top = loc.y;
+	const float bottom = loc.y + dim.height;
+
+	if ( left < 0 )
+	{
+		return 0.0f;
+	}
+	if ( right >= gfx.ScreenWidth )
+	{
+		return gfx.ScreenWidth - float( dim.width + 1 );
+	}
+	else
+	{
+		return loc.x;
+	}
+	if ( top < 0 )
+	{
+		return 0.0f;
+	}
+	if ( bottom >= gfx.ScreenHeight )
+	{
+		return gfx.ScreenHeight - float( dim.height + 1 );
+	}
+	else
+	{
+		return loc.y;
+	}
+}
+
 void Tank::Update( const Keyboard& kbd )
 {
 	for ( int i = 0; i < shotMax; i++ )
@@ -296,10 +332,12 @@ void Tank::Update( const Keyboard& kbd )
 	if ( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
 		loc.x += speed;
+		loc.x = ClampToScreen();
 	}
 	if ( kbd.KeyIsPressed( VK_LEFT ) )
 	{
 		loc.x -= speed;
+		loc.x = ClampToScreen();
 	}
 	if ( kbd.KeyIsPressed( VK_SPACE ) )
 	{

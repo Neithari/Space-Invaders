@@ -8,7 +8,7 @@ class InvaderSmall
 {
 public:
 	void Update();
-	void Draw( Graphics& gfx );
+	void Draw( Graphics& gfx,const Location& in_loc );
 	bool IsAlive() const;
 	Dimention GetDim() const;
 	Location GetLoc() const;

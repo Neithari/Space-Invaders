@@ -20,6 +20,8 @@ public:
 	const Dimention& GetShotDim() const;
 	void DeleteShot( const int i );
 private:
+	bool OutsideBorder( const Location & in_loc,const Dimention & in_dim );
+private:
 	Graphics& gfx;
 	std::random_device rd;
 	std::mt19937 rng;
@@ -29,7 +31,8 @@ private:
 	static constexpr int n_small = 15;
 	static constexpr int n_mid = 30;
 	static constexpr int n_big = 30;
-	static constexpr Location loc = { 50,50 };
+	Dimention dim;
+	Location loc = { 50,50 };
 	static constexpr int alienSpacing = 10;
 	int count_small = n_small;
 	int count_mid = n_mid;
@@ -40,4 +43,8 @@ private:
 	static constexpr int shotMax = 15;
 	AlienShot shot[shotMax];
 	bool columnClean[15] = {};
+	Location delta_loc = { float(alienSpacing),0 };
+	//Timing
+	int moveSpeed = 60;
+	int moveTime = moveSpeed;
 };

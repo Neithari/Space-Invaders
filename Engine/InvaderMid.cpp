@@ -4,8 +4,9 @@ void InvaderMid::Update()
 {
 }
 
-void InvaderMid::Draw( Graphics& gfx )
+void InvaderMid::Draw( Graphics& gfx,const Location& in_loc )
 {
+	loc = in_loc;
 	if ( isAlive )
 	{
 		if ( toggle )
