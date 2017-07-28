@@ -59,11 +59,5 @@ private:
 	static constexpr int alienShotMax = 30;
 	Tank tank;
 	Alien alien;
-	bool gameStart = false;
-	bool gameOver = false;
-	Sprite sprite;
-	int lives = 5;
-	int livesOld = 5;
-	int deathTime = 120;
 	/********************************/
 };
