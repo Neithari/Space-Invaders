@@ -31,6 +31,7 @@
 #include "Tank.h"
 #include "House.h"
 #include "Alien.h"
+#include "FrameTime.h"
 
 class Game
 {
@@ -64,6 +65,8 @@ private:
 	Sprite sprite;
 	int lives = 5;
 	int livesOld = 5;
+	//Timing
+	FrameTime ft;
 	int deathTime = 120;
 	/********************************/
 };

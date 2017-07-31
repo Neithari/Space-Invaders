@@ -320,23 +320,23 @@ float Tank::ClampToScreen()
 	}
 }
 
-void Tank::Update( const Keyboard& kbd )
+void Tank::Update( const Keyboard& kbd,const float dt )
 {
 	for ( int i = 0; i < shotMax; i++ )
 	{
 		if ( shot[i].IsAlive() )
 		{
-			shot[i].Update();
+			shot[i].Update( dt );
 		}
 	}
 	if ( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
-		loc.x += speed;
+		loc.x += speed * dt;
 		loc.x = ClampToScreen();
 	}
 	if ( kbd.KeyIsPressed( VK_LEFT ) )
 	{
-		loc.x -= speed;
+		loc.x -= speed * dt;
 		loc.x = ClampToScreen();
 	}
 	if ( kbd.KeyIsPressed( VK_SPACE ) )

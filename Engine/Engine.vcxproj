@@ -160,6 +160,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TankShot.h" />
+    <ClInclude Include="FrameTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankShot.cpp" />
+    <ClCompile Include="FrameTime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

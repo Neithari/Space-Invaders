@@ -1,9 +1,5 @@
 #include "InvaderSmall.h"
 
-void InvaderSmall::Update()
-{
-}
-
 void InvaderSmall::Draw( Graphics& gfx,const Location& in_loc )
 {
 	loc = in_loc;

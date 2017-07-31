@@ -126,10 +126,10 @@ void Alien::Draw()
 	}
 }
 
-void Alien::Update()
+void Alien::Update( const float dt )
 {
 	//Move invader
-	if ( moveTime <= 0 )
+	if ( moveTime >= moveSpeed )
 	{
 		Location new_loc = loc;
 		new_loc.Add( delta_loc );
@@ -144,33 +144,11 @@ void Alien::Update()
 		{
 			loc.Add( delta_loc );
 		}
-		moveTime = moveSpeed;
+		moveTime = 0.0f;
 	}
 	else
 	{
-		moveTime--;
-	}
-	//invader update
-	for ( int i = 0; i < n_small; i++ )
-	{
-		if ( invaderSmall[i].IsAlive() )
-		{
-			invaderSmall[i].Update();
-		}
-	}
-	for ( int i = 0; i < n_mid; i++ )
-	{
-		if ( invaderMid[i].IsAlive() )
-		{
-			invaderMid[i].Update();
-		}
-	}
-	for ( int i = 0; i < n_big; i++ )
-	{
-		if ( invaderBig[i].IsAlive() )
-		{
-			invaderBig[i].Update();
-		}
+		moveTime += dt;
 	}
 	//Shot creation
 	if ( chanceDist( rng ) <= chance )
@@ -221,7 +199,7 @@ void Alien::Update()
 	{
 		if ( shot[i].IsAlive() )
 		{
-			shot[i].Update();
+			shot[i].Update( dt );
 		}
 	}
 }

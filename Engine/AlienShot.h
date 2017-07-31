@@ -10,7 +10,7 @@ public:
 	AlienShot();
 	void Draw( Graphics& gfx );
 	void Init( const Location in_loc,const Dimention in_dim );
-	void Update();
+	void Update( const float dt );
 	//bool Colliding( const Tank& tank);
 	bool IsAlive() const;
 	void Kill();
@@ -23,7 +23,7 @@ private:
 	static constexpr float screenHeight = 600.0f;
 	static constexpr int toggleTime = 15;
 	int toggleIndex = 0;
-	float vShot = 2.0f;
+	float vShot = 120.0f;
 	Location loc;
 	bool isAlive = false;
 	bool toggle = true;

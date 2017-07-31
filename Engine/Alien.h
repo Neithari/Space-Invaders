@@ -14,7 +14,7 @@ class Alien
 public:
 	Alien( Graphics& gfx );
 	void Draw();
-	void Update();
+	void Update( const float dt );
 	bool Collision( const Location& in_loc,const Dimention& in_dim );
 	const Location GetShotLoc( const int i ) const;
 	const Dimention& GetShotDim() const;
@@ -45,6 +45,6 @@ private:
 	bool columnClean[15] = {};
 	Location delta_loc = { float(alienSpacing),0 };
 	//Timing
-	int moveSpeed = 60;
-	int moveTime = moveSpeed;
+	float moveSpeed = 1.0f;
+	float moveTime = 0.0f;
 };

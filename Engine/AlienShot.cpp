@@ -58,39 +58,17 @@ void AlienShot::Init( const Location in_loc,const Dimention in_dim )
 	}
 }
 
-void AlienShot::Update()
+void AlienShot::Update( const float dt )
 {
 	if ( isAlive )
 	{
-		loc.y += vShot;
+		loc.y += vShot * dt;
 		if ( loc.y + dim.height >= screenHeight )
 		{
 			isAlive = false;
 		}
 	}
 }
-
-/*bool AlienShot::Colliding( const Tank & tank )
-{
-	if ( isAlive )
-	{
-		const Location targetLoc = tank.GetLocation();
-		const Dimention targetDim = tank.GetDimention();
-		const float objright = targetLoc.x + float( targetDim.width );
-		const float objbottom = targetLoc.y + float( targetDim.height );
-		const float shotright = loc.x + float( dim.width );
-		const float shotbottom = loc.y + float( dim.height );
-
-		return objright >= loc.x &&
-			targetLoc.x <= shotright &&
-			objbottom >= loc.y &&
-			targetLoc.y <= shotbottom;
-	}
-	else
-	{
-		return false;
-	}
-}*/
 
 bool AlienShot::IsAlive() const
 {

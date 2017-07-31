@@ -43,55 +43,53 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	if ( gameStart )
+	const float dt = ft.Mark();
+	if ( gameStart && !gameOver )
 	{
-		if ( !gameOver )
+		if ( tank.IsAlive() )
 		{
-			if ( tank.IsAlive() )
-			{
-				if ( lives == livesOld )
-				{
-					tank.Update( wnd.kbd );
-				}
-			}
-			alien.Update();
-			//Tank shot collision
-			for ( int i = 0; i < 15; i++ )
-			{
-				if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
-				{
-					tank.DeleteShot( i );
-				}
-			}
-			//Alien shot collision
 			if ( lives == livesOld )
 			{
-				for ( int i = 0; i < 15; i++ )
+				tank.Update( wnd.kbd,dt );
+			}
+		}
+		alien.Update( dt );
+		//Tank shot collision
+		for ( int i = 0; i < 15; i++ )
+		{
+			if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
+			{
+				tank.DeleteShot( i );
+			}
+		}
+		//Alien shot collision
+		if ( lives == livesOld )
+		{
+			for ( int i = 0; i < 15; i++ )
+			{
+				if ( tank.Collision( alien.GetShotLoc( i ),alien.GetShotDim() ) )
 				{
-					if ( tank.Collision( alien.GetShotLoc( i ),alien.GetShotDim() ) )
-					{
-						alien.DeleteShot( i );
-						lives--;
-						break;
-					}
+					alien.DeleteShot( i );
+					lives--;
+					break;
 				}
+			}
+		}
+		else
+		{
+			if ( deathTime <= 0 )
+			{
+				livesOld = lives;
+				deathTime = 120;
 			}
 			else
 			{
-				if ( deathTime <= 0 )
-				{
-					livesOld = lives;
-					deathTime = 120;
-				}
-				else
-				{
-					deathTime--;
-				}
+				deathTime--;
 			}
-			if ( lives <= 0 )
-			{
-				gameOver = true;
-			}
+		}
+		if ( lives <= 0 )
+		{
+			gameOver = true;
 		}
 	}
 	else

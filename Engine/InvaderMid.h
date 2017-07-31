@@ -7,7 +7,6 @@
 class InvaderMid
 {
 public:
-	void Update();
 	void Draw( Graphics& gfx,const Location& in_loc );
 	bool IsAlive() const;
 	Dimention GetDim() const;

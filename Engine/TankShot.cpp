@@ -38,39 +38,17 @@ void TankShot::Init( const Location & in_loc )
 	}
 }
 
-void TankShot::Update()
+void TankShot::Update( const float dt )
 {
 	if ( isAlive )
 	{
-		loc.y -= vShot;
+		loc.y -= vShot * dt;
 		if ( loc.y < 0 )
 		{
 			isAlive = false;
 		}
 	}
 }
-
-/*bool TankShot::Colliding( const Alien & alien )
-{
-	if ( isAlive )
-	{
-		const Location targetLoc = alien.GetLocation();
-		const Dimention targetDim = alien.GetDimention();
-		const float objright = targetLoc.x + float( targetDim.width );
-		const float objbottom = targetLoc.y + float( targetDim.height );
-		const float shotright = loc.x + float( dim.width );
-		const float shotbottom = loc.y + float( dim.height );
-
-		return objright >= loc.x &&
-			targetLoc.x <= shotright &&
-			objbottom >= loc.y &&
-			targetLoc.y <= shotbottom;
-	}
-	else
-	{
-		return false;
-	}
-}*/
 
 bool TankShot::IsAlive() const
 {

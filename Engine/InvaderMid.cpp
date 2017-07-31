@@ -1,9 +1,5 @@
 #include "InvaderMid.h"
 
-void InvaderMid::Update()
-{
-}
-
 void InvaderMid::Draw( Graphics& gfx,const Location& in_loc )
 {
 	loc = in_loc;
