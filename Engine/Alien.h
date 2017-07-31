@@ -13,12 +13,14 @@ class Alien
 {
 public:
 	Alien( Graphics& gfx );
+	void Restart();
 	void Draw();
 	void Update( const float dt );
 	bool Collision( const Location& in_loc,const Dimention& in_dim );
 	const Location GetShotLoc( const int i ) const;
 	const Dimention& GetShotDim() const;
 	void DeleteShot( const int i );
+	int Count();
 private:
 	bool OutsideBorder( const Location & in_loc,const Dimention & in_dim );
 private:

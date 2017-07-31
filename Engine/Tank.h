@@ -11,6 +11,7 @@ class Tank
 public:
 	Tank( Graphics& gfx );
 	Tank( Graphics& gfx ,const Location& in_loc );
+	void Restart();
 	const Dimention& GetDimention() const;
 	const Location& GetLocation() const;
 	void Draw();

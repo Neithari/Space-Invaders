@@ -44,7 +44,7 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
-	if ( gameStart && !gameOver )
+	if ( gameStart && !gameOver && !youWon )
 	{
 		if ( tank.IsAlive() )
 		{
@@ -61,6 +61,10 @@ void Game::UpdateModel()
 			{
 				tank.DeleteShot( i );
 			}
+		}
+		if ( alien.Count() <= 0 )
+		{
+			youWon = true;
 		}
 		//Alien shot collision
 		if ( lives == livesOld )
@@ -96,14 +100,23 @@ void Game::UpdateModel()
 	{
 		if ( wnd.kbd.KeyIsPressed( VK_RETURN ) )
 		{
+			gameOver = false;
 			gameStart = true;
+			if ( youWon )
+			{
+				alien.Restart();
+				tank.Restart();
+				lives = 3;
+				livesOld = 3;
+				youWon = false;
+			}
 		}
 	}
 }
 
 void Game::ComposeFrame()
 {
-	if ( !gameOver && gameStart)
+	if ( !gameOver && gameStart && !youWon)
 	{
 		if ( lives == livesOld )
 		{
@@ -138,6 +151,10 @@ void Game::ComposeFrame()
 		if ( gameOver )
 		{
 			sprite.DrawGameOver( gfx,{ 350,250 } );
+		}
+		if ( youWon )
+		{
+			sprite.DrawYouWon( gfx,{ 310,200 } );
 		}
 	}
 }

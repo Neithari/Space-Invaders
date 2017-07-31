@@ -13,6 +13,18 @@ Tank::Tank( Graphics& gfx ,const Location& in_loc )
 {
 }
 
+void Tank::Restart()
+{
+	loc = { 400.0f,500.0f };
+	for ( int i = 0; i < shotMax; i++ )
+	{
+		if ( shot[i].IsAlive() )
+		{
+			shot[i].Kill();
+		}
+	}
+}
+
 const Dimention& Tank::GetDimention() const
 {
 	return dim;

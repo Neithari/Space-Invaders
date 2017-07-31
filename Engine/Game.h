@@ -62,9 +62,10 @@ private:
 	Alien alien;
 	bool gameStart = false;
 	bool gameOver = false;
+	bool youWon = false;
 	Sprite sprite;
-	int lives = 5;
-	int livesOld = 5;
+	int lives = 3;
+	int livesOld = 3;
 	//Timing
 	FrameTime ft;
 	int deathTime = 120;
