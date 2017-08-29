@@ -12,6 +12,10 @@ class Tank
 public:
 	Tank( Graphics& gfx );
 	Tank( Graphics& gfx,const Location& in_loc );
+	~Tank();
+	Tank( const Tank& ) = delete;
+	Tank& operator=( const Tank& ) = delete;
+
 	void Restart();
 	const Dimention& GetDimention() const;
 	const Location& GetLocation() const;
@@ -19,7 +23,8 @@ public:
 	void Update( const Keyboard& kbd,const float dt );
 	bool Collision( const Location& in_loc,const Dimention& in_dim );
 	const Location GetShotLoc( const int i ) const;
-	const Dimention& GetShotDim() const;
+	const Dimention GetShotDim() const;
+	void CreateShot( const Location& origin );
 	void DeleteShot( const int i );
 	bool IsAlive();
 private:
@@ -31,7 +36,7 @@ private:
 	static constexpr float speed = 90.0f;
 	static constexpr int shotMax = 30;
 	bool rapidShotPrevent = false;
-	TankShot shot[shotMax];
+	TankShot* pShot[shotMax] = { nullptr };
 	Location loc;
 	bool isAlive = true;
 };

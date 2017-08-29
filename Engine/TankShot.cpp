@@ -1,42 +1,28 @@
 #include "TankShot.h"
 
-TankShot::TankShot()
+TankShot::TankShot( Location in_loc )
+	:
+	loc( in_loc )
 {
+	loc += { 8,-3 };
 }
 
 void TankShot::Draw( Graphics & gfx ) const
 {
-	if ( isAlive )
-	{
-		Sprite::DrawTankShot( int( loc.x ),int( loc.y ),gfx );
-	}
+	Sprite::DrawTankShot( int( loc.x ),int( loc.y ),gfx );
 }
 
-void TankShot::Init( const Location & in_loc )
+bool TankShot::Update( const float dt )
 {
-	if ( !isAlive )
+	loc.y -= vShot * dt;
+	if ( loc.y < 0 )
 	{
-		loc = in_loc;
-		loc += { 8,-3 };
-		isAlive = true;
+		return true;
 	}
-}
-
-void TankShot::Update( const float dt )
-{
-	if ( isAlive )
+	else
 	{
-		loc.y -= vShot * dt;
-		if ( loc.y < 0 )
-		{
-			isAlive = false;
-		}
+		return false;
 	}
-}
-
-bool TankShot::IsAlive() const
-{
-	return isAlive;
 }
 
 const Location & TankShot::GetLoc() const
@@ -44,12 +30,7 @@ const Location & TankShot::GetLoc() const
 	return loc;
 }
 
-const Dimention & TankShot::GetDim() const
+const Dimention & TankShot::GetDim()
 {
 	return dim;
-}
-
-void TankShot::Kill()
-{
-	isAlive = false;
 }

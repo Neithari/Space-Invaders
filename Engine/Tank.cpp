@@ -13,14 +13,19 @@ Tank::Tank( Graphics& gfx ,const Location& in_loc )
 {
 }
 
+Tank::~Tank()
+{
+
+}
+
 void Tank::Restart()
 {
 	loc = { 400.0f,500.0f };
 	for ( int i = 0; i < shotMax; i++ )
 	{
-		if ( shot[i].IsAlive() )
+		if ( !(pShot[i] == nullptr) )
 		{
-			shot[i].Kill();
+			DeleteShot( i );
 		}
 	}
 }
@@ -40,9 +45,9 @@ void Tank::Draw()
 	Sprite::DrawTank( int( loc.x ),int( loc.y ),gfx );
 	for ( int i = 0; i < shotMax; i++ )
 	{
-		if ( shot[i].IsAlive() )
+		if ( !(pShot[i] == nullptr) )
 		{
-			shot[i].Draw( gfx );
+			pShot[i]->Draw( gfx );
 		}
 	}
 }
@@ -84,9 +89,12 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 {
 	for ( int i = 0; i < shotMax; i++ )
 	{
-		if ( shot[i].IsAlive() )
+		if ( !(pShot[i] == nullptr) )
 		{
-			shot[i].Update( dt );
+			if ( pShot[i]->Update( dt ) )
+			{
+				DeleteShot( i );
+			}
 		}
 	}
 	if ( kbd.KeyIsPressed( VK_RIGHT ) )
@@ -104,14 +112,7 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 		if ( !rapidShotPrevent )
 		{
 			rapidShotPrevent = true;
- 			for ( int i = 0; i < shotMax; i++ )
-			{
-				if ( !shot[i].IsAlive() )
-				{
-					shot[i].Init( loc );
-					break;
-				}
-			}
+			CreateShot( loc );
 		}
 	}
 	else
@@ -143,9 +144,9 @@ bool Tank::Collision( const Location & in_loc,const Dimention & in_dim )
 const Location Tank::GetShotLoc( const int i ) const
 {
 	if ( i < shotMax &&
-		shot[i].IsAlive() )
+		!(pShot[i] == nullptr) )
 	{
-		return shot[i].GetLoc();
+		return pShot[i]->GetLoc();
 	}
 	else
 	{
@@ -153,14 +154,27 @@ const Location Tank::GetShotLoc( const int i ) const
 	}
 }
 
-const Dimention & Tank::GetShotDim() const
+const Dimention Tank::GetShotDim() const
 {
-	return shot[0].GetDim();
+	return TankShot::GetDim();
+}
+
+void Tank::CreateShot( const Location& origin )
+{
+	for ( int i = 0; i < shotMax; i++ )
+	{
+		if ( pShot[i] == nullptr )
+		{
+			pShot[i] = new TankShot( origin );
+			break;
+		}
+	}
 }
 
 void Tank::DeleteShot( const int i )
 {
-	shot[i].Kill();
+	delete pShot[i];
+	pShot[i] = nullptr;
 }
 
 bool Tank::IsAlive()
