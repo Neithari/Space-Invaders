@@ -3,15 +3,10 @@
 class Dimention
 {
 public:
-	void Add( const Dimention& val )
-	{
-		width += val.width;
-		height += val.height;
-	}
-	bool operator==( const Dimention& rhs ) const
-	{
-		return width == rhs.width && height == rhs.height;
-	}
+	Dimention() = default;
+	
+	bool operator==( const Dimention& rhs ) const;
+public:
 	int width;
 	int height;
 };

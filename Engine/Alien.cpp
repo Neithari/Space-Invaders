@@ -205,17 +205,17 @@ void Alien::Update( const float dt )
 	if ( moveTime >= moveSpeed )
 	{
 		Location new_loc = loc;
-		new_loc.Add( delta_loc );
+		new_loc += delta_loc;
 		if ( OutsideBorder( new_loc,dim ) )
 		{
 			delta_loc.x = -delta_loc.x;
 			delta_loc.y = alienSpacing;
-			loc.Add( delta_loc );
+			loc += delta_loc;
 			delta_loc.y = 0;
 		}
 		else
 		{
-			loc.Add( delta_loc );
+			loc += delta_loc;
 		}
 		moveTime = 0.0f;
 	}

@@ -63,7 +63,6 @@ private:
 	bool gameStart = false;
 	bool gameOver = false;
 	bool youWon = false;
-	Sprite sprite;
 	int lives = 3;
 	int livesOld = 3;
 	//Timing

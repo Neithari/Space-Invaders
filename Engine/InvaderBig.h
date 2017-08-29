@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Graphics.h"
+#include "Sprite.h"
 #include "Dimention.h"
 #include "Location.h"
 
@@ -13,10 +14,6 @@ public:
 	Location GetLoc() const;
 	void Init( const Location& in_loc );
 	void Collision( const Location& in_loc,const Dimention& in_dim );
-	void DrawExplosion( Graphics& gfx ) const;
-private:
-	void DrawMove0( Graphics& gfx ) const;
-	void DrawMove1( Graphics& gfx ) const;
 private:
 	static constexpr Dimention dim = { 24,16 };
 	Location loc;

@@ -3,15 +3,19 @@
 class Location
 {
 public:
-	void Add( const Location& val )
-	{
-		x += val.x;
-		y += val.y;
-	}
-	bool operator==( const Location& rhs ) const
-	{
-		return x == rhs.x && y == rhs.y;
-	}
+	Location() = default;
+	Location( float x_in,float y_in );
+
+	bool operator==( const Location& rhs ) const;
+	Location operator+( const Location& rhs ) const;
+	Location& operator+=( const Location& rhs );
+	Location operator*( float rhs ) const;
+	Location& operator*=( float rhs );
+	Location operator-( const Location& rhs ) const;
+	Location& operator-=( const Location& rhs );
+	Location operator/( float rhs ) const;
+	Location& operator/=( float rhs );
+public:
 	float x;
 	float y;
 };

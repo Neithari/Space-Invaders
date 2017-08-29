@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Graphics.h"
+#include "Sprite.h"
 #include "Location.h"
 #include "Dimention.h"
 #include "Keyboard.h"
@@ -10,7 +11,7 @@ class Tank
 {
 public:
 	Tank( Graphics& gfx );
-	Tank( Graphics& gfx ,const Location& in_loc );
+	Tank( Graphics& gfx,const Location& in_loc );
 	void Restart();
 	const Dimention& GetDimention() const;
 	const Location& GetLocation() const;
@@ -23,7 +24,6 @@ public:
 	bool IsAlive();
 private:
 	void Kill();
-	void DrawTank();
 	float ClampToScreen();
 private:
 	Graphics& gfx;

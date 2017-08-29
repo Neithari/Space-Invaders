@@ -146,15 +146,15 @@ void Game::ComposeFrame()
 	{
 		if ( !gameStart )
 		{
-			sprite.DrawTitle( gfx,{ 210,250 } );
+			Sprite::DrawTitle( 210,250,gfx );
 		}
 		if ( gameOver )
 		{
-			sprite.DrawGameOver( gfx,{ 350,250 } );
+			Sprite::DrawGameOver( 350,250,gfx );
 		}
 		if ( youWon )
 		{
-			sprite.DrawYouWon( gfx,{ 310,200 } );
+			Sprite::DrawYouWon( 310,200,gfx );
 		}
 	}
 }

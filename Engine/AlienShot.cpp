@@ -16,11 +16,7 @@ void AlienShot::Draw( Graphics & gfx )
 		if ( toggle )
 		{
 			//Shot1
-			gfx.PutPixel( 1 + x,0 + y,1,131,111 );
-			gfx.PutPixel( 2 + x,1 + y,1,163,138 );
-			gfx.PutPixel( 1 + x,2 + y,1,191,162 );
-			gfx.PutPixel( 0 + x,3 + y,1,221,187 );
-			gfx.PutPixel( 1 + x,4 + y,0,255,216 );
+			Sprite::DrawAlienShot1( x,y,gfx );
 
 			if ( toggleIndex >= toggleTime )
 			{
@@ -32,11 +28,7 @@ void AlienShot::Draw( Graphics & gfx )
 		else
 		{
 			//Shot2
-			gfx.PutPixel( 1 + x,0 + y,1,131,111 );
-			gfx.PutPixel( 0 + x,1 + y,1,163,138 );
-			gfx.PutPixel( 1 + x,2 + y,1,191,162 );
-			gfx.PutPixel( 2 + x,3 + y,1,221,187 );
-			gfx.PutPixel( 1 + x,4 + y,0,255,216 );
+			Sprite::DrawAlienShot2( x,y,gfx );
 
 			if ( toggleIndex >= toggleTime )
 			{
@@ -53,7 +45,7 @@ void AlienShot::Init( const Location in_loc,const Dimention in_dim )
 	if ( !isAlive )
 	{
 		loc = in_loc;
-		loc.Add( { float(in_dim.width)/2.0f-1.0f,13 } );
+		loc += { float( in_dim.width ) / 2.0f - 1.0f,13 };
 		isAlive = true;
 	}
 }

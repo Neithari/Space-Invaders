@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Graphics.h"
+#include "Sprite.h"
 #include "Location.h"
 #include "Dimention.h"
 
