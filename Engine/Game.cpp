@@ -55,61 +55,15 @@ void Game::UpdateModel()
 		}
 		alien.Update( dt );
 		//Tank shot collision
-		for ( int i = 0; i < 15; i++ )
-		{
-			if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
-			{
-				tank.DeleteShot( i );
-			}
-		}
-		if ( alien.Count() <= 0 )
-		{
-			youWon = true;
-		}
+		CollisionTankShot();
 		//Alien shot collision
-		if ( lives == livesOld )
-		{
-			for ( int i = 0; i < 15; i++ )
-			{
-				if ( tank.Collision( alien.GetShotLoc( i ),alien.GetShotDim() ) )
-				{
-					alien.DeleteShot( i );
-					lives--;
-					break;
-				}
-			}
-		}
-		else
-		{
-			if ( deathTime <= 0 )
-			{
-				livesOld = lives;
-				deathTime = 120;
-			}
-			else
-			{
-				deathTime--;
-			}
-		}
-		if ( lives <= 0 )
-		{
-			gameOver = true;
-		}
+		CollisionAlienShot();
 	}
 	else
 	{
 		if ( wnd.kbd.KeyIsPressed( VK_RETURN ) )
 		{
-			gameOver = false;
-			gameStart = true;
-			if ( youWon )
-			{
-				alien.Restart();
-				tank.Restart();
-				lives = 3;
-				livesOld = 3;
-				youWon = false;
-			}
+			RestartGame();
 		}
 	}
 }
@@ -189,5 +143,63 @@ float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
 	else
 	{
 		return in_loc.y;
+	}
+}
+
+void Game::RestartGame()
+{
+	gameOver = false;
+	gameStart = true;
+	alien.Restart();
+	tank.Restart();
+	lives = 3;
+	livesOld = 3;
+	youWon = false;
+}
+
+void Game::CollisionTankShot()
+{
+	for ( int i = 0; i < alienRows; i++ )
+	{
+		if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
+		{
+			tank.DeleteShot( i );
+		}
+	}
+	if ( alien.Count() <= 0 )
+	{
+		youWon = true;
+	}
+}
+
+void Game::CollisionAlienShot()
+{
+	if ( lives == livesOld )
+	{
+		for ( int i = 0; i < alienRows; i++ )
+		{
+			if ( tank.Collision( alien.GetShotLoc( i ),alien.GetShotDim() ) )
+			{
+				alien.DeleteShot( i );
+				lives--;
+				break;
+			}
+		}
+	}
+	else
+	{
+		if ( deathTime <= 0 )
+		{
+			livesOld = lives;
+			deathTimer = deathTime;
+		}
+		else
+		{
+			deathTimer--;
+		}
+	}
+	if ( lives <= 0 )
+	{
+		gameOver = true;
 	}
 }

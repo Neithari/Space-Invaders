@@ -46,6 +46,9 @@ private:
 	/********************************/
 	/*  User Functions              */
 	float ClampToScreen( const Location& in_loc,const Dimention& in_dim );
+	void RestartGame();
+	void CollisionTankShot();
+	void CollisionAlienShot();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -58,6 +61,7 @@ private:
 	std::uniform_real_distribution<float> yDist;
 	static constexpr int tankShotMax = 30;
 	static constexpr int alienShotMax = 30;
+	static constexpr int alienRows = 15;
 	Tank tank;
 	Alien alien;
 	bool gameStart = false;
@@ -66,7 +70,8 @@ private:
 	int lives = 3;
 	int livesOld = 3;
 	//Timing
+	static constexpr int deathTime = 120;
 	FrameTime ft;
-	int deathTime = 120;
+	int deathTimer = deathTime;
 	/********************************/
 };
