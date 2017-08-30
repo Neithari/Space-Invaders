@@ -13,11 +13,6 @@ Tank::Tank( Graphics& gfx ,const Location& in_loc )
 {
 }
 
-Tank::~Tank()
-{
-
-}
-
 void Tank::Restart()
 {
 	loc = { 400.0f,500.0f };

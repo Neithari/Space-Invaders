@@ -64,7 +64,8 @@ private:
 	static constexpr int tankShotMax = 30;
 	static constexpr int alienShotMax = 30;
 	static constexpr int alienRows = 15;
-	Tank tank;
+	static constexpr Location tankStartLoc = { 400.0f,500.0f };
+	Tank* pTank = nullptr;
 	Alien* pAlien = nullptr;
 	bool gameStart = false;
 	bool gameOver = false;

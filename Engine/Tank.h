@@ -13,7 +13,6 @@ class Tank
 public:
 	Tank( Graphics& gfx );
 	Tank( Graphics& gfx,const Location& in_loc );
-	~Tank();
 	Tank( const Tank& ) = delete;
 	Tank& operator=( const Tank& ) = delete;
 

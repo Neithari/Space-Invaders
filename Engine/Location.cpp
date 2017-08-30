@@ -1,12 +1,5 @@
 #include "Location.h"
 
-Location::Location( float x_in,float y_in )
-	:
-	x( x_in ),
-	y( y_in )
-{
-}
-
 bool Location::operator==( const Location & rhs ) const
 {
 	return x == rhs.x && y == rhs.y;

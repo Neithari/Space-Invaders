@@ -8,8 +8,7 @@ public:
 		:
 		width( width_in ),
 		height( height_in )
-	{
-	};
+	{};
 
 	bool operator==( const Dimention& rhs ) const;
 	Dimention operator+( const Dimention& rhs ) const;

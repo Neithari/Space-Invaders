@@ -4,7 +4,11 @@ class Location
 {
 public:
 	Location() = default;
-	Location( float x_in,float y_in );
+	constexpr Location( float x_in,float y_in )
+		:
+		x( x_in ),
+		y( y_in )
+	{};
 
 	bool operator==( const Location& rhs ) const;
 	Location operator+( const Location& rhs ) const;

@@ -28,15 +28,16 @@ Game::Game( MainWindow& wnd )
 	rng( rd() ),
 	xDist( 0.0f,800.0f ),
 	yDist( 0.0f,600.0f ),
-	tank( gfx,{ 400.0f,500.0f } ),
+	pTank( new Tank( gfx,tankStartLoc ) ),
 	pAlien( new Alien( gfx ) )
-{
-}
+{}
 
 Game::~Game()
 {
 	delete pAlien;
 	pAlien = nullptr;
+	delete pTank;
+	pTank = nullptr;
 }
 
 void Game::Go()
@@ -52,11 +53,11 @@ void Game::UpdateModel()
 	dt = ft.Mark();
 	if ( gameStart && !gameOver && !youWon )
 	{
-		if ( tank.IsAlive() )
+		if ( pTank->IsAlive() )
 		{
 			if ( lives == livesOld )
 			{
-				tank.Update( wnd.kbd,dt );
+				pTank->Update( wnd.kbd,dt );
 				pAlien->Update( dt );
 			}
 		}
@@ -80,7 +81,7 @@ void Game::ComposeFrame()
 	{
 		if ( lives == livesOld )
 		{
-			tank.Draw();
+			pTank->Draw();
 		}
 		else
 		{
@@ -144,7 +145,8 @@ void Game::RestartGame()
 	gameStart = true;
 	delete pAlien;
 	pAlien = new Alien( gfx );
-	tank.Restart();
+	delete pTank;
+	pTank = new Tank( gfx,tankStartLoc );
 	lives = 3;
 	livesOld = 3;
 	youWon = false;
@@ -154,9 +156,9 @@ void Game::CollisionTankShot()
 {
 	for ( int i = 0; i < alienRows; i++ )
 	{
-		if ( pAlien->Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
+		if ( pAlien->Collision( pTank->GetShotLoc( i ),pTank->GetShotDim() ) )
 		{
-			tank.DeleteShot( i );
+			pTank->DeleteShot( i );
 		}
 	}
 	if ( pAlien->Count() <= 0 )
@@ -171,7 +173,7 @@ void Game::CollisionAlienShot()
 	{
 		for ( int i = 0; i < alienRows; i++ )
 		{
-			if ( tank.Collision( pAlien->GetShotLoc( i ),pAlien->GetShotDim() ) )
+			if ( pTank->Collision( pAlien->GetShotLoc( i ),pAlien->GetShotDim() ) )
 			{
 				pAlien->DeleteShot( i );
 				lives--;
@@ -203,6 +205,6 @@ void Game::TankGotHit()
 		(deathTimer < deathTime * 0.5f && deathTimer > deathTime * 0.43f ) ||
 		(deathTimer < deathTime * 0.25f && deathTimer > deathTime * 0.18f ) )
 	{
-		tank.Draw();
+		pTank->Draw();
 	}
 }
