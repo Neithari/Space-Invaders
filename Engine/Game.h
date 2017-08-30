@@ -37,6 +37,7 @@ class Game
 {
 public:
 	Game( class MainWindow& wnd );
+	~Game();
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
@@ -49,6 +50,7 @@ private:
 	void RestartGame();
 	void CollisionTankShot();
 	void CollisionAlienShot();
+	void TankGotHit();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -63,15 +65,16 @@ private:
 	static constexpr int alienShotMax = 30;
 	static constexpr int alienRows = 15;
 	Tank tank;
-	Alien alien;
+	Alien* pAlien = nullptr;
 	bool gameStart = false;
 	bool gameOver = false;
 	bool youWon = false;
 	int lives = 3;
 	int livesOld = 3;
 	//Timing
-	static constexpr int deathTime = 120;
+	static constexpr float deathTime = 2.5f;
 	FrameTime ft;
-	int deathTimer = deathTime;
+	float dt = 0.0f;
+	float deathTimer = deathTime;
 	/********************************/
 };

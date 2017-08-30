@@ -29,8 +29,14 @@ Game::Game( MainWindow& wnd )
 	xDist( 0.0f,800.0f ),
 	yDist( 0.0f,600.0f ),
 	tank( gfx,{ 400.0f,500.0f } ),
-	alien( gfx )
+	pAlien( new Alien( gfx ) )
 {
+}
+
+Game::~Game()
+{
+	delete pAlien;
+	pAlien = nullptr;
 }
 
 void Game::Go()
@@ -43,7 +49,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	const float dt = ft.Mark();
+	dt = ft.Mark();
 	if ( gameStart && !gameOver && !youWon )
 	{
 		if ( tank.IsAlive() )
@@ -51,9 +57,9 @@ void Game::UpdateModel()
 			if ( lives == livesOld )
 			{
 				tank.Update( wnd.kbd,dt );
+				pAlien->Update( dt );
 			}
 		}
-		alien.Update( dt );
 		//Tank shot collision
 		CollisionTankShot();
 		//Alien shot collision
@@ -78,23 +84,9 @@ void Game::ComposeFrame()
 		}
 		else
 		{
-			int t75 = 90;
-			int t50 = 60;
-			int t25 = 30;
-			if ( deathTime == t75 ||
-				deathTime == t75 - 1 ||
-				deathTime == t75 - 2 ||
-				deathTime == t50 ||
-				deathTime == t50 - 1 ||
-				deathTime == t50 - 2 ||
-				deathTime == t25 ||
-				deathTime == t25 - 1 ||
-				deathTime == t25 - 2 )
-			{
-				tank.Draw();
-			}
+			TankGotHit();
 		}
-		alien.Draw();
+		pAlien->Draw();
 	}
 	else
 	{
@@ -150,7 +142,8 @@ void Game::RestartGame()
 {
 	gameOver = false;
 	gameStart = true;
-	alien.Restart();
+	delete pAlien;
+	pAlien = new Alien( gfx );
 	tank.Restart();
 	lives = 3;
 	livesOld = 3;
@@ -161,12 +154,12 @@ void Game::CollisionTankShot()
 {
 	for ( int i = 0; i < alienRows; i++ )
 	{
-		if ( alien.Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
+		if ( pAlien->Collision( tank.GetShotLoc( i ),tank.GetShotDim() ) )
 		{
 			tank.DeleteShot( i );
 		}
 	}
-	if ( alien.Count() <= 0 )
+	if ( pAlien->Count() <= 0 )
 	{
 		youWon = true;
 	}
@@ -178,9 +171,9 @@ void Game::CollisionAlienShot()
 	{
 		for ( int i = 0; i < alienRows; i++ )
 		{
-			if ( tank.Collision( alien.GetShotLoc( i ),alien.GetShotDim() ) )
+			if ( tank.Collision( pAlien->GetShotLoc( i ),pAlien->GetShotDim() ) )
 			{
-				alien.DeleteShot( i );
+				pAlien->DeleteShot( i );
 				lives--;
 				break;
 			}
@@ -188,18 +181,28 @@ void Game::CollisionAlienShot()
 	}
 	else
 	{
-		if ( deathTime <= 0 )
+		if ( deathTimer <= 0.0f )
 		{
 			livesOld = lives;
 			deathTimer = deathTime;
 		}
 		else
 		{
-			deathTimer--;
+			deathTimer -= dt;
 		}
 	}
 	if ( lives <= 0 )
 	{
 		gameOver = true;
+	}
+}
+
+void Game::TankGotHit()
+{
+	if ( (deathTimer < deathTime * 0.75f && deathTimer > deathTime * 0.68f ) ||
+		(deathTimer < deathTime * 0.5f && deathTimer > deathTime * 0.43f ) ||
+		(deathTimer < deathTime * 0.25f && deathTimer > deathTime * 0.18f ) )
+	{
+		tank.Draw();
 	}
 }
