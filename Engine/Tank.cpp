@@ -21,13 +21,7 @@ Tank::~Tank()
 void Tank::Restart()
 {
 	loc = { 400.0f,500.0f };
-	for ( int i = 0; i < shotMax; i++ )
-	{
-		if ( !(pShot[i] == nullptr) )
-		{
-			DeleteShot( i );
-		}
-	}
+	shot.swap( std::vector<TankShot>() );
 }
 
 const Dimention& Tank::GetDimention() const
@@ -43,12 +37,9 @@ const Location& Tank::GetLocation() const
 void Tank::Draw()
 {
 	Sprite::DrawTank( int( loc.x ),int( loc.y ),gfx );
-	for ( int i = 0; i < shotMax; i++ )
+	for ( int i = 0; i < shot.size(); i++ )
 	{
-		if ( !(pShot[i] == nullptr) )
-		{
-			pShot[i]->Draw( gfx );
-		}
+		shot[i].Draw( gfx );
 	}
 }
 
@@ -87,14 +78,11 @@ float Tank::ClampToScreen()
 
 void Tank::Update( const Keyboard& kbd,const float dt )
 {
-	for ( int i = 0; i < shotMax; i++ )
+	for ( int i = 0; i < shot.size(); i++ )
 	{
-		if ( !(pShot[i] == nullptr) )
+		if ( shot[i].Update( dt ) )
 		{
-			if ( pShot[i]->Update( dt ) )
-			{
-				DeleteShot( i );
-			}
+			DeleteShot( i );
 		}
 	}
 	if ( kbd.KeyIsPressed( VK_RIGHT ) )
@@ -143,10 +131,9 @@ bool Tank::Collision( const Location & in_loc,const Dimention & in_dim )
 
 const Location Tank::GetShotLoc( const int i ) const
 {
-	if ( i < shotMax &&
-		!(pShot[i] == nullptr) )
+	if ( i < shot.size() )
 	{
-		return pShot[i]->GetLoc();
+		return shot[i].GetLoc();
 	}
 	else
 	{
@@ -161,20 +148,12 @@ const Dimention Tank::GetShotDim() const
 
 void Tank::CreateShot( const Location& origin )
 {
-	for ( int i = 0; i < shotMax; i++ )
-	{
-		if ( pShot[i] == nullptr )
-		{
-			pShot[i] = new TankShot( origin );
-			break;
-		}
-	}
+	shot.push_back( origin );
 }
 
 void Tank::DeleteShot( const int i )
 {
-	delete pShot[i];
-	pShot[i] = nullptr;
+	shot.erase( shot.begin() + i );
 }
 
 bool Tank::IsAlive()

@@ -6,6 +6,7 @@
 #include "Dimention.h"
 #include "Keyboard.h"
 #include "TankShot.h"
+#include <vector>
 
 class Tank
 {
@@ -34,9 +35,8 @@ private:
 	Graphics& gfx;
 	static constexpr Dimention dim = { 20,18 };
 	static constexpr float speed = 90.0f;
-	static constexpr int shotMax = 30;
 	bool rapidShotPrevent = false;
-	TankShot* pShot[shotMax] = { nullptr };
+	std::vector<TankShot> shot;
 	Location loc;
 	bool isAlive = true;
 };

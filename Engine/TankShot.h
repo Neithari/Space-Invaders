@@ -10,12 +10,8 @@ class TankShot
 public:
 	TankShot( Location in_loc );
 
-	TankShot( const TankShot& ) = delete;
-	TankShot& operator=( const TankShot& ) = delete;
-
 	void Draw( Graphics& gfx ) const;
 	bool Update( const float dt );
-	//bool Colliding( const Alien& alien);
 	const Location& GetLoc() const;
 	static const Dimention& GetDim();
 private:
