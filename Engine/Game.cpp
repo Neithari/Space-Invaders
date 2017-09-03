@@ -50,7 +50,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	dt = ft.Mark();
+	/*dt = ft.Mark();
 	if ( gameStart && !gameOver && !youWon )
 	{
 		if ( pTank->IsAlive() )
@@ -72,12 +72,14 @@ void Game::UpdateModel()
 		{
 			RestartGame();
 		}
-	}
+	}*/
 }
 
 void Game::ComposeFrame()
 {
-	if ( !gameOver && gameStart && !youWon)
+	Vec2 drawVec( 200,200 );
+	pixel.Draw( drawVec,gfx );
+	/*if ( !gameOver && gameStart && !youWon)
 	{
 		if ( lives == livesOld )
 		{
@@ -103,7 +105,7 @@ void Game::ComposeFrame()
 		{
 			Sprite::DrawYouWon( 310,200,gfx );
 		}
-	}
+	}*/
 }
 
 float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )

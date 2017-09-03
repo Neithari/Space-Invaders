@@ -32,6 +32,8 @@
 #include "House.h"
 #include "Alien.h"
 #include "FrameTime.h"
+#include "Vec2.h"
+#include "PixelArt.h"
 
 class Game
 {
@@ -72,6 +74,7 @@ private:
 	bool youWon = false;
 	int lives = 3;
 	int livesOld = 3;
+	PixelArt pixel;
 	//Timing
 	static constexpr float deathTime = 2.5f;
 	FrameTime ft;
