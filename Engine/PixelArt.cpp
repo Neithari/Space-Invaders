@@ -16,10 +16,10 @@ void PixelArt::Draw( Graphics& gfx )
 	{
 		for ( int x = 0; x < matrix.dim.x; x++ )
 		{
-			if ( matrix.matrix[y*matrix.dim.x + x] )
+			if ( matrix.matrix[matrix.Index(x, y)] )
 			{
-				Rect rect( mLoc,pixelSize );
-				DrawPixel( rect,gfx );
+				Rect rect(mLoc, pixelSize);
+				DrawPixel(rect, gfx);
 			}
 			mLoc.x += pixelSize;
 		}

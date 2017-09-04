@@ -1,31 +1,36 @@
 #include "Matrix.h"
 
-Matrix::Matrix( std::string filename )
+Matrix::Matrix(std::string filename)
 {
-	std::string buf;
-	std::ifstream in( filename );
+	std::ifstream in(filename);
 	if ( in )
 	{
-		std::getline( in,buf );
-		std::string::size_type sz;   // alias of size_t
-		dim.x = std::stoi( buf,&sz );
-		std::getline( in,buf );
-		dim.y = std::stoi( buf,&sz );
-
-		for ( int i = 0; i < dim.y; i++ )
+		bool column = true;
+		for ( char c = in.get(); in.good(); c = in.get() )
 		{
-			std::getline( in,buf );
-			for ( int j = 0; j < buf.size(); j++ )
+			if ( c == '\n' )
 			{
-				if ( buf[j] == '1' )
-				{
-					matrix.push_back( true );
-				}
-				if ( buf[j] == '0' )
-				{
-					matrix.push_back( false );
-				}
+				dim.y++;
+				column = false;
+			}
+			if ( c == '1' )
+			{
+				matrix.push_back(true);
+			}
+			if ( c == '0' )
+			{
+				matrix.push_back(false);
+			}
+			if ( column )
+			{
+				dim.x++;
 			}
 		}
+		dim.y++;
 	}
+}
+
+int Matrix::Index(const int x, const int y)
+{
+	return y*dim.x + x;
 }
