@@ -11,3 +11,13 @@ void House::Draw( Graphics& gfx )
 {
 	house.Draw( gfx );
 }
+
+bool House::Collision( Rect& rect )
+{
+	house.GetRect();
+
+	return ( objright >= loc.x &&
+			in_loc.x <= shotright &&
+			objbottom >= loc.y &&
+			in_loc.y <= shotbottom );
+}
