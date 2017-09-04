@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include "Vec2.h"
+#include "Rect.h"
 
 class Matrix
 {
@@ -12,9 +13,9 @@ public:
 	Matrix( std::string filename );
 
 	int Index( const int x, const int y );
-
+	Rect GetRect();
+	Rect GetCompleteRect();
 public:
-	static constexpr int buffsize = 255;
 	std::vector<bool> matrix;
 	Vec2 dim = { 0,0 };
 };

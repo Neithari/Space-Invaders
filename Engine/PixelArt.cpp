@@ -28,6 +28,11 @@ void PixelArt::Draw( Graphics& gfx )
 	}
 }
 
+const Matrix& PixelArt::GetMatrix() const
+{
+	return matrix;
+}
+
 void PixelArt::DrawPixel( Rect& rect,Graphics & gfx )
 {
 	for ( int y = rect.top; y < rect.bottom; y++ )

@@ -34,3 +34,8 @@ int Matrix::Index( const int x, const int y )
 {
 	return y*dim.x + x;
 }
+
+Rect Matrix::GetRect()
+{
+	return Rect( dim ); //TODO figure out how to create that rect
+}
