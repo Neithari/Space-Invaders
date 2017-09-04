@@ -30,7 +30,7 @@ Matrix::Matrix(std::string filename)
 	}
 }
 
-int Matrix::Index(const int x, const int y)
+int Matrix::Index( const int x, const int y )
 {
 	return y*dim.x + x;
 }

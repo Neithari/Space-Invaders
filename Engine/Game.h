@@ -33,7 +33,6 @@
 #include "Alien.h"
 #include "FrameTime.h"
 #include "Vec2.h"
-#include "PixelArt.h"
 
 class Game
 {
@@ -63,18 +62,20 @@ private:
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
+	static constexpr int houseCount = 5;
 	static constexpr int tankShotMax = 30;
 	static constexpr int alienShotMax = 30;
 	static constexpr int alienRows = 15;
 	static constexpr Location tankStartLoc = { 400.0f,500.0f };
+	static constexpr Vec2 houseStartLoc = { 180,460 };
 	Tank* pTank = nullptr;
 	Alien* pAlien = nullptr;
+	House* pHouse[houseCount] = {};
 	bool gameStart = false;
 	bool gameOver = false;
 	bool youWon = false;
 	int lives = 3;
 	int livesOld = 3;
-	PixelArt pixel = { Vec2{200,200},"test.txt" };
 	//Timing
 	static constexpr float deathTime = 2.5f;
 	FrameTime ft;

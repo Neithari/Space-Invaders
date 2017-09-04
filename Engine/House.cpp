@@ -1,26 +1,13 @@
 #include "House.h"
 
-House::House( const Location& in_loc )
+House::House(const Vec2& in_loc)
 	:
-	loc( in_loc )
+	loc( in_loc ),
+	house( loc,filename )
 {
 }
 
-Dimention House::GetDimention() const
+void House::Draw( Graphics& gfx )
 {
-	return dim;
-}
-
-Location House::GetLocation() const
-{
-	return loc;
-}
-
-void House::Draw( Graphics & gfx )
-{
-	//width = 40;
-	//height = 30;
-	int x = int( loc.x );
-	int y = int( loc.y );
-	Sprite::DrawHouse( x,y,gfx );
+	house.Draw( gfx );
 }

@@ -30,7 +30,14 @@ Game::Game( MainWindow& wnd )
 	yDist( 0.0f,600.0f ),
 	pTank( new Tank( gfx,tankStartLoc ) ),
 	pAlien( new Alien( gfx ) )
-{}
+{
+	Vec2 loc = houseStartLoc;
+	for ( int i = 0; i < houseCount; i++ )
+	{
+		pHouse[i] = new House( loc );
+		loc.x += 100;
+	}
+}
 
 Game::~Game()
 {
@@ -38,6 +45,11 @@ Game::~Game()
 	pAlien = nullptr;
 	delete pTank;
 	pTank = nullptr;
+	for ( int i = 0; i < houseCount; i++ )
+	{
+		delete pHouse[i];
+		pHouse[i] = nullptr;
+	}
 }
 
 void Game::Go()
@@ -50,7 +62,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	/*dt = ft.Mark();
+	dt = ft.Mark();
 	if ( gameStart && !gameOver && !youWon )
 	{
 		if ( pTank->IsAlive() )
@@ -72,13 +84,12 @@ void Game::UpdateModel()
 		{
 			RestartGame();
 		}
-	}*/
+	}
 }
 
 void Game::ComposeFrame()
 {
-	pixel.Draw( gfx );
-	/*if ( !gameOver && gameStart && !youWon)
+	if ( !gameOver && gameStart && !youWon)
 	{
 		if ( lives == livesOld )
 		{
@@ -87,6 +98,10 @@ void Game::ComposeFrame()
 		else
 		{
 			TankGotHit();
+		}
+		for ( int i = 0; i < houseCount; i++ )
+		{
+			pHouse[i]->Draw( gfx );
 		}
 		pAlien->Draw();
 	}
@@ -104,7 +119,7 @@ void Game::ComposeFrame()
 		{
 			Sprite::DrawYouWon( 310,200,gfx );
 		}
-	}*/
+	}
 }
 
 float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
@@ -148,6 +163,13 @@ void Game::RestartGame()
 	pAlien = new Alien( gfx );
 	delete pTank;
 	pTank = new Tank( gfx,tankStartLoc );
+	Vec2 loc = houseStartLoc;
+	for ( int i = 0; i < houseCount; i++ )
+	{
+		delete pHouse[i];
+		pHouse[i] = new House( loc );
+		loc.x += 100;
+	}
 	lives = 3;
 	livesOld = 3;
 	youWon = false;

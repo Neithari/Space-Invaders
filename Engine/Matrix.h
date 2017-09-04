@@ -11,7 +11,7 @@ public:
 	Matrix() = default;
 	Matrix( std::string filename );
 
-	int Index(const int x, const int y);
+	int Index( const int x, const int y );
 
 public:
 	static constexpr int buffsize = 255;
