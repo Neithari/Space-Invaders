@@ -1,16 +1,31 @@
 #include "PixelArt.h"
 
-PixelArt::PixelArt( Vec2 loc,std::vector<bool>& matrix )
+PixelArt::PixelArt( Vec2& loc,std::string filename )
 	:
-	loc( loc ),
-	matrix( matrix )
+	filename( filename ),
+	matrix( filename ),
+	dim( matrix.dim ),
+	loc( loc )
 {
 }
 
-void PixelArt::Draw( Vec2& drawLoc,Graphics& gfx )
+void PixelArt::Draw( Graphics& gfx )
 {
-	Rect rect( drawLoc,pixelSize );
-	DrawPixel( rect,gfx );
+	Vec2 mLoc = loc;
+	for ( int y = 0; y < matrix.dim.y; y++ )
+	{
+		for ( int x = 0; x < matrix.dim.x; x++ )
+		{
+			if ( matrix.matrix[y*matrix.dim.x + x] )
+			{
+				Rect rect( mLoc,pixelSize );
+				DrawPixel( rect,gfx );
+			}
+			mLoc.x += pixelSize;
+		}
+		mLoc.x = loc.x;
+		mLoc.y += pixelSize;
+	}
 }
 
 void PixelArt::DrawPixel( Rect& rect,Graphics & gfx )

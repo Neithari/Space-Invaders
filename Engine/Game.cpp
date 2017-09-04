@@ -77,8 +77,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	Vec2 drawVec( 200,200 );
-	pixel.Draw( drawVec,gfx );
+	pixel.Draw( gfx );
 	/*if ( !gameOver && gameStart && !youWon)
 	{
 		if ( lives == livesOld )

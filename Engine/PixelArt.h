@@ -1,22 +1,25 @@
 #pragma once
 
 #include "Vec2.h"
-#include <vector>
+#include <string>
 #include "Graphics.h"
 #include "Rect.h"
+#include "Matrix.h"
 
 class PixelArt
 {
 public:
 	PixelArt() = default;
-	PixelArt( Vec2 loc,std::vector<bool>& matrix );
+	PixelArt( Vec2& loc,std::string filename );
 
-	void Draw( Vec2& drawLoc,Graphics& gfx );
+	void Draw( Graphics& gfx );
 private:
 	void DrawPixel( Rect& rect,Graphics& gfx );
 private:
 	static constexpr int pixelSize = 4;
+	std::string filename;
+	Matrix matrix;
+	Vec2 dim;
 	Vec2 loc;
-	std::vector<bool> matrix;
 	Color c = {255,255,255};
 };

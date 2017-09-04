@@ -74,7 +74,7 @@ private:
 	bool youWon = false;
 	int lives = 3;
 	int livesOld = 3;
-	PixelArt pixel;
+	PixelArt pixel = { Vec2{200,200},"test.txt" };
 	//Timing
 	static constexpr float deathTime = 2.5f;
 	FrameTime ft;
