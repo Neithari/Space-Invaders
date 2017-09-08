@@ -26,13 +26,13 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	rng( rd() ),
-	xDist( 0.0f,800.0f ),
-	yDist( 0.0f,600.0f ),
-	pTank( new Tank( gfx,tankStartLoc ) ),
-	pAlien( new Alien( gfx ) )
+	xDist( 0.0f, 800.0f ),
+	yDist( 0.0f, 600.0f ),
+	pTank( new Tank( gfx, tankStartLoc ) ),
+	pAlien( new Alien( gfx, alienShotMax, alienShotChance ) )
 {
 	Vec2 loc = houseStartLoc;
-	for ( int i = 0; i < houseCount; i++ )
+	for( int i = 0; i < houseCount; i++ )
 	{
 		pHouse[i] = new House( loc );
 		loc.x += 100;
@@ -45,7 +45,7 @@ Game::~Game()
 	pAlien = nullptr;
 	delete pTank;
 	pTank = nullptr;
-	for ( int i = 0; i < houseCount; i++ )
+	for( int i = 0; i < houseCount; i++ )
 	{
 		delete pHouse[i];
 		pHouse[i] = nullptr;
@@ -63,11 +63,11 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	dt = ft.Mark();
-	if ( gameStart && !gameOver && !youWon )
+	if( gameStart && !gameOver && !youWon )
 	{
-		if ( pTank->IsAlive() )
+		if( pTank->IsAlive() )
 		{
-			if ( lives == livesOld )
+			if( lives == livesOld )
 			{
 				pTank->Update( wnd.kbd,dt );
 				pAlien->Update( dt );
@@ -90,7 +90,7 @@ void Game::UpdateModel()
 	}
 	else
 	{
-		if ( wnd.kbd.KeyIsPressed( VK_RETURN ) )
+		if( wnd.kbd.KeyIsPressed( VK_RETURN ) )
 		{
 			RestartGame();
 		}
@@ -99,9 +99,9 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	if ( !gameOver && gameStart && !youWon)
+	if( !gameOver && gameStart && !youWon)
 	{
-		if ( lives == livesOld )
+		if( lives == livesOld )
 		{
 			pTank->Draw();
 		}
@@ -109,7 +109,7 @@ void Game::ComposeFrame()
 		{
 			TankGotHit();
 		}
-		for ( int i = 0; i < houseCount; i++ )
+		for( int i = 0; i < houseCount; i++ )
 		{
 			pHouse[i]->Draw( gfx );
 		}
@@ -117,15 +117,15 @@ void Game::ComposeFrame()
 	}
 	else
 	{
-		if ( !gameStart )
+		if( !gameStart )
 		{
 			Sprite::DrawTitle( 210,250,gfx );
 		}
-		if ( gameOver )
+		if( gameOver )
 		{
 			Sprite::DrawGameOver( 350,250,gfx );
 		}
-		if ( youWon )
+		if( youWon )
 		{
 			Sprite::DrawYouWon( 310,200,gfx );
 		}
@@ -139,11 +139,11 @@ float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
 	const float top = in_loc.y;
 	const float bottom = in_loc.y + in_dim.height;
 
-	if ( left < 0 )
+	if( left < 0 )
 	{
 		return 0.0f;
 	}
-	if ( right >= gfx.ScreenWidth )
+	if( right >= gfx.ScreenWidth )
 	{
 		return gfx.ScreenWidth - float( in_dim.width + 1 );
 	}
@@ -151,11 +151,11 @@ float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
 	{
 		return in_loc.x;
 	}
-	if ( top < 0 )
+	if( top < 0 )
 	{
 		return 0.0f;
 	}
-	if ( bottom >= gfx.ScreenHeight )
+	if( bottom >= gfx.ScreenHeight )
 	{
 		return gfx.ScreenHeight - float( in_dim.height + 1 );
 	}
@@ -170,11 +170,11 @@ void Game::RestartGame()
 	gameOver = false;
 	gameStart = true;
 	delete pAlien;
-	pAlien = new Alien( gfx );
+	pAlien = new Alien( gfx, alienShotMax, alienShotChance );
 	delete pTank;
-	pTank = new Tank( gfx,tankStartLoc );
+	pTank = new Tank( gfx, tankStartLoc );
 	Vec2 loc = houseStartLoc;
-	for ( int i = 0; i < houseCount; i++ )
+	for( int i = 0; i < houseCount; i++ )
 	{
 		delete pHouse[i];
 		pHouse[i] = new House( loc );

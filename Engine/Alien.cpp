@@ -1,12 +1,20 @@
 #include "Alien.h"
 
-Alien::Alien( Graphics & gfx )
+Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance )
 	:
 	gfx( gfx ),
+	shotMax( shotMax ),
 	rng( rd() ),
 	chanceDist( 1,100 ),
-	shotDist( 0,14 )
+	shotDist( 0,14 ),
+	shotChance( shotChance )
 {
+	//prepare shot
+	shot.reserve( shotMax );
+	for( int i = 0; i < shotMax; i++ )
+	{
+		shot.emplace_back();
+	}
 	//small
 	Dimention i_dim = invaderSmall[0].GetDim();
 	Dimention iBig_dim = invaderBig[0].GetDim();
@@ -225,7 +233,7 @@ void Alien::Update( const float dt )
 	}
 	//Shot creation
 	int tempChance = chanceDist( rng );
-	if ( tempChance <= chance )
+	if ( tempChance <= shotChance )
 	{
 		int i = shotDist( rng );
 		if ( !shot[i].IsAlive() )

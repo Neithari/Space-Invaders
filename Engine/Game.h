@@ -64,7 +64,8 @@ private:
 	std::uniform_real_distribution<float> yDist;
 	static constexpr int houseCount = 5;
 	static constexpr int tankShotMax = 30;
-	static constexpr int alienShotMax = 30;
+	static constexpr int alienShotMax = 15;
+	static constexpr int alienShotChance = 15;
 	static constexpr int alienRows = 15;
 	static constexpr Location tankStartLoc = { 387.0f,500.0f };
 	static constexpr Vec2 houseStartLoc = { 180,465 };
