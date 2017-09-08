@@ -235,44 +235,49 @@ void Alien::Update( const float dt )
 	int tempChance = chanceDist( rng );
 	if ( tempChance <= shotChance )
 	{
-		int i = shotDist( rng );
-		if ( !shot[i].IsAlive() )
+		int loc = shotDist( rng );
+		//find a free shot
+		for( int i = 0; i < shotMax; i++ )
 		{
-			//Get bottom Alien
-			Location shotLoc;
-			Dimention shotDim;
-			if ( invaderBig[i + 15].IsAlive() )
+			if( !shot[i].IsAlive() )
 			{
-				shotLoc = invaderBig[i + 15].GetLoc();
-				shotDim = invaderBig[0].GetDim();
-			}
-			else if ( invaderBig[i].IsAlive() )
-			{
-				shotLoc = invaderBig[i].GetLoc();
-				shotDim = invaderBig[0].GetDim();
-			}
-			else if ( invaderMid[i + 15].IsAlive() )
-			{
-				shotLoc = invaderMid[i + 15].GetLoc();
-				shotDim = invaderMid[0].GetDim();
-			}
-			else if ( invaderMid[i].IsAlive() )
-			{
-				shotLoc = invaderMid[i].GetLoc();
-				shotDim = invaderMid[0].GetDim();
-			}
-			else if ( invaderSmall[i].IsAlive() )
-			{
-				shotLoc = invaderSmall[i].GetLoc();
-				shotDim = invaderSmall[0].GetDim();
-			}
-			else
-			{
-				columnClean[i] = true;
-			}
-			if ( !columnClean[i] )
-			{
-				shot[i].Init( shotLoc,shotDim );
+				//Get bottom Alien
+				Location shotLoc;
+				Dimention shotDim;
+				if( invaderBig[loc + 15].IsAlive() )
+				{
+					shotLoc = invaderBig[loc + 15].GetLoc();
+					shotDim = invaderBig[0].GetDim();
+				}
+				else if( invaderBig[loc].IsAlive() )
+				{
+					shotLoc = invaderBig[loc].GetLoc();
+					shotDim = invaderBig[0].GetDim();
+				}
+				else if( invaderMid[loc + 15].IsAlive() )
+				{
+					shotLoc = invaderMid[loc + 15].GetLoc();
+					shotDim = invaderMid[0].GetDim();
+				}
+				else if( invaderMid[loc].IsAlive() )
+				{
+					shotLoc = invaderMid[loc].GetLoc();
+					shotDim = invaderMid[0].GetDim();
+				}
+				else if( invaderSmall[loc].IsAlive() )
+				{
+					shotLoc = invaderSmall[loc].GetLoc();
+					shotDim = invaderSmall[0].GetDim();
+				}
+				else
+				{
+					columnClean[loc] = true;
+				}
+				if( !columnClean[loc] )
+				{
+					shot[i].Init( shotLoc, shotDim );
+				}
+				break;
 			}
 		}
 	}
