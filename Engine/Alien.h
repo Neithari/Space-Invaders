@@ -29,7 +29,7 @@ private:
 	std::mt19937 rng;
 	std::uniform_int_distribution<int> chanceDist;
 	std::uniform_int_distribution<int> shotDist;
-	static constexpr int chance = 5;
+	static constexpr int chance = 30;
 	static constexpr int n_small = 15;
 	static constexpr int n_mid = 30;
 	static constexpr int n_big = 30;

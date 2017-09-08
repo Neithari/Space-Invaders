@@ -12,12 +12,7 @@ void House::Draw( Graphics& gfx )
 	house.Draw( gfx );
 }
 
-bool House::Collision( Rect& rect )
+bool House::IsColliding( const Rect& obj )
 {
-	house.GetRect();
-
-	return ( objright >= loc.x &&
-			in_loc.x <= shotright &&
-			objbottom >= loc.y &&
-			in_loc.y <= shotbottom );
+	return house.Collision( obj );
 }

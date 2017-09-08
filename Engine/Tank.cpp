@@ -104,7 +104,7 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 	}
 }
 
-bool Tank::Collision( const Location & in_loc,const Dimention & in_dim )
+bool Tank::Collision( const Location & in_loc,const Dimention & in_dim ) const
 {
 	if ( isAlive )
 	{
@@ -113,13 +113,10 @@ bool Tank::Collision( const Location & in_loc,const Dimention & in_dim )
 		const float shotright = loc.x + float( dim.width );
 		const float shotbottom = loc.y + float( dim.height );
 
-		if ( objright >= loc.x &&
+		return ( objright >= loc.x &&
 			in_loc.x <= shotright &&
 			objbottom >= loc.y &&
-			in_loc.y <= shotbottom )
-		{
-			return true;
-		}
+			in_loc.y <= shotbottom );
 	}
 	return false;
 }
@@ -141,6 +138,11 @@ const Dimention Tank::GetShotDim() const
 	return TankShot::GetDim();
 }
 
+const int Tank::GetShotCount() const
+{
+	return int( shot.size() );
+}
+
 void Tank::CreateShot( const Location& origin )
 {
 	shot.push_back( origin );
@@ -151,7 +153,7 @@ void Tank::DeleteShot( const int i )
 	shot.erase( shot.begin() + i );
 }
 
-bool Tank::IsAlive()
+bool Tank::IsAlive() const
 {
 	return isAlive;
 }

@@ -11,7 +11,7 @@ public:
 	House( const Vec2& in_loc );
 
 	void Draw( Graphics& gfx );
-	bool Collision( Rect& rect ); //TODO  implement Collision with house
+	bool IsColliding( const Rect& obj );
 private:
 	const std::string filename = "house.g";
 	Vec2 loc;

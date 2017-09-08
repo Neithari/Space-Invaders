@@ -3,25 +3,25 @@
 Matrix::Matrix(std::string filename)
 {
 	std::ifstream in(filename);
-	if ( in )
+	if( in )
 	{
 		bool column = true;
-		for ( char c = in.get(); in.good(); c = in.get() )
+		for( char c = in.get(); in.good(); c = in.get() )
 		{
-			if ( c == '\n' )
+			if( c == '\n' )
 			{
 				dim.y++;
 				column = false;
 			}
-			if ( c == '1' )
+			if( c == '1' )
 			{
-				matrix.push_back(true);
+				matrix.push_back( true );
 			}
-			if ( c == '0' )
+			if( c == '0' )
 			{
-				matrix.push_back(false);
+				matrix.push_back( false );
 			}
-			if ( column )
+			if( column )
 			{
 				dim.x++;
 			}
@@ -30,12 +30,12 @@ Matrix::Matrix(std::string filename)
 	}
 }
 
-int Matrix::Index( const int x, const int y )
+int Matrix::Index( const int x, const int y ) const
 {
 	return y*dim.x + x;
 }
 
-Rect Matrix::GetRect()
+void Matrix::setFalse( const int x, const int y )
 {
-	return Rect( dim ); //TODO figure out how to create that rect
+	matrix[Index( x, y )] = false;
 }

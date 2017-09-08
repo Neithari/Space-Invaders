@@ -9,12 +9,10 @@
 class Matrix
 {
 public:
-	Matrix() = default;
 	Matrix( std::string filename );
 
-	int Index( const int x, const int y );
-	Rect GetRect();
-	Rect GetCompleteRect();
+	int Index( const int x, const int y ) const;
+	void setFalse( const int x, const int y );
 public:
 	std::vector<bool> matrix;
 	Vec2 dim = { 0,0 };

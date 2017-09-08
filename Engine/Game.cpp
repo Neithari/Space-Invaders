@@ -77,6 +77,16 @@ void Game::UpdateModel()
 		CollisionTankShot();
 		//Alien shot collision
 		CollisionAlienShot();
+		//check for win
+		if( pAlien->Count() <= 0 )
+		{
+			youWon = true;
+		}
+		//check for loss
+		if( lives <= 0 )
+		{
+			gameOver = true;
+		}
 	}
 	else
 	{
@@ -177,26 +187,56 @@ void Game::RestartGame()
 
 void Game::CollisionTankShot()
 {
-	for ( int i = 0; i < alienRows; i++ )
+	for( int s = 0; s < pTank->GetShotCount(); s++ )
 	{
-		if ( pAlien->Collision( pTank->GetShotLoc( i ),pTank->GetShotDim() ) )
+		bool isCollided = false;
+
+		Location tankShotLoc = pTank->GetShotLoc( s );
+		Dimention tankShotDim = pTank->GetShotDim();
+		Rect tankShot( tankShotLoc,tankShotDim );
+
+		for( int h = 0; h < houseCount; h++ )
 		{
-			pTank->DeleteShot( i );
+			if( pHouse[h]->IsColliding( tankShot ) )
+			{
+				isCollided = true;
+				pTank->DeleteShot( s );
+				break;
+			}
 		}
-	}
-	if ( pAlien->Count() <= 0 )
-	{
-		youWon = true;
+		for( int a = 0; a < alienRows && !isCollided; a++ )
+		{
+			if( pAlien->Collision( tankShotLoc, tankShotDim ) ) //TODO: change collision to rect
+			{
+				pTank->DeleteShot( s );
+				break;
+			}
+		}
 	}
 }
 
 void Game::CollisionAlienShot()
 {
-	if ( lives == livesOld )
+	if( lives == livesOld )
 	{
-		for ( int i = 0; i < alienRows; i++ )
+		for( int i = 0; i < alienShotMax; i++ )
 		{
-			if ( pTank->Collision( pAlien->GetShotLoc( i ),pAlien->GetShotDim() ) )
+			bool isCollided = false;
+
+			const Location alienShotLoc = pAlien->GetShotLoc( i );
+			const Dimention alienShotDim = pAlien->GetShotDim();
+			const Rect alienShot( pAlien->GetShotLoc( i ), pAlien->GetShotDim() );
+			
+			for( int h = 0; h < houseCount; h++ )
+			{
+				if( pHouse[h]->IsColliding( alienShot ) )
+				{
+					isCollided = true;
+					pAlien->DeleteShot( i );
+					break;
+				}
+			}
+			if( pTank->Collision( alienShotLoc, alienShotDim ) && !isCollided ) //TODO: change collision to rect
 			{
 				pAlien->DeleteShot( i );
 				lives--;
@@ -206,7 +246,7 @@ void Game::CollisionAlienShot()
 	}
 	else
 	{
-		if ( deathTimer <= 0.0f )
+		if( deathTimer <= 0.0f )
 		{
 			livesOld = lives;
 			deathTimer = deathTime;
@@ -216,15 +256,11 @@ void Game::CollisionAlienShot()
 			deathTimer -= dt;
 		}
 	}
-	if ( lives <= 0 )
-	{
-		gameOver = true;
-	}
 }
 
 void Game::TankGotHit()
 {
-	if ( (deathTimer < deathTime * 0.75f && deathTimer > deathTime * 0.68f ) ||
+	if( (deathTimer < deathTime * 0.75f && deathTimer > deathTime * 0.68f ) ||
 		(deathTimer < deathTime * 0.5f && deathTimer > deathTime * 0.43f ) ||
 		(deathTimer < deathTime * 0.25f && deathTimer > deathTime * 0.18f ) )
 	{

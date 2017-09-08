@@ -2,6 +2,7 @@
 
 #include "Vec2.h"
 #include "Dimention.h"
+#include "Location.h"
 
 class Rect
 {
@@ -11,6 +12,7 @@ public:
 	Rect( const Vec2& topLeft,const Vec2& bottomRight );
 	Rect( const Vec2& topLeft,int width,int height );
 	Rect( const Vec2& topLeft,const Dimention& dim );
+	Rect( const Location& topLeft, const Dimention& dim );
 	Rect( const Vec2& topLeft,int cube );
 
 	bool IsOverlappingWith( const Rect& other ) const;
@@ -19,6 +21,8 @@ public:
 	static Rect FromCenter( const Vec2& center,int halfWidth,int halfHeight );
 	Rect GetExpanded( int offset ) const;
 	Vec2 GetCenter() const;
+	int GetWidth() const;
+	int GetHeight() const;
 public:
 	int left;
 	int right;

@@ -27,6 +27,12 @@ Rect::Rect( const Vec2& topLeft,const Dimention & dim )
 {
 }
 
+Rect::Rect( const Location & topLeft, const Dimention & dim )
+	:
+	Rect( Vec2( int( topLeft.x ), int( topLeft.y ) ), dim.width, dim.height )
+{
+}
+
 Rect::Rect( const Vec2& topLeft,int cube )
 	:
 	Rect( topLeft,cube,cube )
@@ -64,4 +70,14 @@ Rect Rect::GetExpanded( int offset ) const
 Vec2 Rect::GetCenter() const
 {
 	return Vec2( (left + right) / 2,(top + bottom) / 2 );
+}
+
+int Rect::GetWidth() const
+{
+	return right - left;
+}
+
+int Rect::GetHeight() const
+{
+	return bottom - top;
 }

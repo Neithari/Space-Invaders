@@ -21,12 +21,13 @@ public:
 	const Location& GetLocation() const;
 	void Draw();
 	void Update( const Keyboard& kbd,const float dt );
-	bool Collision( const Location& in_loc,const Dimention& in_dim );
+	bool Collision( const Location& in_loc,const Dimention& in_dim ) const;
 	const Location GetShotLoc( const int i ) const;
 	const Dimention GetShotDim() const;
+	const int GetShotCount() const;
 	void CreateShot( const Location& origin );
 	void DeleteShot( const int i );
-	bool IsAlive();
+	bool IsAlive() const;
 private:
 	void Kill();
 	float ClampToScreen();
