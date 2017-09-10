@@ -47,7 +47,6 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-	float ClampToScreen( const Location& in_loc,const Dimention& in_dim );
 	void RestartGame();
 	void CollisionTankShot();
 	void CollisionAlienShot();

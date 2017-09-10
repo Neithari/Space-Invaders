@@ -142,39 +142,6 @@ void Game::ComposeFrame()
 	}
 }
 
-float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
-{
-	const float left = in_loc.x;
-	const float right = in_loc.x + in_dim.width;
-	const float top = in_loc.y;
-	const float bottom = in_loc.y + in_dim.height;
-
-	if( left < 0 )
-	{
-		return 0.0f;
-	}
-	if( right >= gfx.ScreenWidth )
-	{
-		return gfx.ScreenWidth - float( in_dim.width + 1 );
-	}
-	else
-	{
-		return in_loc.x;
-	}
-	if( top < 0 )
-	{
-		return 0.0f;
-	}
-	if( bottom >= gfx.ScreenHeight )
-	{
-		return gfx.ScreenHeight - float( in_dim.height + 1 );
-	}
-	else
-	{
-		return in_loc.y;
-	}
-}
-
 void Game::RestartGame()
 {
 	gameOver = false;
