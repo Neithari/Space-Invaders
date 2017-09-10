@@ -65,24 +65,37 @@ void Game::UpdateModel()
 	dt = ft.Mark();
 	if( gameStart && !gameOver && !youWon )
 	{
+		//check if tank got hit
 		if( lives == livesOld )
 			{
 				pTank->Update( wnd.kbd,dt );
 				pAlien->Update( dt );
+				//Tank shot collision
+				CollisionTankShot();
+				//Alien shot collision
+				CollisionAlienShot();
+				//check for win
+				if( pAlien->Count() <= 0 )
+				{
+					youWon = true;
+				}
+				//check for loss
+				if( lives <= 0 )
+				{
+					gameOver = true;
+				}
 			}
-		//Tank shot collision
-		CollisionTankShot();
-		//Alien shot collision
-		CollisionAlienShot();
-		//check for win
-		if( pAlien->Count() <= 0 )
+		else //if tank got hit update death time
 		{
-			youWon = true;
-		}
-		//check for loss
-		if( lives <= 0 )
-		{
-			gameOver = true;
+			if( deathTimer <= 0.0f )
+			{
+				livesOld = lives;
+				deathTimer = deathTime;
+			}
+			else
+			{
+				deathTimer -= dt;
+			}
 		}
 	}
 	else
@@ -214,43 +227,28 @@ void Game::CollisionTankShot()
 
 void Game::CollisionAlienShot()
 {
-	if( lives == livesOld )
+	for( int i = 0; i < alienShotMax; i++ )
 	{
-		for( int i = 0; i < alienShotMax; i++ )
-		{
-			bool isCollided = false;
+		bool isCollided = false;
 
-			const Location alienShotLoc = pAlien->GetShotLoc( i );
-			const Dimention alienShotDim = pAlien->GetShotDim();
-			const Rect alienShot( pAlien->GetShotLoc( i ), pAlien->GetShotDim() );
-			
-			for( int h = 0; h < houseCount; h++ )
+		const Location alienShotLoc = pAlien->GetShotLoc( i );
+		const Dimention alienShotDim = pAlien->GetShotDim();
+		const Rect alienShot( pAlien->GetShotLoc( i ), pAlien->GetShotDim() );
+
+		for( int h = 0; h < houseCount; h++ )
+		{
+			if( pHouse[h]->IsColliding( alienShot ) )
 			{
-				if( pHouse[h]->IsColliding( alienShot ) )
-				{
-					isCollided = true;
-					pAlien->DeleteShot( i );
-					break;
-				}
-			}
-			if( pTank->Collision( alienShotLoc, alienShotDim ) && !isCollided ) //TODO: change collision to rect
-			{
+				isCollided = true;
 				pAlien->DeleteShot( i );
-				lives--;
 				break;
 			}
 		}
-	}
-	else
-	{
-		if( deathTimer <= 0.0f )
+		if( pTank->Collision( alienShotLoc, alienShotDim ) && !isCollided ) //TODO: change collision to rect
 		{
-			livesOld = lives;
-			deathTimer = deathTime;
-		}
-		else
-		{
-			deathTimer -= dt;
+			pAlien->DeleteShot( i );
+			lives--;
+			break;
 		}
 	}
 }
