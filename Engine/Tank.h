@@ -7,6 +7,7 @@
 #include "Keyboard.h"
 #include "TankShot.h"
 #include <vector>
+#include "Rect.h"
 
 class Tank
 {
@@ -22,6 +23,7 @@ public:
 	void Draw();
 	void Update( const Keyboard& kbd,const float dt );
 	bool Collision( const Location& in_loc,const Dimention& in_dim ) const;
+	bool Collision( const Rect& obj ) const;
 	const Location GetShotLoc( const int i ) const;
 	const Dimention GetShotDim() const;
 	const int GetShotCount() const;
@@ -35,8 +37,9 @@ private:
 	Graphics& gfx;
 	static constexpr Dimention dim = { 20,18 };
 	static constexpr float speed = 90.0f;
+	const Location startLoc;
+	Location loc;
 	bool rapidShotPrevent = false;
 	std::vector<TankShot> shot;
-	Location loc;
 	bool isAlive = true;
 };

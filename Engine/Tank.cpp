@@ -2,20 +2,23 @@
 
 Tank::Tank( Graphics& gfx )
 	:
-	gfx( gfx )
+	gfx( gfx ),
+	startLoc( 387.0f, 500.0f ),
+	loc( startLoc )
 {
 }
 
 Tank::Tank( Graphics& gfx ,const Location& in_loc )
 	:
 	gfx( gfx ),
-	loc( in_loc )
+	startLoc( in_loc ),
+	loc( startLoc )
 {
 }
 
 void Tank::Restart()
 {
-	loc = { 400.0f,500.0f };
+	loc = startLoc;
 	shot.swap( std::vector<TankShot>() );
 }
 
@@ -117,6 +120,15 @@ bool Tank::Collision( const Location & in_loc,const Dimention & in_dim ) const
 			in_loc.x <= shotright &&
 			objbottom >= loc.y &&
 			in_loc.y <= shotbottom );
+	}
+	return false;
+}
+
+bool Tank::Collision( const Rect & obj ) const
+{
+	if( isAlive )
+	{
+		return Rect( loc, dim ).IsOverlappingWith( obj );
 	}
 	return false;
 }
