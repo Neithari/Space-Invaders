@@ -65,14 +65,11 @@ void Game::UpdateModel()
 	dt = ft.Mark();
 	if( gameStart && !gameOver && !youWon )
 	{
-		if( pTank->IsAlive() )
-		{
-			if( lives == livesOld )
+		if( lives == livesOld )
 			{
 				pTank->Update( wnd.kbd,dt );
 				pAlien->Update( dt );
 			}
-		}
 		//Tank shot collision
 		CollisionTankShot();
 		//Alien shot collision

@@ -25,13 +25,12 @@ public:
 	bool Collision( const Location& in_loc,const Dimention& in_dim ) const;
 	bool Collision( const Rect& obj ) const;
 	const Location GetShotLoc( const int i ) const;
-	const Dimention GetShotDim() const;
+	const Dimention& GetShotDim() const;
+	const Rect GetRect() const;
 	const int GetShotCount() const;
 	void CreateShot( const Location& origin );
 	void DeleteShot( const int i );
-	bool IsAlive() const;
 private:
-	void Kill();
 	float ClampToScreen();
 private:
 	Graphics& gfx;

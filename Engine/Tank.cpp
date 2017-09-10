@@ -35,7 +35,7 @@ const Location& Tank::GetLocation() const
 void Tank::Draw()
 {
 	Sprite::DrawTank( int( loc.x ),int( loc.y ),gfx );
-	for ( int i = 0; i < shot.size(); i++ )
+	for( int i = 0; i < shot.size(); i++ )
 	{
 		shot[i].Draw( gfx );
 	}
@@ -48,11 +48,11 @@ float Tank::ClampToScreen()
 	const float top = loc.y;
 	const float bottom = loc.y + dim.height;
 
-	if ( left < 0 )
+	if( left < 0 )
 	{
 		return 0.0f;
 	}
-	if ( right >= gfx.ScreenWidth )
+	if( right >= gfx.ScreenWidth )
 	{
 		return gfx.ScreenWidth - float( dim.width + 1 );
 	}
@@ -60,11 +60,11 @@ float Tank::ClampToScreen()
 	{
 		return loc.x;
 	}
-	if ( top < 0 )
+	if( top < 0 )
 	{
 		return 0.0f;
 	}
-	if ( bottom >= gfx.ScreenHeight )
+	if( bottom >= gfx.ScreenHeight )
 	{
 		return gfx.ScreenHeight - float( dim.height + 1 );
 	}
@@ -76,26 +76,26 @@ float Tank::ClampToScreen()
 
 void Tank::Update( const Keyboard& kbd,const float dt )
 {
-	for ( int i = 0; i < shot.size(); i++ )
+	for( int i = 0; i < shot.size(); i++ )
 	{
-		if ( shot[i].Update( dt ) )
+		if( shot[i].Update( dt ) )
 		{
 			DeleteShot( i );
 		}
 	}
-	if ( kbd.KeyIsPressed( VK_RIGHT ) )
+	if( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
 		loc.x += speed * dt;
 		loc.x = ClampToScreen();
 	}
-	if ( kbd.KeyIsPressed( VK_LEFT ) )
+	if( kbd.KeyIsPressed( VK_LEFT ) )
 	{
 		loc.x -= speed * dt;
 		loc.x = ClampToScreen();
 	}
-	if ( kbd.KeyIsPressed( VK_SPACE ) )
+	if( kbd.KeyIsPressed( VK_SPACE ) )
 	{
-		if ( !rapidShotPrevent )
+		if( !rapidShotPrevent )
 		{
 			rapidShotPrevent = true;
 			CreateShot( loc );
@@ -109,7 +109,7 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 
 bool Tank::Collision( const Location & in_loc,const Dimention & in_dim ) const
 {
-	if ( isAlive )
+	if( isAlive )
 	{
 		const float objright = in_loc.x + float( in_dim.width );
 		const float objbottom = in_loc.y + float( in_dim.height );
@@ -135,19 +135,24 @@ bool Tank::Collision( const Rect & obj ) const
 
 const Location Tank::GetShotLoc( const int i ) const
 {
-	if ( i < shot.size() )
+	if( i < shot.size() )
 	{
 		return shot[i].GetLoc();
 	}
 	else
 	{
-		return {0,0};
+		return { 0,0 };
 	}
 }
 
-const Dimention Tank::GetShotDim() const
+const Dimention& Tank::GetShotDim() const
 {
 	return TankShot::GetDim();
+}
+
+const Rect Tank::GetRect() const
+{
+	return Rect( loc, dim );
 }
 
 const int Tank::GetShotCount() const
@@ -157,20 +162,10 @@ const int Tank::GetShotCount() const
 
 void Tank::CreateShot( const Location& origin )
 {
-	shot.push_back( origin );
+	shot.emplace_back( origin );
 }
 
 void Tank::DeleteShot( const int i )
 {
 	shot.erase( shot.begin() + i );
-}
-
-bool Tank::IsAlive() const
-{
-	return isAlive;
-}
-
-void Tank::Kill()
-{
-	isAlive = false;
 }
