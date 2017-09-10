@@ -157,8 +157,8 @@ void Game::RestartGame()
 		pHouse[i] = new House( loc );
 		loc.x += 100;
 	}
-	lives = 3;
-	livesOld = 3;
+	lives = startLives;
+	livesOld = startLives;
 	youWon = false;
 }
 

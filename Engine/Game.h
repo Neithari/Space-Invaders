@@ -63,6 +63,7 @@ private:
 	std::uniform_real_distribution<float> yDist;
 	static constexpr int houseCount = 5;
 	static constexpr int tankShotMax = 30;
+	static constexpr int startLives = 3;
 	static constexpr int alienShotMax = 15;
 	static constexpr int alienShotChance = 5;
 	static constexpr int alienRows = 15;
@@ -74,8 +75,8 @@ private:
 	bool gameStart = false;
 	bool gameOver = false;
 	bool youWon = false;
-	int lives = 3;
-	int livesOld = 3;
+	int lives = startLives;
+	int livesOld = startLives;
 	//Timing
 	static constexpr float deathTime = 2.5f;
 	FrameTime ft;
