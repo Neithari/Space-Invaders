@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "Location.h"
 #include "Dimention.h"
+#include "Rect.h"
 
 class TankShot
 {

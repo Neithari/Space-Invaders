@@ -26,7 +26,8 @@ public:
 	bool Collision( const Rect& obj ) const;
 	const Location GetShotLoc( const int i ) const;
 	const Dimention& GetShotDim() const;
-	const Rect GetRect() const;
+	const Rect GetShotRect( const int i ) const;
+	const Rect GetTankRect() const;
 	const int GetShotCount() const;
 	void CreateShot( const Location& origin );
 	void DeleteShot( const int i );

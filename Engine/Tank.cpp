@@ -150,7 +150,12 @@ const Dimention& Tank::GetShotDim() const
 	return TankShot::GetDim();
 }
 
-const Rect Tank::GetRect() const
+const Rect Tank::GetShotRect( const int i ) const
+{
+	return Rect( GetShotLoc( i ), GetShotDim() );
+}
+
+const Rect Tank::GetTankRect() const
 {
 	return Rect( loc, dim );
 }
