@@ -8,12 +8,12 @@
 class House
 {
 public:
-	House( const Vec2& in_loc );
+	House( const Vec2<int>& in_loc );
 
 	void Draw( Graphics& gfx );
 	bool IsColliding( const Rect& obj );
 private:
 	const std::string filename = "house.g";
-	Vec2 loc;
+	Vec2<int> loc;
 	PixelArt house;
 };

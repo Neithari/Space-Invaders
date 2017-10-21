@@ -1,6 +1,6 @@
 #include "PixelArt.h"
 
-PixelArt::PixelArt( Vec2& loc,std::string filename )
+PixelArt::PixelArt( Vec2<int>& loc,std::string filename )
 	:
 	filename( filename ),
 	matrix( filename ),
@@ -11,7 +11,7 @@ PixelArt::PixelArt( Vec2& loc,std::string filename )
 
 void PixelArt::Draw( Graphics& gfx )
 {
-	Vec2 mLoc = loc;
+	Vec2<int> mLoc = loc;
 	for( int y = 0; y < matrix.dim.y; y++ )
 	{
 		for( int x = 0; x < matrix.dim.x; x++ )
@@ -47,7 +47,7 @@ bool PixelArt::Collision( const Rect& obj )
 				if( matrix.matrix[matrix.Index( x, y )] )
 				{
 					//check if position is colliding with the object
-					if( Rect( Vec2( loc.x + x, loc.y + y ), pixelSize ).IsOverlappingWith( obj ) )
+					if( Rect( Vec2<int>( loc.x + x, loc.y + y ), pixelSize ).IsOverlappingWith( obj ) )
 					{
 						collided = true;
 						matrix.setFalse( x, y );
@@ -76,7 +76,7 @@ void PixelArt::DrawPixel( Rect& rect,Graphics & gfx )
 
 Rect PixelArt::GetRect( int x, int y ) const
 {
-	return Rect( Vec2( x,y ), pixelSize );
+	return Rect( Vec2<int>( x,y ), pixelSize );
 }
 
 Rect PixelArt::GetFullRect() const

@@ -15,5 +15,5 @@ public:
 	void setFalse( const int x, const int y );
 public:
 	std::vector<bool> matrix;
-	Vec2 dim = { 0,0 };
+	Vec2<int> dim = { 0,0 };
 };

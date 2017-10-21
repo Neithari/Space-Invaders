@@ -9,7 +9,7 @@
 class PixelArt
 {
 public:
-	PixelArt( Vec2& loc, std::string filename );
+	PixelArt( Vec2<int>& loc, std::string filename );
 
 	void Draw( Graphics& gfx );
 	const Matrix& GetMatrix() const;
@@ -22,7 +22,7 @@ private:
 	static constexpr int pixelSize = 1;
 	std::string filename;
 	Matrix matrix;
-	Vec2 dim;
-	Vec2 loc;
+	Vec2<int> dim;
+	Vec2<int> loc;
 	Color c = { 255,255,255 };
 };

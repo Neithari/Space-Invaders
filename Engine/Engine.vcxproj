@@ -191,7 +191,6 @@
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankShot.cpp" />
     <ClCompile Include="FrameTime.cpp" />
-    <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

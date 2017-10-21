@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
 	pTank( new Tank( gfx, tankStartLoc ) ),
 	pAlien( new Alien( gfx, alienShotMax, alienShotChance ) )
 {
-	Vec2 loc = houseStartLoc;
+	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
 	{
 		pHouse[i] = new House( loc );
@@ -150,7 +150,7 @@ void Game::RestartGame()
 	pAlien = new Alien( gfx, alienShotMax, alienShotChance );
 	delete pTank;
 	pTank = new Tank( gfx, tankStartLoc );
-	Vec2 loc = houseStartLoc;
+	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
 	{
 		delete pHouse[i];

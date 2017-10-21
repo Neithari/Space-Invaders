@@ -1,6 +1,6 @@
 #include "House.h"
 
-House::House(const Vec2& in_loc)
+House::House(const Vec2<int>& in_loc)
 	:
 	loc( in_loc ),
 	house( loc,filename )
