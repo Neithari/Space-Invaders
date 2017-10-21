@@ -168,7 +168,7 @@ void Game::CollisionTankShot()
 	{
 		bool isCollided = false;
 
-		Location tankShotLoc = pTank->GetShotLoc( s );
+		Vec2<float> tankShotLoc = pTank->GetShotLoc( s );
 		Dimention tankShotDim = pTank->GetShotDim();
 		Rect tankShot( tankShotLoc,tankShotDim );
 
@@ -198,7 +198,7 @@ void Game::CollisionAlienShot()
 	{
 		bool isCollided = false;
 
-		const Location alienShotLoc = pAlien->GetShotLoc( i );
+		const Vec2<float> alienShotLoc = pAlien->GetShotLoc( i );
 		const Dimention alienShotDim = pAlien->GetShotDim();
 		const Rect alienShot( pAlien->GetShotLoc( i ), pAlien->GetShotDim() );
 

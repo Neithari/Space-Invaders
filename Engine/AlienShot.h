@@ -2,7 +2,7 @@
 
 #include "Graphics.h"
 #include "Sprite.h"
-#include "Location.h"
+#include "Vec2.h"
 #include "Dimention.h"
 
 class AlienShot
@@ -10,12 +10,12 @@ class AlienShot
 public:
 	AlienShot();
 	void Draw( Graphics& gfx );
-	void Init( const Location in_loc,const Dimention in_dim );
+	void Init( const Vec2<float> in_loc,const Dimention in_dim );
 	void Update( const float dt );
 	//bool Colliding( const Tank& tank);
 	bool IsAlive() const;
 	void Kill();
-	const Location GetLoc() const;
+	const Vec2<float> GetLoc() const;
 	const Dimention& GetDim() const;
 
 private:
@@ -25,7 +25,7 @@ private:
 	static constexpr int toggleTime = 15;
 	int toggleIndex = 0;
 	float vShot = 120.0f;
-	Location loc;
+	Vec2<float> loc;
 	bool isAlive = false;
 	bool toggle = true;
 };

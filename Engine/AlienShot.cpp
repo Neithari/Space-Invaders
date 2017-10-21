@@ -40,7 +40,7 @@ void AlienShot::Draw( Graphics & gfx )
 	}
 }
 
-void AlienShot::Init( const Location in_loc,const Dimention in_dim )
+void AlienShot::Init( const Vec2<float> in_loc,const Dimention in_dim )
 {
 	if ( !isAlive )
 	{
@@ -72,7 +72,7 @@ void AlienShot::Kill()
 	isAlive = false;
 }
 
-const Location AlienShot::GetLoc() const
+const Vec2<float> AlienShot::GetLoc() const
 {
 	if ( isAlive )
 	{

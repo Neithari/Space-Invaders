@@ -1,6 +1,6 @@
 #include "TankShot.h"
 
-TankShot::TankShot( Location in_loc )
+TankShot::TankShot( Vec2<float> in_loc )
 	:
 	loc( in_loc )
 {
@@ -25,7 +25,7 @@ bool TankShot::Update( const float dt )
 	}
 }
 
-const Location & TankShot::GetLoc() const
+const Vec2<float> & TankShot::GetLoc() const
 {
 	return loc;
 }

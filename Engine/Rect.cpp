@@ -27,7 +27,7 @@ Rect::Rect( const Vec2<int>& topLeft,const Dimention & dim )
 {
 }
 
-Rect::Rect( const Location & topLeft, const Dimention & dim )
+Rect::Rect( const Vec2<float> & topLeft, const Dimention & dim )
 	:
 	Rect( Vec2<int>( int( topLeft.x ), int( topLeft.y ) ), dim.width, dim.height )
 {

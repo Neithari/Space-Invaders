@@ -1,6 +1,6 @@
 #pragma once
 #include "Graphics.h"
-#include "Location.h"
+#include "Vec2.h"
 
 class Sprite
 {

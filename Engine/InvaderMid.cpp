@@ -1,6 +1,6 @@
 #include "InvaderMid.h"
 
-void InvaderMid::Draw( Graphics& gfx,const Location& in_loc )
+void InvaderMid::Draw( Graphics& gfx,const Vec2<float>& in_loc )
 {
 	loc = in_loc;
 	if ( isAlive )
@@ -38,12 +38,12 @@ Dimention InvaderMid::GetDim() const
 	return dim;
 }
 
-Location InvaderMid::GetLoc() const
+Vec2<float> InvaderMid::GetLoc() const
 {
 	return loc;
 }
 
-void InvaderMid::Init( const Location& in_loc )
+void InvaderMid::Init( const Vec2<float>& in_loc )
 {
 	if ( !isAlive )
 	{
@@ -52,7 +52,7 @@ void InvaderMid::Init( const Location& in_loc )
 	}
 }
 
-void InvaderMid::Collision( const Location& in_loc,const Dimention& in_dim )
+void InvaderMid::Collision( const Vec2<float>& in_loc,const Dimention& in_dim )
 {
 	if ( isAlive )
 	{

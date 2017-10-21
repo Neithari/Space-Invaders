@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Location.h"
+#include "Vec2.h"
 #include "Dimention.h"
 #include "InvaderBig.h"
 #include "InvaderMid.h"
@@ -17,13 +17,13 @@ public:
 	void Restart();
 	void Draw();
 	void Update( const float dt );
-	bool Collision( const Location& in_loc,const Dimention& in_dim );
-	const Location GetShotLoc( const int i ) const;
+	bool Collision( const Vec2<float>& in_loc,const Dimention& in_dim );
+	const Vec2<float> GetShotLoc( const int i ) const;
 	const Dimention& GetShotDim() const;
 	void DeleteShot( const int i );
 	int Count();
 private:
-	bool OutsideBorder( const Location & in_loc,const Dimention & in_dim );
+	bool OutsideBorder( const Vec2<float> & in_loc,const Dimention & in_dim );
 private:
 	Graphics& gfx;
 	std::random_device rd;
@@ -35,7 +35,7 @@ private:
 	static constexpr int n_mid = 30;
 	static constexpr int n_big = 30;
 	Dimention dim;
-	Location loc = { 50,50 };
+	Vec2<float> loc = { 50,50 };
 	static constexpr int alienSpacing = 10;
 	int count_small = n_small;
 	int count_mid = n_mid;
@@ -46,7 +46,7 @@ private:
 	const int shotMax;
 	std::vector<AlienShot> shot;
 	bool columnClean[15] = {};
-	Location delta_loc = { float(alienSpacing),0 };
+	Vec2<float> delta_loc = { float(alienSpacing),0 };
 	//Timing
 	float moveSpeed = 1.0f;
 	float moveTime = 0.0f;

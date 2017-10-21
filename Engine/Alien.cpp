@@ -18,7 +18,7 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance )
 	//small
 	Dimention i_dim = invaderSmall[0].GetDim();
 	Dimention iBig_dim = invaderBig[0].GetDim();
-	Location d_loc = loc;
+	Vec2<float> d_loc = loc;
 	float align = float( iBig_dim.width / 2 - i_dim.width / 2 );
 	d_loc.x += align;
 	invaderSmall[0].Init( d_loc );
@@ -77,7 +77,7 @@ void Alien::Restart()
 	//small
 	Dimention i_dim = invaderSmall[0].GetDim();
 	Dimention iBig_dim = invaderBig[0].GetDim();
-	Location d_loc = loc;
+	Vec2<float> d_loc = loc;
 	float align = float( iBig_dim.width / 2 - i_dim.width / 2 );
 	d_loc.x += align;
 	invaderSmall[0].Init( d_loc );
@@ -149,7 +149,7 @@ void Alien::Draw()
 	//small
 	Dimention i_dim = invaderSmall[0].GetDim();
 	Dimention iBig_dim = invaderBig[0].GetDim();
-	Location d_loc = loc;
+	Vec2<float> d_loc = loc;
 	float align = float( iBig_dim.width / 2 - i_dim.width / 2 );
 	d_loc.x += align;
 	invaderSmall[0].Draw( gfx,d_loc );
@@ -212,7 +212,7 @@ void Alien::Update( const float dt )
 	//Move invader
 	if ( moveTime >= moveSpeed )
 	{
-		Location new_loc = loc;
+		Vec2<float> new_loc = loc;
 		new_loc += delta_loc;
 		if ( OutsideBorder( new_loc,dim ) )
 		{
@@ -242,7 +242,7 @@ void Alien::Update( const float dt )
 			if( !shot[i].IsAlive() )
 			{
 				//Get bottom Alien
-				Location shotLoc;
+				Vec2<float> shotLoc;
 				Dimention shotDim;
 				if( invaderBig[loc + 15].IsAlive() )
 				{
@@ -291,7 +291,7 @@ void Alien::Update( const float dt )
 	}
 }
 
-bool Alien::Collision( const Location& in_loc,const Dimention& in_dim )
+bool Alien::Collision( const Vec2<float>& in_loc,const Dimention& in_dim )
 {
 	for ( int i = 0; i < n_small; i++ )
 	{
@@ -332,7 +332,7 @@ bool Alien::Collision( const Location& in_loc,const Dimention& in_dim )
 	return false;
 }
 
-const Location Alien::GetShotLoc( const int i ) const
+const Vec2<float> Alien::GetShotLoc( const int i ) const
 {
 	return shot[i].GetLoc();
 }
@@ -352,7 +352,7 @@ int Alien::Count()
 	return count_small + count_mid + count_big;
 }
 
-bool Alien::OutsideBorder( const Location & in_loc,const Dimention & in_dim )
+bool Alien::OutsideBorder( const Vec2<float> & in_loc,const Dimention & in_dim )
 {
 	const float left = in_loc.x;
 	const float right = in_loc.x + in_dim.width;

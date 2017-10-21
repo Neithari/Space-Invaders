@@ -8,7 +8,7 @@ Tank::Tank( Graphics& gfx )
 {
 }
 
-Tank::Tank( Graphics& gfx ,const Location& in_loc )
+Tank::Tank( Graphics& gfx ,const Vec2<float>& in_loc )
 	:
 	gfx( gfx ),
 	startLoc( in_loc ),
@@ -27,7 +27,7 @@ const Dimention& Tank::GetDimention() const
 	return dim;
 }
 
-const Location& Tank::GetLocation() const
+const Vec2<float>& Tank::GetLocation() const
 {
 	return loc;
 }
@@ -107,7 +107,7 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 	}
 }
 
-bool Tank::Collision( const Location & in_loc,const Dimention & in_dim ) const
+bool Tank::Collision( const Vec2<float> & in_loc,const Dimention & in_dim ) const
 {
 	if( isAlive )
 	{
@@ -133,7 +133,7 @@ bool Tank::Collision( const Rect & obj ) const
 	return false;
 }
 
-const Location Tank::GetShotLoc( const int i ) const
+const Vec2<float> Tank::GetShotLoc( const int i ) const
 {
 	if( i < shot.size() )
 	{
@@ -165,7 +165,7 @@ const int Tank::GetShotCount() const
 	return int( shot.size() );
 }
 
-void Tank::CreateShot( const Location& origin )
+void Tank::CreateShot( const Vec2<float>& origin )
 {
 	shot.emplace_back( origin );
 }

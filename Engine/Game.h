@@ -23,7 +23,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Location.h"
+#include "Vec2.h"
 #include "Dimention.h"
 #include <random>
 #include <assert.h>
@@ -67,7 +67,7 @@ private:
 	static constexpr int alienShotMax = 15;
 	static constexpr int alienShotChance = 5;
 	static constexpr int alienRows = 15;
-	static constexpr Location tankStartLoc = { 387.0f,500.0f };
+	const Vec2<float> tankStartLoc = { 387.0f,500.0f };
 	const Vec2<int> houseStartLoc = Vec2<int>( 180,465 );
 	Tank* pTank = nullptr;
 	Alien* pAlien = nullptr;

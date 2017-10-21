@@ -3,20 +3,20 @@
 #include "Graphics.h"
 #include "Sprite.h"
 #include "Dimention.h"
-#include "Location.h"
+#include "Vec2.h"
 
 class InvaderBig
 {
 public:
-	void Draw( Graphics& gfx,const Location& in_loc );
+	void Draw( Graphics& gfx,const Vec2<float>& in_loc );
 	bool IsAlive() const;
 	Dimention GetDim() const;
-	Location GetLoc() const;
-	void Init( const Location& in_loc );
-	void Collision( const Location& in_loc,const Dimention& in_dim );
+	Vec2<float> GetLoc() const;
+	void Init( const Vec2<float>& in_loc );
+	void Collision( const Vec2<float>& in_loc,const Dimention& in_dim );
 private:
 	static constexpr Dimention dim = { 24,16 };
-	Location loc;
+	Vec2<float> loc;
 	bool isAlive = false;
 	static constexpr int toggleTime = 60;
 	int toggleIndex = 0;

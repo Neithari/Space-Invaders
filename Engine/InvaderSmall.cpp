@@ -1,6 +1,6 @@
 #include "InvaderSmall.h"
 
-void InvaderSmall::Draw( Graphics& gfx,const Location& in_loc )
+void InvaderSmall::Draw( Graphics& gfx,const Vec2<float>& in_loc )
 {
 	loc = in_loc;
 	if ( isAlive )
@@ -38,12 +38,12 @@ Dimention InvaderSmall::GetDim() const
 	return dim;
 }
 
-Location InvaderSmall::GetLoc() const
+Vec2<float> InvaderSmall::GetLoc() const
 {
 	return loc;
 }
 
-void InvaderSmall::Init( const Location& in_loc )
+void InvaderSmall::Init( const Vec2<float>& in_loc )
 {
 	if ( !isAlive )
 	{
@@ -52,7 +52,7 @@ void InvaderSmall::Init( const Location& in_loc )
 	}
 }
 
-void InvaderSmall::Collision( const Location& in_loc,const Dimention& in_dim )
+void InvaderSmall::Collision( const Vec2<float>& in_loc,const Dimention& in_dim )
 {
 	if ( isAlive )
 	{
