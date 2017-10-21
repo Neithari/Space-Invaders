@@ -3,7 +3,7 @@
 #include "Graphics.h"
 #include "Sprite.h"
 #include "Vec2.h"
-#include "Dimention.h"
+#include "Vec2.h"
 #include "Keyboard.h"
 #include "TankShot.h"
 #include <vector>
@@ -18,16 +18,16 @@ public:
 	Tank& operator=( const Tank& ) = delete;
 
 	void Restart();
-	const Dimention& GetDimention() const;
+	const Vec2<int>& GetDimention() const;
 	const Vec2<float>& GetLocation() const;
 	void Draw();
 	void Update( const Keyboard& kbd,const float dt );
-	bool Collision( const Vec2<float>& in_loc,const Dimention& in_dim ) const;
-	bool Collision( const Rect& obj ) const;
+	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim ) const;
+	bool Collision( const Rect<int>& obj ) const;
 	const Vec2<float> GetShotLoc( const int i ) const;
-	const Dimention& GetShotDim() const;
-	const Rect GetShotRect( const int i ) const;
-	const Rect GetTankRect() const;
+	const Vec2<int>& GetShotDim() const;
+	const Rect<int> GetShotRect( const int i ) const;
+	const Rect<int> GetTankRect() const;
 	const int GetShotCount() const;
 	void CreateShot( const Vec2<float>& origin );
 	void DeleteShot( const int i );
@@ -35,7 +35,7 @@ private:
 	float ClampToScreen();
 private:
 	Graphics& gfx;
-	static constexpr Dimention dim = { 20,18 };
+	static constexpr Vec2<int> dim = { 20,18 };
 	static constexpr float speed = 90.0f;
 	const Vec2<float> startLoc;
 	Vec2<float> loc;

@@ -12,7 +12,7 @@ void House::Draw( Graphics& gfx )
 	house.Draw( gfx );
 }
 
-bool House::IsColliding( const Rect& obj )
+bool House::IsColliding( const Rect<int>& obj )
 {
 	return house.Collision( obj );
 }

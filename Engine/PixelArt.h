@@ -13,11 +13,11 @@ public:
 
 	void Draw( Graphics& gfx );
 	const Matrix& GetMatrix() const;
-	bool Collision( const Rect& obj);
+	bool Collision( const Rect<int>& obj);
 private:
-	void DrawPixel( Rect& rect, Graphics& gfx );
-	Rect GetRect( int x, int y ) const;
-	Rect GetFullRect() const;
+	void DrawPixel( Rect<int>& rect, Graphics& gfx );
+	Rect<int> GetRect( int x, int y ) const;
+	Rect<int> GetFullRect() const;
 private:
 	static constexpr int pixelSize = 1;
 	std::string filename;

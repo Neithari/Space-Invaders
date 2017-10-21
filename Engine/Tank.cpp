@@ -22,7 +22,7 @@ void Tank::Restart()
 	shot.swap( std::vector<TankShot>() );
 }
 
-const Dimention& Tank::GetDimention() const
+const Vec2<int>& Tank::GetDimention() const
 {
 	return dim;
 }
@@ -44,9 +44,9 @@ void Tank::Draw()
 float Tank::ClampToScreen()
 {
 	const float left = loc.x;
-	const float right = loc.x + dim.width;
+	const float right = loc.x + dim.x;
 	const float top = loc.y;
-	const float bottom = loc.y + dim.height;
+	const float bottom = loc.y + dim.y;
 
 	if( left < 0 )
 	{
@@ -54,7 +54,7 @@ float Tank::ClampToScreen()
 	}
 	if( right >= gfx.ScreenWidth )
 	{
-		return gfx.ScreenWidth - float( dim.width + 1 );
+		return gfx.ScreenWidth - float( dim.x + 1 );
 	}
 	else
 	{
@@ -66,7 +66,7 @@ float Tank::ClampToScreen()
 	}
 	if( bottom >= gfx.ScreenHeight )
 	{
-		return gfx.ScreenHeight - float( dim.height + 1 );
+		return gfx.ScreenHeight - float( dim.y + 1 );
 	}
 	else
 	{
@@ -107,14 +107,14 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 	}
 }
 
-bool Tank::Collision( const Vec2<float> & in_loc,const Dimention & in_dim ) const
+bool Tank::Collision( const Vec2<float> & in_loc,const Vec2<int>& in_dim ) const
 {
 	if( isAlive )
 	{
-		const float objright = in_loc.x + float( in_dim.width );
-		const float objbottom = in_loc.y + float( in_dim.height );
-		const float shotright = loc.x + float( dim.width );
-		const float shotbottom = loc.y + float( dim.height );
+		const float objright = in_loc.x + float( in_dim.x );
+		const float objbottom = in_loc.y + float( in_dim.y );
+		const float shotright = loc.x + float( dim.x );
+		const float shotbottom = loc.y + float( dim.y );
 
 		return ( objright >= loc.x &&
 			in_loc.x <= shotright &&
@@ -124,11 +124,11 @@ bool Tank::Collision( const Vec2<float> & in_loc,const Dimention & in_dim ) cons
 	return false;
 }
 
-bool Tank::Collision( const Rect & obj ) const
+bool Tank::Collision( const Rect<int>& obj ) const
 {
 	if( isAlive )
 	{
-		return Rect( loc, dim ).IsOverlappingWith( obj );
+		return Rect<int>( (Vec2<int>)loc, dim.x, dim.y ).IsOverlappingWith( obj );
 	}
 	return false;
 }
@@ -145,19 +145,19 @@ const Vec2<float> Tank::GetShotLoc( const int i ) const
 	}
 }
 
-const Dimention& Tank::GetShotDim() const
+const Vec2<int>& Tank::GetShotDim() const
 {
 	return TankShot::GetDim();
 }
 
-const Rect Tank::GetShotRect( const int i ) const
+const Rect<int> Tank::GetShotRect( const int i ) const
 {
-	return Rect( GetShotLoc( i ), GetShotDim() );
+	return Rect<int>( (Vec2<int>)GetShotLoc( i ), GetShotDim() );
 }
 
-const Rect Tank::GetTankRect() const
+const Rect<int> Tank::GetTankRect() const
 {
-	return Rect( loc, dim );
+	return Rect<int>( (Vec2<int>)loc, dim );
 }
 
 const int Tank::GetShotCount() const

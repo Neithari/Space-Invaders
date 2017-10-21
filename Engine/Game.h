@@ -24,7 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Vec2.h"
-#include "Dimention.h"
+#include "Vec2.h"
 #include <random>
 #include <assert.h>
 #include "Sprite.h"

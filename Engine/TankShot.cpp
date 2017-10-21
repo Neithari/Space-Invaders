@@ -30,7 +30,7 @@ const Vec2<float> & TankShot::GetLoc() const
 	return loc;
 }
 
-const Dimention & TankShot::GetDim()
+const Vec2<int>& TankShot::GetDim()
 {
 	return dim;
 }

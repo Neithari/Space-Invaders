@@ -18,7 +18,7 @@ void PixelArt::Draw( Graphics& gfx )
 		{
 			if( matrix.matrix[matrix.Index(x, y)] )
 			{
-				DrawPixel( Rect( mLoc, pixelSize ), gfx );
+				DrawPixel( Rect<int>( mLoc, pixelSize ), gfx );
 			}
 			mLoc.x += pixelSize;
 		}
@@ -32,7 +32,7 @@ const Matrix& PixelArt::GetMatrix() const
 	return matrix;
 }
 
-bool PixelArt::Collision( const Rect& obj )
+bool PixelArt::Collision( const Rect<int>& obj )
 {
 	//check if it's a hit in general
 	if( GetFullRect().IsOverlappingWith( obj ) )
@@ -47,7 +47,7 @@ bool PixelArt::Collision( const Rect& obj )
 				if( matrix.matrix[matrix.Index( x, y )] )
 				{
 					//check if position is colliding with the object
-					if( Rect( Vec2<int>( loc.x + x, loc.y + y ), pixelSize ).IsOverlappingWith( obj ) )
+					if( Rect<int>( Vec2<int>( loc.x + x, loc.y + y ), pixelSize ).IsOverlappingWith( obj ) )
 					{
 						collided = true;
 						matrix.setFalse( x, y );
@@ -63,7 +63,7 @@ bool PixelArt::Collision( const Rect& obj )
 	}
 }
 
-void PixelArt::DrawPixel( Rect& rect,Graphics & gfx )
+void PixelArt::DrawPixel( Rect<int>& rect,Graphics & gfx )
 {
 	for( int y = rect.top; y < rect.bottom; y++ )
 	{
@@ -74,12 +74,14 @@ void PixelArt::DrawPixel( Rect& rect,Graphics & gfx )
 	}
 }
 
-Rect PixelArt::GetRect( int x, int y ) const
+Rect<int> PixelArt::GetRect( int x, int y ) const
 {
-	return Rect( Vec2<int>( x,y ), pixelSize );
+	return Rect<int>( Vec2<int>( x,y ), pixelSize );
 }
 
-Rect PixelArt::GetFullRect() const
+Rect<int> PixelArt::GetFullRect() const
 {
-	return Rect( loc, dim.x, dim.y );
+	int width = dim.x;
+	int height = dim.y;
+	return Rect<int>( loc, width, height );
 }

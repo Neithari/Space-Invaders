@@ -2,7 +2,7 @@
 
 #include "Graphics.h"
 #include "Vec2.h"
-#include "Dimention.h"
+#include "Vec2.h"
 #include "InvaderBig.h"
 #include "InvaderMid.h"
 #include "InvaderSmall.h"
@@ -17,13 +17,13 @@ public:
 	void Restart();
 	void Draw();
 	void Update( const float dt );
-	bool Collision( const Vec2<float>& in_loc,const Dimention& in_dim );
+	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim );
 	const Vec2<float> GetShotLoc( const int i ) const;
-	const Dimention& GetShotDim() const;
+	const Vec2<int>& GetShotDim() const;
 	void DeleteShot( const int i );
 	int Count();
 private:
-	bool OutsideBorder( const Vec2<float> & in_loc,const Dimention & in_dim );
+	bool OutsideBorder( const Vec2<float> & in_loc,const Vec2<int> & in_dim );
 private:
 	Graphics& gfx;
 	std::random_device rd;
@@ -34,7 +34,7 @@ private:
 	static constexpr int n_small = 15;
 	static constexpr int n_mid = 30;
 	static constexpr int n_big = 30;
-	Dimention dim;
+	Vec2<int> dim;
 	Vec2<float> loc = { 50,50 };
 	static constexpr int alienSpacing = 10;
 	int count_small = n_small;

@@ -40,12 +40,12 @@ void AlienShot::Draw( Graphics & gfx )
 	}
 }
 
-void AlienShot::Init( const Vec2<float> in_loc,const Dimention in_dim )
+void AlienShot::Init( const Vec2<float> in_loc,const Vec2<int> in_dim )
 {
 	if ( !isAlive )
 	{
 		loc = in_loc;
-		loc += { float( in_dim.width ) / 2.0f - 1.0f,13 };
+		loc += { float( in_dim.x ) / 2.0f - 1.0f,13 };
 		isAlive = true;
 	}
 }
@@ -55,7 +55,7 @@ void AlienShot::Update( const float dt )
 	if ( isAlive )
 	{
 		loc.y += vShot * dt;
-		if ( loc.y + dim.height >= screenHeight )
+		if ( loc.y + dim.y >= screenHeight )
 		{
 			isAlive = false;
 		}
@@ -84,7 +84,7 @@ const Vec2<float> AlienShot::GetLoc() const
 	}
 }
 
-const Dimention & AlienShot::GetDim() const
+const Vec2<int>& AlienShot::GetDim() const
 {
 	return dim;
 }

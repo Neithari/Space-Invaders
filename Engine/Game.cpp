@@ -169,8 +169,8 @@ void Game::CollisionTankShot()
 		bool isCollided = false;
 
 		Vec2<float> tankShotLoc = pTank->GetShotLoc( s );
-		Dimention tankShotDim = pTank->GetShotDim();
-		Rect tankShot( tankShotLoc,tankShotDim );
+		Vec2<int> tankShotDim = pTank->GetShotDim();
+		Rect<int> tankShot( (Vec2<int>)tankShotLoc,tankShotDim.x,tankShotDim.y );
 
 		for( int h = 0; h < houseCount; h++ )
 		{
@@ -199,8 +199,8 @@ void Game::CollisionAlienShot()
 		bool isCollided = false;
 
 		const Vec2<float> alienShotLoc = pAlien->GetShotLoc( i );
-		const Dimention alienShotDim = pAlien->GetShotDim();
-		const Rect alienShot( pAlien->GetShotLoc( i ), pAlien->GetShotDim() );
+		const Vec2<int> alienShotDim = pAlien->GetShotDim();
+		const Rect<int> alienShot( (Vec2<int>)alienShotLoc, alienShotDim.x, alienShotDim.y );
 
 		for( int h = 0; h < houseCount; h++ )
 		{
