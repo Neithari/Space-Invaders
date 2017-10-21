@@ -66,12 +66,12 @@ public:
 
 	T GetLength() const
 	{
-		return (T)std::sqrt( GetLengthSq() );
+		return T( std::sqrt( GetLengthSq() ) );
 	}
 
 	T GetLengthSq() const
 	{
-		return x * x + y * y;
+		return T( x * x + y * y );
 	}
 public:
 	T x;

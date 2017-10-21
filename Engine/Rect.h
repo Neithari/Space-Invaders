@@ -33,7 +33,7 @@ public:
 	template<typename C>
 	Rect( const Vec2<T>& topLeft, C cube )
 		:
-		Rect( topLeft, cube, cube )
+		Rect( topLeft, (T)cube, (T)cube )
 	{
 	}
 
@@ -49,22 +49,23 @@ public:
 			top >= other.top && bottom <= other.bottom;
 	}
 
-	bool Contains( const Vec2<T>& point ) const
+	template<typename C>
+	bool Contains( const Vec2<C>& point ) const
 	{
-		return point.x >= left && point.x < right && point.y >= top && point.y < bottom;
+		return (T)point.x >= left && (T)point.x < right && (T)point.y >= top && (T)point.y < bottom;
 	}
 
 	template<typename C>
 	Rect FromCenter( const Vec2<T>& center, C halfWidth, C halfHeight )
 	{
-		const Vec2<T> half( halfWidth, halfHeight );
+		const Vec2<T> half( (T)halfWidth, (T)halfHeight );
 		return Rect( center - half, center + half );
 	}
 
 	template<typename C>
 	Rect GetExpanded( C offset ) const
 	{
-		return Rect( left - offset, right + offset, top - offset, bottom + offset );
+		return Rect( left - (T)offset, right + (T)offset, top - (T)offset, bottom + (T)offset );
 	}
 
 	Vec2<T> GetCenter() const
