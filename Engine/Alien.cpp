@@ -9,6 +9,10 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance )
 	shotDist( 0,14 ),
 	shotChance( shotChance )
 {
+	//reserve space
+	invaderSmall.reserve( n_small );
+	invaderMid.reserve( n_mid );
+	invaderBig.reserve( n_big );
 	//prepare shot
 	shot.reserve( shotMax );
 	for( int i = 0; i < shotMax; i++ )
@@ -16,142 +20,64 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance )
 		shot.emplace_back();
 	}
 	//small
-	Vec2<int> i_dim = invaderSmall[0].GetDim();
-	Vec2<int> iBig_dim = invaderBig[0].GetDim();
+	Vec2<int> i_dim = dimSmall;
+	Vec2<int> iBig_dim = dimBig;
 	Vec2<float> d_loc = loc;
 	float align = float( iBig_dim.x / 2 - i_dim.x / 2 );
 	d_loc.x += align;
-	invaderSmall[0].Init( d_loc );
+	invaderSmall.emplace_back( d_loc, Invader::InvaderType::InvaderSmall );
 	for ( int i = 1; i < n_small; i++ )
 	{
 		d_loc.x += iBig_dim.x + alienSpacing;
-		invaderSmall[i].Init( d_loc );
+		invaderSmall.emplace_back( d_loc, Invader::InvaderType::InvaderSmall );
 	}
 	//mid
-	i_dim = invaderMid[0].GetDim();
-	align = float( iBig_dim.x / 2 - i_dim.x / 2 );
+	i_dim = dimMid;
 	d_loc.x = loc.x;
-	d_loc.x += align;
 	d_loc.y += i_dim.y + alienSpacing;
-	invaderMid[0].Init( d_loc );
+	invaderMid.emplace_back( d_loc, Invader::InvaderType::InvaderMid );
 	for ( int i = 1; i < n_mid/2; i++ )
 	{
 		d_loc.x += iBig_dim.x + alienSpacing;
-		invaderMid[i].Init( d_loc );
+		invaderMid.emplace_back( d_loc, Invader::InvaderType::InvaderMid );
 	}
 	d_loc.x = loc.x;
-	d_loc.x += align;
 	d_loc.y += i_dim.y + alienSpacing;
-	invaderMid[n_mid / 2].Init( d_loc );
+	invaderMid.emplace_back( d_loc, Invader::InvaderType::InvaderMid );
 	for ( int i = 1 + n_mid / 2; i < n_mid; i++ )
 	{
 		d_loc.x += iBig_dim.x + alienSpacing;
-		invaderMid[i].Init( d_loc );
+		invaderMid.emplace_back( d_loc, Invader::InvaderType::InvaderMid );
 	}
 	//big
-	i_dim = invaderBig[0].GetDim();
+	i_dim = dimBig;
 	d_loc.x = loc.x;
 	d_loc.y += i_dim.y + alienSpacing;
-	invaderBig[0].Init( d_loc );
+	invaderBig.emplace_back( d_loc, Invader::InvaderType::InvaderBig );
 	for ( int i = 1; i < n_big / 2; i++ )
 	{
 		d_loc.x += i_dim.x + alienSpacing;
-		invaderBig[i].Init( d_loc );
+		invaderBig.emplace_back( d_loc, Invader::InvaderType::InvaderBig );
 	}
 	d_loc.x = loc.x;
 	d_loc.y += i_dim.y + alienSpacing;
-	invaderBig[n_big / 2].Init( d_loc );
+	invaderBig.emplace_back( d_loc, Invader::InvaderType::InvaderBig );
 	for ( int i = 1 + n_big / 2; i < n_big; i++ )
 	{
 		d_loc.x += i_dim.x + alienSpacing;
-		invaderBig[i].Init( d_loc );
+		invaderBig.emplace_back( d_loc, Invader::InvaderType::InvaderBig );
 	}
 	//dimention
-	dim.x = invaderBig[0].GetDim().x * 15 + alienSpacing * 14;
-	dim.y = invaderBig[0].GetDim().y * 2 + invaderMid[0].GetDim().y * 2 + invaderSmall[0].GetDim().y + alienSpacing * 4;
-}
-
-void Alien::Restart()
-{
-	loc = { 50,50 };
-	//small
-	Vec2<int> i_dim = invaderSmall[0].GetDim();
-	Vec2<int> iBig_dim = invaderBig[0].GetDim();
-	Vec2<float> d_loc = loc;
-	float align = float( iBig_dim.x / 2 - i_dim.x / 2 );
-	d_loc.x += align;
-	invaderSmall[0].Init( d_loc );
-	for ( int i = 1; i < n_small; i++ )
-	{
-		d_loc.x += iBig_dim.x + alienSpacing;
-		invaderSmall[i].Init( d_loc );
-	}
-	//mid
-	i_dim = invaderMid[0].GetDim();
-	align = float( iBig_dim.x / 2 - i_dim.x / 2 );
-	d_loc.x = loc.x;
-	d_loc.x += align;
-	d_loc.y += i_dim.y + alienSpacing;
-	invaderMid[0].Init( d_loc );
-	for ( int i = 1; i < n_mid / 2; i++ )
-	{
-		d_loc.x += iBig_dim.x + alienSpacing;
-		invaderMid[i].Init( d_loc );
-	}
-	d_loc.x = loc.x;
-	d_loc.x += align;
-	d_loc.y += i_dim.y + alienSpacing;
-	invaderMid[n_mid / 2].Init( d_loc );
-	for ( int i = 1 + n_mid / 2; i < n_mid; i++ )
-	{
-		d_loc.x += iBig_dim.x + alienSpacing;
-		invaderMid[i].Init( d_loc );
-	}
-	//big
-	i_dim = invaderBig[0].GetDim();
-	d_loc.x = loc.x;
-	d_loc.y += i_dim.y + alienSpacing;
-	invaderBig[0].Init( d_loc );
-	for ( int i = 1; i < n_big / 2; i++ )
-	{
-		d_loc.x += i_dim.x + alienSpacing;
-		invaderBig[i].Init( d_loc );
-	}
-	d_loc.x = loc.x;
-	d_loc.y += i_dim.y + alienSpacing;
-	invaderBig[n_big / 2].Init( d_loc );
-	for ( int i = 1 + n_big / 2; i < n_big; i++ )
-	{
-		d_loc.x += i_dim.x + alienSpacing;
-		invaderBig[i].Init( d_loc );
-	}
-	//dimention
-	dim.x = invaderBig[0].GetDim().x * 15 + alienSpacing * 14;
-	dim.y = invaderBig[0].GetDim().y * 2 + invaderMid[0].GetDim().y * 2 + invaderSmall[0].GetDim().y + alienSpacing * 4;
-	//reset count
-	count_small = 15;
-	count_mid = 30;
- 	count_big = 30;
-	//reset column
-	for ( int i = 0; i < 15; i++ )
-	{
-		columnClean[i] = false;
-	}
-	//delete shots
-	for ( int i = 0; i < shotMax; i++ )
-	{
-		shot[i].Kill();
-	}
+	dim.x = dimBig.x * 15 + alienSpacing * 14;
+	dim.y = dimBig.y * 2 + dimMid.y * 2 + dimSmall.y + alienSpacing * 4;
 }
 
 void Alien::Draw()
 {
 	//small
-	Vec2<int> i_dim = invaderSmall[0].GetDim();
-	Vec2<int> iBig_dim = invaderBig[0].GetDim();
+	Vec2<int> i_dim = dimSmall;
+	Vec2<int> iBig_dim = dimBig;
 	Vec2<float> d_loc = loc;
-	float align = float( iBig_dim.x / 2 - i_dim.x / 2 );
-	d_loc.x += align;
 	invaderSmall[0].Draw( gfx,d_loc );
 	for ( int i = 1; i < n_small; i++ )
 	{
@@ -159,10 +85,8 @@ void Alien::Draw()
 		invaderSmall[i].Draw( gfx,d_loc );
 	}
 	//mid
-	i_dim = invaderMid[0].GetDim();
-	align = float( iBig_dim.x / 2 - i_dim.x / 2 );
+	i_dim = dimMid;
 	d_loc.x = loc.x;
-	d_loc.x += align;
 	d_loc.y += i_dim.y + alienSpacing;
 	invaderMid[0].Draw( gfx,d_loc );
 	for ( int i = 1; i < n_mid / 2; i++ )
@@ -171,7 +95,6 @@ void Alien::Draw()
 		invaderMid[i].Draw( gfx,d_loc );
 	}
 	d_loc.x = loc.x;
-	d_loc.x += align;
 	d_loc.y += i_dim.y + alienSpacing;
 	invaderMid[n_mid / 2].Draw( gfx,d_loc );
 	for ( int i = 1 + n_mid / 2; i < n_mid; i++ )
@@ -180,7 +103,7 @@ void Alien::Draw()
 		invaderMid[i].Draw( gfx,d_loc );
 	}
 	//big
-	i_dim = invaderBig[0].GetDim();
+	i_dim = dimBig;
 	d_loc.x = loc.x;
 	d_loc.y += i_dim.y + alienSpacing;
 	invaderBig[0].Draw( gfx,d_loc );
@@ -247,27 +170,27 @@ void Alien::Update( const float dt )
 				if( invaderBig[loc + 15].IsAlive() )
 				{
 					shotLoc = invaderBig[loc + 15].GetLoc();
-					shotDim = invaderBig[0].GetDim();
+					shotDim = dimBig;
 				}
 				else if( invaderBig[loc].IsAlive() )
 				{
 					shotLoc = invaderBig[loc].GetLoc();
-					shotDim = invaderBig[0].GetDim();
+					shotDim = dimBig;
 				}
 				else if( invaderMid[loc + 15].IsAlive() )
 				{
 					shotLoc = invaderMid[loc + 15].GetLoc();
-					shotDim = invaderMid[0].GetDim();
+					shotDim = dimMid;
 				}
 				else if( invaderMid[loc].IsAlive() )
 				{
 					shotLoc = invaderMid[loc].GetLoc();
-					shotDim = invaderMid[0].GetDim();
+					shotDim = dimMid;
 				}
 				else if( invaderSmall[loc].IsAlive() )
 				{
 					shotLoc = invaderSmall[loc].GetLoc();
-					shotDim = invaderSmall[0].GetDim();
+					shotDim = dimSmall;
 				}
 				else
 				{

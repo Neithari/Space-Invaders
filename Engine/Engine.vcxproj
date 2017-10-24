@@ -146,6 +146,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="House.h" />
+    <ClInclude Include="Invader.h" />
     <ClInclude Include="InvaderBig.h" />
     <ClInclude Include="InvaderMid.h" />
     <ClInclude Include="InvaderSmall.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="House.cpp" />
+    <ClCompile Include="Invader.cpp" />
     <ClCompile Include="InvaderBig.cpp" />
     <ClCompile Include="InvaderMid.cpp" />
     <ClCompile Include="InvaderSmall.cpp" />
