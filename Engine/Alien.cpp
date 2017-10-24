@@ -20,8 +20,8 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance )
 		shot.emplace_back();
 	}
 	//small
-	Vec2<int> i_dim = dimSmall;
-	Vec2<int> iBig_dim = dimBig;
+	Vec2<int> i_dim = Invader::dimSmall;
+	Vec2<int> iBig_dim = Invader::dimBig;
 	Vec2<float> d_loc = loc;
 	float align = float( iBig_dim.x / 2 - i_dim.x / 2 );
 	d_loc.x += align;
@@ -32,7 +32,7 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance )
 		invaderSmall.emplace_back( d_loc, Invader::InvaderType::InvaderSmall );
 	}
 	//mid
-	i_dim = dimMid;
+	i_dim = Invader::dimMid;
 	d_loc.x = loc.x;
 	d_loc.y += i_dim.y + alienSpacing;
 	invaderMid.emplace_back( d_loc, Invader::InvaderType::InvaderMid );
@@ -50,7 +50,7 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance )
 		invaderMid.emplace_back( d_loc, Invader::InvaderType::InvaderMid );
 	}
 	//big
-	i_dim = dimBig;
+	i_dim = Invader::dimBig;
 	d_loc.x = loc.x;
 	d_loc.y += i_dim.y + alienSpacing;
 	invaderBig.emplace_back( d_loc, Invader::InvaderType::InvaderBig );
@@ -68,15 +68,15 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance )
 		invaderBig.emplace_back( d_loc, Invader::InvaderType::InvaderBig );
 	}
 	//dimention
-	dim.x = dimBig.x * 15 + alienSpacing * 14;
-	dim.y = dimBig.y * 2 + dimMid.y * 2 + dimSmall.y + alienSpacing * 4;
+	dim.x = Invader::dimBig.x * 15 + alienSpacing * 14;
+	dim.y = Invader::dimBig.y * 2 + Invader::dimMid.y * 2 + Invader::dimSmall.y + alienSpacing * 4;
 }
 
 void Alien::Draw()
 {
 	//small
-	Vec2<int> i_dim = dimSmall;
-	Vec2<int> iBig_dim = dimBig;
+	Vec2<int> i_dim = Invader::dimSmall;
+	Vec2<int> iBig_dim = Invader::dimBig;
 	Vec2<float> d_loc = loc;
 	invaderSmall[0].Draw( gfx,d_loc );
 	for ( int i = 1; i < n_small; i++ )
@@ -85,7 +85,7 @@ void Alien::Draw()
 		invaderSmall[i].Draw( gfx,d_loc );
 	}
 	//mid
-	i_dim = dimMid;
+	i_dim = Invader::dimMid;
 	d_loc.x = loc.x;
 	d_loc.y += i_dim.y + alienSpacing;
 	invaderMid[0].Draw( gfx,d_loc );
@@ -103,7 +103,7 @@ void Alien::Draw()
 		invaderMid[i].Draw( gfx,d_loc );
 	}
 	//big
-	i_dim = dimBig;
+	i_dim = Invader::dimBig;
 	d_loc.x = loc.x;
 	d_loc.y += i_dim.y + alienSpacing;
 	invaderBig[0].Draw( gfx,d_loc );
@@ -155,8 +155,8 @@ void Alien::Update( const float dt )
 		moveTime += dt;
 	}
 	//Shot creation
-	int tempChance = chanceDist( rng );
-	if ( tempChance <= shotChance )
+	int roll = chanceDist( rng );
+	if ( roll <= shotChance )
 	{
 		int loc = shotDist( rng );
 		//find a free shot
@@ -170,27 +170,27 @@ void Alien::Update( const float dt )
 				if( invaderBig[loc + 15].IsAlive() )
 				{
 					shotLoc = invaderBig[loc + 15].GetLoc();
-					shotDim = dimBig;
+					shotDim = Invader::dimBig;
 				}
 				else if( invaderBig[loc].IsAlive() )
 				{
 					shotLoc = invaderBig[loc].GetLoc();
-					shotDim = dimBig;
+					shotDim = Invader::dimBig;
 				}
 				else if( invaderMid[loc + 15].IsAlive() )
 				{
 					shotLoc = invaderMid[loc + 15].GetLoc();
-					shotDim = dimMid;
+					shotDim = Invader::dimMid;
 				}
 				else if( invaderMid[loc].IsAlive() )
 				{
 					shotLoc = invaderMid[loc].GetLoc();
-					shotDim = dimMid;
+					shotDim = Invader::dimMid;
 				}
 				else if( invaderSmall[loc].IsAlive() )
 				{
 					shotLoc = invaderSmall[loc].GetLoc();
-					shotDim = dimSmall;
+					shotDim = Invader::dimSmall;
 				}
 				else
 				{

@@ -2,6 +2,8 @@
 
 AlienShot::AlienShot()
 {
+	spriteRect = Rect<int>( 0, 6, 0, 12 );
+	spriteRectMove = Rect<int>( 6, 12, 0, 12 );
 }
 
 void AlienShot::Draw( Graphics & gfx )
@@ -10,13 +12,10 @@ void AlienShot::Draw( Graphics & gfx )
 	//height = 5;
 	if ( isAlive )
 	{
-		int x = int( loc.x );
-		int y = int( loc.y );
-
 		if ( toggle )
 		{
 			//Shot1
-			Sprite::DrawAlienShot1( x,y,gfx );
+			gfx.DrawSprite( int( loc.x ), int( loc.y ), spriteRect, sprite, SpriteEffect::Chroma{ Colors::Magenta } );
 
 			if ( toggleIndex >= toggleTime )
 			{
@@ -28,7 +27,7 @@ void AlienShot::Draw( Graphics & gfx )
 		else
 		{
 			//Shot2
-			Sprite::DrawAlienShot2( x,y,gfx );
+			gfx.DrawSprite( int( loc.x ), int( loc.y ), spriteRectMove, sprite, SpriteEffect::Chroma{ Colors::Magenta } );
 
 			if ( toggleIndex >= toggleTime )
 			{
@@ -40,12 +39,12 @@ void AlienShot::Draw( Graphics & gfx )
 	}
 }
 
-void AlienShot::Init( const Vec2<float> in_loc,const Vec2<int> in_dim )
+void AlienShot::Init( const Vec2<float> in_loc,const Vec2<int> alienDim )
 {
 	if ( !isAlive )
 	{
 		loc = in_loc;
-		loc += { float( in_dim.x ) / 2.0f - 1.0f,13 };
+		loc += { float( alienDim.x ) / 2.0f - 1.0f,13 };
 		isAlive = true;
 	}
 }

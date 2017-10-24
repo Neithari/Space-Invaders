@@ -32,4 +32,8 @@ private:
 	InvaderType iType;
 	Rect<int> spriteRect;
 	Rect<int> spriteRectMove;
+public:
+	static constexpr Vec2<int> dimSmall = { 16,16 };
+	static constexpr Vec2<int> dimMid = { 20,16 };
+	static constexpr Vec2<int> dimBig = { 26,16 };
 };

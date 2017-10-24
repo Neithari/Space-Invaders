@@ -10,15 +10,15 @@ Invader::Invader( const Vec2<float>& in_loc, InvaderType type )
 	switch( iType )
 	{
 	case InvaderType::InvaderSmall:
-		dim = { 16,16 };
+		dim = dimSmall;
 		y = 36;
 		break;
 	case InvaderType::InvaderMid:
-		dim = { 20,16 };
+		dim = dimMid;
 		y = 18;
 		break;
 	case InvaderType::InvaderBig:
-		dim = { 24,16 };
+		dim = dimBig;
 		y = 0;
 		break;
 	}

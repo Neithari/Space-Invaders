@@ -31,9 +31,6 @@ private:
 	static constexpr int n_small = 15;
 	static constexpr int n_mid = 30;
 	static constexpr int n_big = 30;
-	static constexpr Vec2<int> dimSmall = { 16,16 };
-	static constexpr Vec2<int> dimMid = { 20,16 };
-	static constexpr Vec2<int> dimBig = { 26,16 };
 	Vec2<int> dim;
 	Vec2<float> loc = { 50,50 };
 	static constexpr int alienSpacing = 10;
