@@ -27,7 +27,8 @@
 #include "Vec2.h"
 #include <random>
 #include <assert.h>
-#include "Sprite.h"
+#include "Surface.h"
+#include "SpriteEffect.h"
 #include "Tank.h"
 #include "House.h"
 #include "Alien.h"
@@ -82,5 +83,9 @@ private:
 	FrameTime ft;
 	float dt = 0.0f;
 	float deathTimer = deathTime;
+	//Sprites
+	Surface spriteTitle = Surface( "Sprites\\SpaceInvaders399x44.bmp" );
+	Surface spriteGameOver = Surface( "Sprites\\game_over84x64.bmp" );
+	Surface spriteYouWon = Surface( "Sprites\\YouWin180x180.bmp" );
 	/********************************/
 };

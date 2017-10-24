@@ -129,15 +129,15 @@ void Game::ComposeFrame()
 	{
 		if( !gameStart )
 		{
-			Sprite::DrawTitle( 210,250,gfx );
+			gfx.DrawSprite( 210, 250, spriteTitle, SpriteEffect::Chroma{ Colors::Magenta } );
 		}
 		if( gameOver )
 		{
-			Sprite::DrawGameOver( 350,250,gfx );
+			gfx.DrawSprite( 350, 250, spriteGameOver, SpriteEffect::Chroma{ Colors::Black } );
 		}
 		if( youWon )
 		{
-			Sprite::DrawYouWon( 310,200,gfx );
+			gfx.DrawSprite( 310, 200, spriteYouWon, SpriteEffect::Chroma{ Colors::Magenta } );
 		}
 	}
 }

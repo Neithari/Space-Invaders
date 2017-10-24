@@ -159,6 +159,8 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteEffect.h" />
+    <ClInclude Include="Surface.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TankShot.h" />
     <ClInclude Include="FrameTime.h" />
@@ -183,6 +185,7 @@
     <ClCompile Include="PixelArt.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankShot.cpp" />
     <ClCompile Include="FrameTime.cpp" />

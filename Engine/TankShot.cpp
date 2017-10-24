@@ -9,20 +9,13 @@ TankShot::TankShot( Vec2<float> in_loc )
 
 void TankShot::Draw( Graphics & gfx ) const
 {
-	Sprite::DrawTankShot( int( loc.x ),int( loc.y ),gfx );
+	gfx.DrawSprite( (int)loc.x, (int)loc.y, sprite, SpriteEffect::Chroma{ Colors::Magenta } );
 }
 
 bool TankShot::Update( const float dt )
 {
 	loc.y -= vShot * dt;
-	if ( loc.y < 0 )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return loc.y < 0;
 }
 
 const Vec2<float> & TankShot::GetLoc() const

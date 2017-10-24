@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Sprite.h"
+#include "SpriteEffect.h"
+#include "Surface.h"
 #include "Vec2.h"
 #include "Vec2.h"
 #include "Keyboard.h"
@@ -35,6 +36,7 @@ private:
 	float ClampToScreen();
 private:
 	Graphics& gfx;
+	const Surface sprite = Surface( "Sprites\\Tank20x18.bmp" );
 	static constexpr Vec2<int> dim = { 20,18 };
 	static constexpr float speed = 90.0f;
 	const Vec2<float> startLoc;

@@ -34,7 +34,7 @@ const Vec2<float>& Tank::GetLocation() const
 
 void Tank::Draw()
 {
-	Sprite::DrawTank( int( loc.x ),int( loc.y ),gfx );
+	gfx.DrawSprite( (int)loc.x, (int)loc.y, sprite, SpriteEffect::Chroma{ Colors::Magenta } );
 	for( int i = 0; i < shot.size(); i++ )
 	{
 		shot[i].Draw( gfx );
