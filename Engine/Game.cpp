@@ -228,4 +228,8 @@ void Game::TankGotHit()
 	{
 		pTank->Draw();
 	}
+	else
+	{
+		pTank->DrawHit();
+	}
 }

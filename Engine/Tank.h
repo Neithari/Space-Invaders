@@ -22,6 +22,7 @@ public:
 	const Vec2<int>& GetDimention() const;
 	const Vec2<float>& GetLocation() const;
 	void Draw();
+	void DrawHit();
 	void Update( const Keyboard& kbd,const float dt );
 	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim ) const;
 	bool Collision( const Rect<int>& obj ) const;

@@ -41,6 +41,11 @@ void Tank::Draw()
 	}
 }
 
+void Tank::DrawHit()
+{
+	gfx.DrawSprite( (int)loc.x, (int)loc.y, sprite, SpriteEffect::Substitution{ Colors::Magenta, Colors::Red } );
+}
+
 float Tank::ClampToScreen()
 {
 	const float left = loc.x;
