@@ -1,23 +1,24 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Sprite.h"
-#include "Location.h"
-#include "Dimention.h"
+#include "SpriteEffect.h"
+#include "Surface.h"
+#include "Vec2.h"
+#include "Vec2.h"
+#include "Rect.h"
 
 class TankShot
 {
 public:
-	TankShot( Location in_loc );
+	TankShot( Vec2<float> in_loc );
 
 	void Draw( Graphics& gfx ) const;
 	bool Update( const float dt );
-	const Location& GetLoc() const;
-	static const Dimention& GetDim();
+	const Vec2<float>& GetLoc() const;
+	static const Vec2<int>& GetDim();
 private:
-	static constexpr Dimention dim = { 2,6 };
-	static constexpr float screenWidth = 800.0f;
-	static constexpr float screenHeight = 600.0f;
+	static constexpr Vec2<int> dim = { 4,8 };
+	Surface sprite = Surface( "Sprites\\TankShell4x8.bmp" );
 	float vShot = 120.0f;
-	Location loc;
+	Vec2<float> loc;
 };

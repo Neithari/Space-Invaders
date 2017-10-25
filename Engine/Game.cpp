@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
 	pTank( new Tank( gfx, tankStartLoc ) ),
 	pAlien( new Alien( gfx, alienShotMax, alienShotChance ) )
 {
-	Vec2 loc = houseStartLoc;
+	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
 	{
 		pHouse[i] = new House( loc );
@@ -65,27 +65,37 @@ void Game::UpdateModel()
 	dt = ft.Mark();
 	if( gameStart && !gameOver && !youWon )
 	{
-		if( pTank->IsAlive() )
-		{
-			if( lives == livesOld )
+		//check if tank got hit
+		if( lives == livesOld )
 			{
 				pTank->Update( wnd.kbd,dt );
 				pAlien->Update( dt );
+				//Tank shot collision
+				CollisionTankShot();
+				//Alien shot collision
+				CollisionAlienShot();
+				//check for win
+				if( pAlien->Count() <= 0 )
+				{
+					youWon = true;
+				}
+				//check for loss
+				if( lives <= 0 )
+				{
+					gameOver = true;
+				}
 			}
-		}
-		//Tank shot collision
-		CollisionTankShot();
-		//Alien shot collision
-		CollisionAlienShot();
-		//check for win
-		if( pAlien->Count() <= 0 )
+		else //if tank got hit update death time
 		{
-			youWon = true;
-		}
-		//check for loss
-		if( lives <= 0 )
-		{
-			gameOver = true;
+			if( deathTimer <= 0.0f )
+			{
+				livesOld = lives;
+				deathTimer = deathTime;
+			}
+			else
+			{
+				deathTimer -= dt;
+			}
 		}
 	}
 	else
@@ -119,49 +129,16 @@ void Game::ComposeFrame()
 	{
 		if( !gameStart )
 		{
-			Sprite::DrawTitle( 210,250,gfx );
+			gfx.DrawSprite( 210, 250, spriteTitle, SpriteEffect::Chroma{ Colors::Magenta } );
 		}
 		if( gameOver )
 		{
-			Sprite::DrawGameOver( 350,250,gfx );
+			gfx.DrawSprite( 350, 250, spriteGameOver, SpriteEffect::Chroma{ Colors::Black } );
 		}
 		if( youWon )
 		{
-			Sprite::DrawYouWon( 310,200,gfx );
+			gfx.DrawSprite( 310, 200, spriteYouWon, SpriteEffect::Chroma{ Colors::Magenta } );
 		}
-	}
-}
-
-float Game::ClampToScreen( const Location & in_loc,const Dimention & in_dim )
-{
-	const float left = in_loc.x;
-	const float right = in_loc.x + in_dim.width;
-	const float top = in_loc.y;
-	const float bottom = in_loc.y + in_dim.height;
-
-	if( left < 0 )
-	{
-		return 0.0f;
-	}
-	if( right >= gfx.ScreenWidth )
-	{
-		return gfx.ScreenWidth - float( in_dim.width + 1 );
-	}
-	else
-	{
-		return in_loc.x;
-	}
-	if( top < 0 )
-	{
-		return 0.0f;
-	}
-	if( bottom >= gfx.ScreenHeight )
-	{
-		return gfx.ScreenHeight - float( in_dim.height + 1 );
-	}
-	else
-	{
-		return in_loc.y;
 	}
 }
 
@@ -173,15 +150,15 @@ void Game::RestartGame()
 	pAlien = new Alien( gfx, alienShotMax, alienShotChance );
 	delete pTank;
 	pTank = new Tank( gfx, tankStartLoc );
-	Vec2 loc = houseStartLoc;
+	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
 	{
 		delete pHouse[i];
 		pHouse[i] = new House( loc );
 		loc.x += 100;
 	}
-	lives = 3;
-	livesOld = 3;
+	lives = startLives;
+	livesOld = startLives;
 	youWon = false;
 }
 
@@ -191,9 +168,9 @@ void Game::CollisionTankShot()
 	{
 		bool isCollided = false;
 
-		Location tankShotLoc = pTank->GetShotLoc( s );
-		Dimention tankShotDim = pTank->GetShotDim();
-		Rect tankShot( tankShotLoc,tankShotDim );
+		Vec2<float> tankShotLoc = pTank->GetShotLoc( s );
+		Vec2<int> tankShotDim = pTank->GetShotDim();
+		Rect<int> tankShot( (Vec2<int>)tankShotLoc,tankShotDim.x,tankShotDim.y );
 
 		for( int h = 0; h < houseCount; h++ )
 		{
@@ -217,43 +194,28 @@ void Game::CollisionTankShot()
 
 void Game::CollisionAlienShot()
 {
-	if( lives == livesOld )
+	for( int i = 0; i < alienShotMax; i++ )
 	{
-		for( int i = 0; i < alienShotMax; i++ )
-		{
-			bool isCollided = false;
+		bool isCollided = false;
 
-			const Location alienShotLoc = pAlien->GetShotLoc( i );
-			const Dimention alienShotDim = pAlien->GetShotDim();
-			const Rect alienShot( pAlien->GetShotLoc( i ), pAlien->GetShotDim() );
-			
-			for( int h = 0; h < houseCount; h++ )
+		const Vec2<float> alienShotLoc = pAlien->GetShotLoc( i );
+		const Vec2<int> alienShotDim = pAlien->GetShotDim();
+		const Rect<int> alienShot( (Vec2<int>)alienShotLoc, alienShotDim.x, alienShotDim.y );
+
+		for( int h = 0; h < houseCount; h++ )
+		{
+			if( pHouse[h]->IsColliding( alienShot ) )
 			{
-				if( pHouse[h]->IsColliding( alienShot ) )
-				{
-					isCollided = true;
-					pAlien->DeleteShot( i );
-					break;
-				}
-			}
-			if( pTank->Collision( alienShotLoc, alienShotDim ) && !isCollided ) //TODO: change collision to rect
-			{
+				isCollided = true;
 				pAlien->DeleteShot( i );
-				lives--;
 				break;
 			}
 		}
-	}
-	else
-	{
-		if( deathTimer <= 0.0f )
+		if( pTank->Collision( alienShotLoc, alienShotDim ) && !isCollided ) //TODO: change collision to rect
 		{
-			livesOld = lives;
-			deathTimer = deathTime;
-		}
-		else
-		{
-			deathTimer -= dt;
+			pAlien->DeleteShot( i );
+			lives--;
+			break;
 		}
 	}
 }
@@ -265,5 +227,9 @@ void Game::TankGotHit()
 		(deathTimer < deathTime * 0.25f && deathTimer > deathTime * 0.18f ) )
 	{
 		pTank->Draw();
+	}
+	else
+	{
+		pTank->DrawHit();
 	}
 }

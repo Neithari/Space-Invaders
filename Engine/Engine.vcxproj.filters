@@ -63,25 +63,7 @@
     <ClInclude Include="Tank.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InvaderBig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InvaderMid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InvaderSmall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dimention.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Location.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="House.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TankShot.h">
@@ -103,6 +85,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Invader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,15 +125,6 @@
     <ClCompile Include="COMInitializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InvaderBig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InvaderMid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InvaderSmall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Tank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -150,9 +132,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="House.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TankShot.cpp">
@@ -164,22 +143,16 @@
     <ClCompile Include="FrameTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Location.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dimention.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PixelArt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vec2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Invader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,31 +1,34 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Sprite.h"
-#include "Location.h"
-#include "Dimention.h"
+#include "Surface.h"
+#include "SpriteEffect.h"
+#include "Vec2.h"
 
 class AlienShot
 {
 public:
 	AlienShot();
 	void Draw( Graphics& gfx );
-	void Init( const Location in_loc,const Dimention in_dim );
+	void Init( const Vec2<float> in_loc,const Vec2<int> alienDim );
 	void Update( const float dt );
 	//bool Colliding( const Tank& tank);
 	bool IsAlive() const;
 	void Kill();
-	const Location GetLoc() const;
-	const Dimention& GetDim() const;
+	const Vec2<float> GetLoc() const;
+	const Vec2<int>& GetDim() const;
 
 private:
-	static constexpr Dimention dim = { 3,5 };
+	static constexpr Vec2<int> dim = { 6,12 };
 	static constexpr float screenWidth = 800.0f;
 	static constexpr float screenHeight = 600.0f;
 	static constexpr int toggleTime = 15;
+	Surface sprite = Surface( "Sprites\\AlienShot6x12.bmp" );
 	int toggleIndex = 0;
 	float vShot = 120.0f;
-	Location loc;
+	Vec2<float> loc;
 	bool isAlive = false;
 	bool toggle = true;
+	Rect<int> spriteRect;
+	Rect<int> spriteRectMove;
 };

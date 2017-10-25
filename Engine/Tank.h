@@ -1,42 +1,48 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Sprite.h"
-#include "Location.h"
-#include "Dimention.h"
+#include "SpriteEffect.h"
+#include "Surface.h"
+#include "Vec2.h"
+#include "Vec2.h"
 #include "Keyboard.h"
 #include "TankShot.h"
 #include <vector>
+#include "Rect.h"
 
 class Tank
 {
 public:
 	Tank( Graphics& gfx );
-	Tank( Graphics& gfx,const Location& in_loc );
+	Tank( Graphics& gfx,const Vec2<float>& in_loc );
 	Tank( const Tank& ) = delete;
 	Tank& operator=( const Tank& ) = delete;
 
 	void Restart();
-	const Dimention& GetDimention() const;
-	const Location& GetLocation() const;
+	const Vec2<int>& GetDimention() const;
+	const Vec2<float>& GetLocation() const;
 	void Draw();
+	void DrawHit();
 	void Update( const Keyboard& kbd,const float dt );
-	bool Collision( const Location& in_loc,const Dimention& in_dim ) const;
-	const Location GetShotLoc( const int i ) const;
-	const Dimention GetShotDim() const;
+	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim ) const;
+	bool Collision( const Rect<int>& obj ) const;
+	const Vec2<float> GetShotLoc( const int i ) const;
+	const Vec2<int>& GetShotDim() const;
+	const Rect<int> GetShotRect( const int i ) const;
+	const Rect<int> GetTankRect() const;
 	const int GetShotCount() const;
-	void CreateShot( const Location& origin );
+	void CreateShot( const Vec2<float>& origin );
 	void DeleteShot( const int i );
-	bool IsAlive() const;
 private:
-	void Kill();
 	float ClampToScreen();
 private:
 	Graphics& gfx;
-	static constexpr Dimention dim = { 20,18 };
+	const Surface sprite = Surface( "Sprites\\Tank20x18.bmp" );
+	static constexpr Vec2<int> dim = { 20,18 };
 	static constexpr float speed = 90.0f;
+	const Vec2<float> startLoc;
+	Vec2<float> loc;
 	bool rapidShotPrevent = false;
 	std::vector<TankShot> shot;
-	Location loc;
 	bool isAlive = true;
 };

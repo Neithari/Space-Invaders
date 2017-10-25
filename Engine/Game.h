@@ -23,11 +23,12 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Location.h"
-#include "Dimention.h"
+#include "Vec2.h"
+#include "Vec2.h"
 #include <random>
 #include <assert.h>
-#include "Sprite.h"
+#include "Surface.h"
+#include "SpriteEffect.h"
 #include "Tank.h"
 #include "House.h"
 #include "Alien.h"
@@ -47,7 +48,6 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-	float ClampToScreen( const Location& in_loc,const Dimention& in_dim );
 	void RestartGame();
 	void CollisionTankShot();
 	void CollisionAlienShot();
@@ -64,23 +64,28 @@ private:
 	std::uniform_real_distribution<float> yDist;
 	static constexpr int houseCount = 5;
 	static constexpr int tankShotMax = 30;
+	static constexpr int startLives = 3;
 	static constexpr int alienShotMax = 15;
 	static constexpr int alienShotChance = 5;
 	static constexpr int alienRows = 15;
-	static constexpr Location tankStartLoc = { 387.0f,500.0f };
-	static constexpr Vec2 houseStartLoc = { 180,465 };
+	static constexpr Vec2<float> tankStartLoc = { 387.0f,500.0f };
+	static constexpr Vec2<int> houseStartLoc = { 180,465 };
 	Tank* pTank = nullptr;
 	Alien* pAlien = nullptr;
 	House* pHouse[houseCount] = {};
 	bool gameStart = false;
 	bool gameOver = false;
 	bool youWon = false;
-	int lives = 3;
-	int livesOld = 3;
+	int lives = startLives;
+	int livesOld = startLives;
 	//Timing
 	static constexpr float deathTime = 2.5f;
 	FrameTime ft;
 	float dt = 0.0f;
 	float deathTimer = deathTime;
+	//Sprites
+	Surface spriteTitle = Surface( "Sprites\\SpaceInvaders399x44.bmp" );
+	Surface spriteGameOver = Surface( "Sprites\\game_over84x64.bmp" );
+	Surface spriteYouWon = Surface( "Sprites\\YouWin180x180.bmp" );
 	/********************************/
 };

@@ -1,6 +1,6 @@
 #include "InvaderSmall.h"
 
-void InvaderSmall::Draw( Graphics& gfx,const Location& in_loc )
+void InvaderSmall::Draw( Graphics& gfx,const Vec2<float>& in_loc )
 {
 	loc = in_loc;
 	if ( isAlive )
@@ -33,17 +33,17 @@ bool InvaderSmall::IsAlive() const
 	return isAlive;
 }
 
-Dimention InvaderSmall::GetDim() const
+Vec2<int> InvaderSmall::GetDim() const
 {
 	return dim;
 }
 
-Location InvaderSmall::GetLoc() const
+Vec2<float> InvaderSmall::GetLoc() const
 {
 	return loc;
 }
 
-void InvaderSmall::Init( const Location& in_loc )
+void InvaderSmall::Init( const Vec2<float>& in_loc )
 {
 	if ( !isAlive )
 	{
@@ -52,14 +52,14 @@ void InvaderSmall::Init( const Location& in_loc )
 	}
 }
 
-void InvaderSmall::Collision( const Location& in_loc,const Dimention& in_dim )
+void InvaderSmall::Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim )
 {
 	if ( isAlive )
 	{
-		const float objright = in_loc.x + float( in_dim.width );
-		const float objbottom = in_loc.y + float( in_dim.height );
-		const float shotright = loc.x + float( dim.width );
-		const float shotbottom = loc.y + float( dim.height );
+		const float objright = in_loc.x + float( in_dim.x );
+		const float objbottom = in_loc.y + float( in_dim.y );
+		const float shotright = loc.x + float( dim.x );
+		const float shotbottom = loc.y + float( dim.y );
 
 		if ( objright >= loc.x &&
 			in_loc.x <= shotright &&

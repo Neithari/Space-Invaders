@@ -1,28 +1,79 @@
 #pragma once
 
+#include <cmath>
+
+template<typename T>
 class Vec2
 {
 public:
 	Vec2() = default;
-	constexpr Vec2( int x_in,int y_in )
+	constexpr Vec2( T x_in,T y_in )
 		:
 		x( x_in ),
 		y( y_in )
-	{};
+	{}
+	template<typename C>
+	explicit Vec2( const Vec2<C>& cvec )
+		:
+		x( (T)cvec.x ),
+		y( (T)cvec.y )
+	{}
 
-	bool operator==( const Vec2& rhs ) const;
-	Vec2 operator+( const Vec2& rhs ) const;
-	Vec2& operator+=( const Vec2& rhs );
-	Vec2 operator*( int rhs ) const;
-	Vec2& operator*=( int rhs );
-	Vec2 operator-( const Vec2& rhs ) const;
-	Vec2& operator-=( const Vec2& rhs );
-	Vec2 operator/( int rhs ) const;
-	Vec2& operator/=( int rhs );
+	bool operator==( const Vec2 & rhs ) const
+	{
+		return x == rhs.x && y == rhs.y;
+	}
 
-	float GetLength() const;
-	int GetLengthSq() const;
+	Vec2 operator+( const Vec2& rhs ) const
+	{
+		return Vec2( x + rhs.x, y + rhs.y );
+	}
+
+	Vec2& operator+=( const Vec2& rhs )
+	{
+		return *this = *this + rhs;
+	}
+
+	Vec2 operator*( T rhs ) const
+	{
+		return Vec2( x * rhs, y * rhs );
+	}
+
+	Vec2& operator*=( T rhs )
+	{
+		return *this = *this * rhs;
+	}
+
+	Vec2 operator-( const Vec2& rhs ) const
+	{
+		return Vec2( x - rhs.x, y - rhs.y );
+	}
+
+	Vec2& operator-=( const Vec2& rhs )
+	{
+		return *this = *this - rhs;
+	}
+
+	Vec2 operator/( T rhs ) const
+	{
+		return Vec2( x / rhs, y / rhs );
+	}
+
+	Vec2& operator/=( T rhs )
+	{
+		return *this = *this / rhs;
+	}
+
+	T GetLength() const
+	{
+		return T( std::sqrt( GetLengthSq() ) );
+	}
+
+	T GetLengthSq() const
+	{
+		return T( x * x + y * y );
+	}
 public:
-	int x;
-	int y;
+	T x;
+	T y;
 };

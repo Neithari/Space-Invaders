@@ -1,6 +1,6 @@
 #include "TankShot.h"
 
-TankShot::TankShot( Location in_loc )
+TankShot::TankShot( Vec2<float> in_loc )
 	:
 	loc( in_loc )
 {
@@ -9,28 +9,21 @@ TankShot::TankShot( Location in_loc )
 
 void TankShot::Draw( Graphics & gfx ) const
 {
-	Sprite::DrawTankShot( int( loc.x ),int( loc.y ),gfx );
+	gfx.DrawSprite( (int)loc.x, (int)loc.y, sprite, SpriteEffect::Chroma{ Colors::Magenta } );
 }
 
 bool TankShot::Update( const float dt )
 {
 	loc.y -= vShot * dt;
-	if ( loc.y < 0 )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return loc.y < 0;
 }
 
-const Location & TankShot::GetLoc() const
+const Vec2<float> & TankShot::GetLoc() const
 {
 	return loc;
 }
 
-const Dimention & TankShot::GetDim()
+const Vec2<int>& TankShot::GetDim()
 {
 	return dim;
 }
