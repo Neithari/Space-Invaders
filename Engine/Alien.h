@@ -15,8 +15,11 @@ public:
 	void Draw();
 	void Update( const float dt );
 	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim );
+	bool Collision( const Rect<float>& other );
 	const Vec2<float> GetShotLoc( const int i ) const;
 	const Vec2<int>& GetShotDim() const;
+	const Rect<float> GetShotRect( const int i ) const;
+	bool IsShotAlive( const int i ) const;
 	void DeleteShot( const int i );
 	int Count();
 private:
@@ -45,6 +48,6 @@ private:
 	bool columnClean[15] = {};
 	Vec2<float> delta_loc = { float(alienSpacing),0 };
 	//Timing
-	float moveSpeed = 1.0f;
+	float moveSpeed = 0.5f;
 	float moveTime = 0.0f;
 };

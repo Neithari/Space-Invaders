@@ -37,6 +37,13 @@ public:
 	{
 	}
 
+	template<typename C>
+	explicit Rect( const Rect<C>& src )
+		:
+		Rect( (T)src.left, (T)src.right, (T)src.top, (T)src.bottom )
+	{
+	}
+
 	bool IsOverlappingWith( const Rect& other ) const
 	{
 		return right > other.left && left < other.right

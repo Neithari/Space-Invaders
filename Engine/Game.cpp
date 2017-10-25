@@ -167,10 +167,7 @@ void Game::CollisionTankShot()
 	for( int s = 0; s < pTank->GetShotCount(); s++ )
 	{
 		bool isCollided = false;
-
-		Vec2<float> tankShotLoc = pTank->GetShotLoc( s );
-		Vec2<int> tankShotDim = pTank->GetShotDim();
-		Rect<int> tankShot( (Vec2<int>)tankShotLoc,tankShotDim.x,tankShotDim.y );
+		Rect<float> tankShot = pTank->GetShotRect( s );
 
 		for( int h = 0; h < houseCount; h++ )
 		{
@@ -181,9 +178,22 @@ void Game::CollisionTankShot()
 				break;
 			}
 		}
+		for( int i = 0; i < alienShotMax && !isCollided; i++ )
+		{
+			if( pAlien->IsShotAlive( i ) )
+			{
+				if( tankShot.IsOverlappingWith( pAlien->GetShotRect( i ) ) )
+				{
+					isCollided = true;
+					pTank->DeleteShot( s );
+					pAlien->DeleteShot( i );
+					break;
+				}
+			}
+		}
 		for( int a = 0; a < alienRows && !isCollided; a++ )
 		{
-			if( pAlien->Collision( tankShotLoc, tankShotDim ) ) //TODO: change collision to rect
+			if( pAlien->Collision( tankShot ) )
 			{
 				pTank->DeleteShot( s );
 				break;
@@ -197,10 +207,7 @@ void Game::CollisionAlienShot()
 	for( int i = 0; i < alienShotMax; i++ )
 	{
 		bool isCollided = false;
-
-		const Vec2<float> alienShotLoc = pAlien->GetShotLoc( i );
-		const Vec2<int> alienShotDim = pAlien->GetShotDim();
-		const Rect<int> alienShot( (Vec2<int>)alienShotLoc, alienShotDim.x, alienShotDim.y );
+		const Rect<float> alienShot = pAlien->GetShotRect( i );
 
 		for( int h = 0; h < houseCount; h++ )
 		{
@@ -211,7 +218,7 @@ void Game::CollisionAlienShot()
 				break;
 			}
 		}
-		if( pTank->Collision( alienShotLoc, alienShotDim ) && !isCollided ) //TODO: change collision to rect
+		if( pTank->Collision( alienShot ) && !isCollided )
 		{
 			pAlien->DeleteShot( i );
 			lives--;

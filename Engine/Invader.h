@@ -20,7 +20,9 @@ public:
 	bool IsAlive() const;
 	Vec2<int> GetDim() const;
 	Vec2<float> GetLoc() const;
-	void Collision( const Vec2<float>& in_loc, const Vec2<int>& in_dim );
+	Rect<float> GetRect() const;
+	bool Collision( const Vec2<float>& in_loc, const Vec2<int>& in_dim );
+	bool Collision( const Rect<float>& other );
 private:
 	Vec2<int> dim;
 	Vec2<float> loc;

@@ -216,42 +216,45 @@ void Alien::Update( const float dt )
 
 bool Alien::Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim )
 {
-	for ( int i = 0; i < n_small; i++ )
+	return Collision( Rect<float>( in_loc, in_dim.x, in_dim.y ) );
+}
+
+bool Alien::Collision( const Rect<float>& other )
+{
+	for( int i = 0; i < n_big; i++ )
 	{
-		if ( invaderSmall[i].IsAlive() )
+		if( invaderBig[i].IsAlive() )
 		{
-			invaderSmall[i].Collision( in_loc,in_dim );
-			if ( !invaderSmall[i].IsAlive() )
-			{
-				count_small--;
-				return true;
-			}
-		}
-	}
-	for ( int i = 0; i < n_mid; i++ )
-	{
-		if ( invaderMid[i].IsAlive() )
-		{
-			invaderMid[i].Collision( in_loc,in_dim );
-			if ( !invaderMid[i].IsAlive() )
-			{
-				count_mid--;
-				return true;
-			}
-		}
-	}
-	for ( int i = 0; i < n_big; i++ )
-	{
-		if ( invaderBig[i].IsAlive() )
-		{
-			invaderBig[i].Collision( in_loc,in_dim );
-			if ( !invaderBig[i].IsAlive() )
+			if( invaderBig[i].Collision( other ) )
 			{
 				count_big--;
 				return true;
 			}
 		}
 	}
+	for( int i = 0; i < n_mid; i++ )
+	{
+		if( invaderMid[i].IsAlive() )
+		{
+			if( invaderMid[i].Collision( other ) )
+			{
+				count_mid--;
+				return true;
+			}
+		}
+	}
+	for( int i = 0; i < n_small; i++ )
+	{
+		if( invaderSmall[i].IsAlive() )
+		{
+			if( invaderSmall[i].Collision( other ) )
+			{
+				count_small--;
+				return true;
+			}
+		}
+	}
+	
 	return false;
 }
 
@@ -263,6 +266,16 @@ const Vec2<float> Alien::GetShotLoc( const int i ) const
 const Vec2<int>& Alien::GetShotDim() const
 {
 	return shot[0].GetDim();
+}
+
+const Rect<float> Alien::GetShotRect( const int i ) const
+{
+	return Rect<float>( shot[i].GetLoc(), (float)shot[i].GetDim().x, (float)shot[i].GetDim().y );
+}
+
+bool Alien::IsShotAlive( const int i ) const
+{
+	return shot[i].IsAlive();
 }
 
 void Alien::DeleteShot( const int i )
