@@ -25,11 +25,11 @@ public:
 	void DrawHit();
 	void Update( const Keyboard& kbd,const float dt );
 	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim ) const;
-	bool Collision( const Rect<int>& obj ) const;
+	bool Collision( const Rect<float>& obj ) const;
 	const Vec2<float> GetShotLoc( const int i ) const;
 	const Vec2<int>& GetShotDim() const;
-	const Rect<int> GetShotRect( const int i ) const;
-	const Rect<int> GetTankRect() const;
+	const Rect<float> GetShotRect( const int i ) const;
+	const Rect<float> GetTankRect() const;
 	const int GetShotCount() const;
 	void CreateShot( const Vec2<float>& origin );
 	void DeleteShot( const int i );

@@ -112,28 +112,16 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 	}
 }
 
-bool Tank::Collision( const Vec2<float> & in_loc,const Vec2<int>& in_dim ) const
+bool Tank::Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim ) const
 {
-	if( isAlive )
-	{
-		const float objright = in_loc.x + float( in_dim.x );
-		const float objbottom = in_loc.y + float( in_dim.y );
-		const float shotright = loc.x + float( dim.x );
-		const float shotbottom = loc.y + float( dim.y );
-
-		return ( objright >= loc.x &&
-			in_loc.x <= shotright &&
-			objbottom >= loc.y &&
-			in_loc.y <= shotbottom );
-	}
-	return false;
+	return Collision( Rect<float>( in_loc, in_dim.x, in_dim.y ) );
 }
 
-bool Tank::Collision( const Rect<int>& obj ) const
+bool Tank::Collision( const Rect<float>& obj ) const
 {
 	if( isAlive )
 	{
-		return Rect<int>( (Vec2<int>)loc, dim.x, dim.y ).IsOverlappingWith( obj );
+		return GetTankRect().IsOverlappingWith( obj );
 	}
 	return false;
 }
@@ -155,14 +143,15 @@ const Vec2<int>& Tank::GetShotDim() const
 	return TankShot::GetDim();
 }
 
-const Rect<int> Tank::GetShotRect( const int i ) const
+const Rect<float> Tank::GetShotRect( const int i ) const
 {
-	return Rect<int>( (Vec2<int>)GetShotLoc( i ), GetShotDim() );
+	Vec2<int> shotDim = GetShotDim();
+	return Rect<float>( GetShotLoc( i ), shotDim.x, shotDim.y );
 }
 
-const Rect<int> Tank::GetTankRect() const
+const Rect<float> Tank::GetTankRect() const
 {
-	return Rect<int>( (Vec2<int>)loc, dim );
+	return Rect<float>( loc, dim.x, dim.y );
 }
 
 const int Tank::GetShotCount() const

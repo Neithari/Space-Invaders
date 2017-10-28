@@ -20,8 +20,8 @@ public:
 
 private:
 	static constexpr Vec2<int> dim = { 6,12 };
-	static constexpr float screenWidth = 800.0f;
-	static constexpr float screenHeight = 600.0f;
+	static constexpr float screenWidth = (float)Graphics::ScreenWidth;
+	static constexpr float screenHeight = (float)Graphics::ScreenHeight;
 	static constexpr int toggleTime = 15;
 	Surface sprite = Surface( "Sprites\\AlienShot6x12.bmp" );
 	int toggleIndex = 0;

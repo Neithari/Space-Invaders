@@ -69,7 +69,9 @@ private:
 	static constexpr int alienShotChance = 5;
 	static constexpr int alienRows = 15;
 	static constexpr Vec2<float> tankStartLoc = { 387.0f,500.0f };
+	static constexpr Vec2<float> alienStartLoc = { 100.0f,100.0f };
 	static constexpr Vec2<int> houseStartLoc = { 180,465 };
+	const Rect<float> alienSpace;
 	Tank* pTank = nullptr;
 	Alien* pAlien = nullptr;
 	House* pHouse[houseCount] = {};

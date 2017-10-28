@@ -69,21 +69,25 @@ Vec2<float> Invader::GetLoc() const
 	return loc;
 }
 
-void Invader::Collision( const Vec2<float>& in_loc, const Vec2<int>& in_dim )
+Rect<float> Invader::GetRect() const
+{
+	return Rect<float>( loc, dim.x , dim.y );
+}
+
+bool Invader::Collision( const Vec2<float>& in_loc, const Vec2<int>& in_dim )
+{
+	return Collision( Rect<float>( in_loc, in_dim.x, in_dim.y ) );
+}
+
+bool Invader::Collision( const Rect<float>& other )
 {
 	if( isAlive )
 	{
-		const float objright = in_loc.x + float( in_dim.x );
-		const float objbottom = in_loc.y + float( in_dim.y );
-		const float shotright = loc.x + float( dim.x );
-		const float shotbottom = loc.y + float( dim.y );
-
-		if( objright >= loc.x &&
-			in_loc.x <= shotright &&
-			objbottom >= loc.y &&
-			in_loc.y <= shotbottom )
+		if( GetRect().IsOverlappingWith( other ) )
 		{
 			isAlive = false;
+			return true;
 		}
 	}
+	return false;
 }

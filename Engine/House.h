@@ -11,7 +11,7 @@ public:
 	House( const Vec2<int>& in_loc );
 
 	void Draw( Graphics& gfx );
-	bool IsColliding( const Rect<int>& obj );
+	bool IsColliding( const Rect<float>& obj );
 private:
 	const std::string filename = "house.g";
 	Vec2<int> loc;
