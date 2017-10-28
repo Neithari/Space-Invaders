@@ -29,7 +29,8 @@ Game::Game( MainWindow& wnd )
 	xDist( 0.0f, 800.0f ),
 	yDist( 0.0f, 600.0f ),
 	pTank( new Tank( gfx, tankStartLoc ) ),
-	pAlien( new Alien( gfx, alienShotMax, alienShotChance ) )
+	alienSpace( alienStartLoc.x, gfx.ScreenWidth - alienStartLoc.x, alienStartLoc.y, gfx.ScreenHeight - alienStartLoc.y ),
+	pAlien( new Alien( gfx, alienShotMax, alienShotChance, alienSpace ) )
 {
 	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
@@ -69,7 +70,7 @@ void Game::UpdateModel()
 		if( lives == livesOld )
 			{
 				pTank->Update( wnd.kbd,dt );
-				pAlien->Update( dt );
+				gameOver = !pAlien->Update( dt );
 				//Tank shot collision
 				CollisionTankShot();
 				//Alien shot collision
@@ -147,7 +148,7 @@ void Game::RestartGame()
 	gameOver = false;
 	gameStart = true;
 	delete pAlien;
-	pAlien = new Alien( gfx, alienShotMax, alienShotChance );
+	pAlien = new Alien( gfx, alienShotMax, alienShotChance, alienSpace );
 	delete pTank;
 	pTank = new Tank( gfx, tankStartLoc );
 	Vec2<int> loc = houseStartLoc;
