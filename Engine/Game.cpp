@@ -106,10 +106,18 @@ void Game::UpdateModel()
 			RestartGame();
 		}
 	}
+	// check for hiScore
+	if( score > hiScore )
+	{
+		hiScore = score;
+	}
 }
 
 void Game::ComposeFrame()
 {
+	// highscore text
+	std::string hiScoreText = "Highscore: " + std::to_string( hiScore );
+	font.DrawText( hiScoreText, hiScorePos, Colors::Gray, gfx );
 	if( !gameOver && gameStart && !youWon)
 	{
 		if( lives == livesOld )
@@ -125,6 +133,13 @@ void Game::ComposeFrame()
 			pHouse[i]->Draw( gfx );
 		}
 		pAlien->Draw();
+		// score text
+		std::string scoreText = "Score: " + std::to_string( score );
+		font.DrawText( scoreText, scorePos, Colors::White, gfx );
+		// lives text
+		std::string livesText = "Lives: " + std::to_string( lives );
+		font.DrawText( livesText, livesPos, Colors::White, gfx );
+		
 	}
 	else
 	{
@@ -147,6 +162,7 @@ void Game::RestartGame()
 {
 	gameOver = false;
 	gameStart = true;
+	score = 0;
 	delete pAlien;
 	pAlien = new Alien( gfx, alienShotMax, alienShotChance, alienSpace );
 	delete pTank;
@@ -194,7 +210,7 @@ void Game::CollisionTankShot()
 		}
 		for( int a = 0; a < alienRows && !isCollided; a++ )
 		{
-			if( pAlien->Collision( tankShot ) )
+			if( pAlien->Collision( tankShot, score ) )
 			{
 				pTank->DeleteShot( s );
 				break;

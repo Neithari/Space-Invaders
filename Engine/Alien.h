@@ -13,8 +13,8 @@ public:
 	Alien( Graphics& gfx , const int shotMax, const int shotChance, const Rect<float>& playSpace );
 	void Draw();
 	bool Update( const float dt );
-	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim );
-	bool Collision( const Rect<float>& other );
+	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim, unsigned int& score );
+	bool Collision( const Rect<float>& other, unsigned int& score );
 	Vec2<float> GetShotLoc( const int i ) const;
 	const Vec2<int>& GetShotDim() const;
 	Rect<float> GetShotRect( const int i ) const;

@@ -24,7 +24,6 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Vec2.h"
-#include "Vec2.h"
 #include <random>
 #include <assert.h>
 #include "Surface.h"
@@ -34,6 +33,7 @@
 #include "Alien.h"
 #include "FrameTime.h"
 #include "Vec2.h"
+#include "Font.h"
 
 class Game
 {
@@ -80,6 +80,8 @@ private:
 	bool youWon = false;
 	int lives = startLives;
 	int livesOld = startLives;
+	unsigned int score = 0;
+	unsigned int hiScore = 0;
 	//Timing
 	static constexpr float deathTime = 2.5f;
 	FrameTime ft;
@@ -89,5 +91,10 @@ private:
 	Surface spriteTitle = Surface( "Sprites\\SpaceInvaders399x44.bmp" );
 	Surface spriteGameOver = Surface( "Sprites\\game_over84x64.bmp" );
 	Surface spriteYouWon = Surface( "Sprites\\YouWin180x180.bmp" );
+	//Text
+	Font font = Font( "Sprites\\Text16x28.bmp" );
+	const Vec2<int> scorePos = Vec2<int>( 10, 10 );
+	const Vec2<int> hiScorePos = Vec2<int>( 310, 10 );
+	const Vec2<int> livesPos = Vec2<int>( 10, 550 );
 	/********************************/
 };

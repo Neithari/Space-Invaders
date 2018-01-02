@@ -236,12 +236,12 @@ bool Alien::Update( const float dt )
 	return true;
 }
 
-bool Alien::Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim )
+bool Alien::Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim, unsigned int& score )
 {
-	return Collision( Rect<float>( in_loc, in_dim.x, in_dim.y ) );
+	return Collision( Rect<float>( in_loc, in_dim.x, in_dim.y ), score );
 }
 
-bool Alien::Collision( const Rect<float>& other )
+bool Alien::Collision( const Rect<float>& other, unsigned int& score )
 {
 	for( int i = 0; i < n_big; i++ )
 	{
@@ -250,6 +250,7 @@ bool Alien::Collision( const Rect<float>& other )
 			if( invaderBig[i].Collision( other ) )
 			{
 				count_big--;
+				score += 10;
 				return true;
 			}
 		}
@@ -261,6 +262,7 @@ bool Alien::Collision( const Rect<float>& other )
 			if( invaderMid[i].Collision( other ) )
 			{
 				count_mid--;
+				score += 20;
 				return true;
 			}
 		}
@@ -272,6 +274,7 @@ bool Alien::Collision( const Rect<float>& other )
 			if( invaderSmall[i].Collision( other ) )
 			{
 				count_small--;
+				score += 30;
 				return true;
 			}
 		}
@@ -386,7 +389,7 @@ int Alien::GetBottomRow() const
 
 void Alien::IncreaseSpeed()
 {
-	if( !( moveSpeed > 0.9f ) )
+	if( !( moveSpeed > 0.95f ) )
 	{
 		if( ( Count() % 5 ) == 0 && Count() != ( n_small + n_mid + n_big ) && !speedIncreased )
 		{
