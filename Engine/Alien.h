@@ -26,6 +26,7 @@ public:
 	int GetBottomRow() const;
 	// for collision with house
 	std::vector<Rect<float>> GetAliensForRow( const int row ) const;
+	~Alien();
 private:
 	void IncreaseSpeed();
 	void SetArea();
