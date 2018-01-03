@@ -28,10 +28,9 @@ Game::Game( MainWindow& wnd )
 	rng( rd() ),
 	xDist( 0.0f, 800.0f ),
 	yDist( 0.0f, 600.0f ),
-	pTank( new Tank( gfx, tankStartLoc ) ),
-	alienSpace( alienStartLoc.x, gfx.ScreenWidth - alienStartLoc.x, alienStartLoc.y, gfx.ScreenHeight - alienStartLoc.y ),
-	pAlien( new Alien( gfx, alienShotMax, alienShotChance, alienSpace ) )
+	pTank( new Tank( gfx, tankStartLoc ) )
 {
+	pAlien = new Alien( gfx, alienShotMax, alienShotChance, { 125.0f, gfx.ScreenWidth - 130.0f, 100.0f, gfx.ScreenHeight - 100.0f } );
 	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
 	{
@@ -75,6 +74,24 @@ void Game::UpdateModel()
 				CollisionTankShot();
 				//Alien shot collision
 				CollisionAlienShot();
+				//Alien collision with house
+				if( pAlien->GetRect().bottom >= houseStartLoc.y )
+				{
+					std::vector<Rect<float>> alienBottomRects = pAlien->GetAliensForRow( pAlien->GetBottomRow() );
+					std::vector<Rect<float>> alienBottom2Rects = pAlien->GetAliensForRow( pAlien->GetBottomRow() - 1 );
+					for( int h = 0; h < houseCount; h++ )
+					{
+						for( auto alienRect : alienBottomRects )
+						{
+							pHouse[h]->IsColliding( alienRect );
+						}
+						// check for 2. bottom row
+						for( auto alienRect : alienBottom2Rects )
+						{
+							pHouse[h]->IsColliding( alienRect );
+						}
+					}
+				}
 				//check for win
 				if( pAlien->Count() <= 0 )
 				{
@@ -106,10 +123,20 @@ void Game::UpdateModel()
 			RestartGame();
 		}
 	}
+	// check for hiScore
+	if( score > hiScore )
+	{
+		hiScore = score;
+	}
 }
 
 void Game::ComposeFrame()
 {
+	// background
+	gfx.DrawSprite( 0, 0, spriteBackground, SpriteEffect::Chroma{ Colors::Magenta } );
+	// highscore text
+	std::string hiScoreText = "Highscore: " + std::to_string( hiScore );
+	font.DrawText( hiScoreText, hiScorePos, Colors::White, gfx );
 	if( !gameOver && gameStart && !youWon)
 	{
 		if( lives == livesOld )
@@ -125,6 +152,13 @@ void Game::ComposeFrame()
 			pHouse[i]->Draw( gfx );
 		}
 		pAlien->Draw();
+		// score text
+		std::string scoreText = "Score: " + std::to_string( score );
+		font.DrawText( scoreText, scorePos, Colors::White, gfx );
+		// lives text
+		std::string livesText = "Lives: " + std::to_string( lives );
+		font.DrawText( livesText, livesPos, Colors::White, gfx );
+		
 	}
 	else
 	{
@@ -147,6 +181,7 @@ void Game::RestartGame()
 {
 	gameOver = false;
 	gameStart = true;
+	score = 0;
 	delete pAlien;
 	pAlien = new Alien( gfx, alienShotMax, alienShotChance, alienSpace );
 	delete pTank;
@@ -194,7 +229,7 @@ void Game::CollisionTankShot()
 		}
 		for( int a = 0; a < alienRows && !isCollided; a++ )
 		{
-			if( pAlien->Collision( tankShot ) )
+			if( pAlien->Collision( tankShot, score ) )
 			{
 				pTank->DeleteShot( s );
 				break;

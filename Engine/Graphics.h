@@ -26,6 +26,7 @@
 #include "Colors.h"
 #include "Rect.h"
 #include "Surface.h"
+#include <string>
 
 class Graphics
 {
@@ -107,7 +108,6 @@ public:
 			}
 		}
 	}
-
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;

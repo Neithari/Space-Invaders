@@ -1,6 +1,6 @@
 #include "Alien.h"
 
-Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance, const Rect<float>& playSpace )
+Alien::Alien( Graphics& gfx, const int shotMax, const int shotChance, const Rect<float>& in_playSpace )
 	:
 	gfx( gfx ),
 	shotMax( shotMax ),
@@ -8,14 +8,11 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance, const Rec
 	chanceDist( 1,100 ),
 	shotDist( 0,columns - 1 ),
 	shotChance( shotChance ),
-	playSpace( playSpace )
+	playSpace( in_playSpace )
 {
 	//set start loc
-	if( !playSpace.Contains( loc ) )
-	{
-		loc.x = (float)playSpace.left;
-		loc.y = (float)playSpace.top;
-	}
+	loc.x = (float)playSpace.left;
+	loc.y = (float)playSpace.top;
 	//reserve space
 	invaderSmall.reserve( n_small );
 	invaderMid.reserve( n_mid );
@@ -186,9 +183,9 @@ bool Alien::Update( const float dt )
 				//Get bottom Alien
 				Vec2<float> shotLoc;
 				Vec2<int> shotDim;
-				if( invaderBig[col + 15].IsAlive() )
+				if( invaderBig[col + columns].IsAlive() )
 				{
-					shotLoc = invaderBig[col + 15].GetLoc();
+					shotLoc = invaderBig[col + columns].GetLoc();
 					shotDim = Invader::dimBig;
 				}
 				else if( invaderBig[col].IsAlive() )
@@ -196,9 +193,9 @@ bool Alien::Update( const float dt )
 					shotLoc = invaderBig[col].GetLoc();
 					shotDim = Invader::dimBig;
 				}
-				else if( invaderMid[col + 15].IsAlive() )
+				else if( invaderMid[col + columns].IsAlive() )
 				{
-					shotLoc = invaderMid[col + 15].GetLoc();
+					shotLoc = invaderMid[col + columns].GetLoc();
 					shotDim = Invader::dimMid;
 				}
 				else if( invaderMid[col].IsAlive() )
@@ -236,12 +233,12 @@ bool Alien::Update( const float dt )
 	return true;
 }
 
-bool Alien::Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim )
+bool Alien::Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim, unsigned int& score )
 {
-	return Collision( Rect<float>( in_loc, in_dim.x, in_dim.y ) );
+	return Collision( Rect<float>( in_loc, in_dim.x, in_dim.y ), score );
 }
 
-bool Alien::Collision( const Rect<float>& other )
+bool Alien::Collision( const Rect<float>& other, unsigned int& score )
 {
 	for( int i = 0; i < n_big; i++ )
 	{
@@ -250,6 +247,7 @@ bool Alien::Collision( const Rect<float>& other )
 			if( invaderBig[i].Collision( other ) )
 			{
 				count_big--;
+				score += 10;
 				return true;
 			}
 		}
@@ -261,6 +259,7 @@ bool Alien::Collision( const Rect<float>& other )
 			if( invaderMid[i].Collision( other ) )
 			{
 				count_mid--;
+				score += 20;
 				return true;
 			}
 		}
@@ -272,6 +271,7 @@ bool Alien::Collision( const Rect<float>& other )
 			if( invaderSmall[i].Collision( other ) )
 			{
 				count_small--;
+				score += 30;
 				return true;
 			}
 		}
@@ -322,19 +322,22 @@ Rect<float> Alien::GetRectForRow( const int row ) const
 	float top = loc.y;
 	float bottom = loc.y + dim.y;
 	//get top
-	for( int y = 0; y < row; y++ )
+	for( int y = 0; y < row - 1; y++ )
 	{
 		top += Invader::dimBig.y + alienSpacing;
 	}
 	//get bottom
-	for( int y = rows - 1; y > row; y-- )
-	{
-		bottom -= Invader::dimBig.y + alienSpacing;
-	}
+	bottom = top + Invader::dimBig.y;
 	//get left
+	bool colClean = true;
 	for( int x = 0; x < columns; x++ )
 	{
-		if( !invaderAlive[row*columns + x] )
+		if( invaderAlive[( row - 1 )*columns + x] )
+		{
+			colClean = false;
+		}
+		
+		if( colClean )
 		{
 			left += Invader::dimBig.x + alienSpacing;
 		}
@@ -344,9 +347,15 @@ Rect<float> Alien::GetRectForRow( const int row ) const
 		}
 	}
 	//get right
-	for( int x = 0; x < columns; x++ )
+	colClean = true;
+	for( int x = columns - 1; x >= 0; x-- )
 	{
-		if( !invaderAlive[row*columns + x] )
+		if( invaderAlive[( row - 1 )*columns + x] )
+		{
+			colClean = false;
+		}
+		
+		if( colClean )
 		{
 			right -= Invader::dimBig.x + alienSpacing;
 		}
@@ -384,9 +393,53 @@ int Alien::GetBottomRow() const
 	return bottom;
 }
 
+std::vector<Rect<float>> Alien::GetAliensForRow( const int row ) const
+{
+	std::vector<Rect<float>> alienRects;
+	for( int x = 0; x < columns; x++ )
+	{
+		if( row > 4 )
+		{
+			if( invaderBig[x + columns].IsAlive() )
+			{
+				alienRects.emplace_back( invaderBig[x + columns].GetRect() );
+			}
+		}
+		else if( row > 3 )
+		{
+			if( invaderBig[x].IsAlive() )
+			{
+				alienRects.emplace_back( invaderBig[x].GetRect() );
+			}
+		}
+		else if( row > 2 )
+		{
+			if( invaderMid[x + columns].IsAlive() )
+			{
+				alienRects.emplace_back( invaderMid[x + columns].GetRect() );
+			}
+		}
+		else if( row > 1 )
+		{
+			if( invaderMid[x].IsAlive() )
+			{
+				alienRects.emplace_back( invaderMid[x].GetRect() );
+			}
+		}
+		else
+		{
+			if( invaderSmall[x].IsAlive() )
+			{
+				alienRects.emplace_back( invaderSmall[x].GetRect() );
+			}
+		}
+	}
+	return alienRects;
+}
+
 void Alien::IncreaseSpeed()
 {
-	if( !( moveSpeed > 0.9f ) )
+	if( !( moveSpeed > 0.95f ) )
 	{
 		if( ( Count() % 5 ) == 0 && Count() != ( n_small + n_mid + n_big ) && !speedIncreased )
 		{

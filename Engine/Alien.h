@@ -10,11 +10,11 @@
 class Alien
 {
 public:
-	Alien( Graphics& gfx , const int shotMax, const int shotChance, const Rect<float>& playSpace );
+	Alien( Graphics& gfx , const int shotMax, const int shotChance, const Rect<float>& in_playSpace );
 	void Draw();
 	bool Update( const float dt );
-	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim );
-	bool Collision( const Rect<float>& other );
+	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim, unsigned int& score );
+	bool Collision( const Rect<float>& other, unsigned int& score );
 	Vec2<float> GetShotLoc( const int i ) const;
 	const Vec2<int>& GetShotDim() const;
 	Rect<float> GetShotRect( const int i ) const;
@@ -24,11 +24,18 @@ public:
 	const Rect<float>& GetRect() const;
 	Rect<float> GetRectForRow( const int row ) const;
 	int GetBottomRow() const;
-
+	// for collision with house
+	std::vector<Rect<float>> GetAliensForRow( const int row ) const;
 private:
 	void IncreaseSpeed();
 	void SetArea();
 	void UpdateInvaderAlive();
+public:
+	static constexpr int columns = 13;
+	static constexpr int rows = 5;
+	static constexpr int n_small = columns;
+	static constexpr int n_mid = columns * 2;
+	static constexpr int n_big = columns * 2;
 private:
 	Graphics& gfx;
 	std::random_device rd;
@@ -36,14 +43,9 @@ private:
 	std::uniform_int_distribution<int> chanceDist;
 	std::uniform_int_distribution<int> shotDist;
 	const int shotChance;
-	static constexpr int columns = 15;
-	static constexpr int rows = 5;
-	static constexpr int n_small = 15;
-	static constexpr int n_mid = 30;
-	static constexpr int n_big = 30;
 	const Rect<float> playSpace;
 	Vec2<int> dim;
-	Vec2<float> loc = { 50,50 };
+	Vec2<float> loc;
 	Rect<float> area;
 	static constexpr int alienSpacing = 10;
 	int count_small = n_small;

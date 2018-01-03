@@ -24,7 +24,6 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Vec2.h"
-#include "Vec2.h"
 #include <random>
 #include <assert.h>
 #include "Surface.h"
@@ -34,6 +33,7 @@
 #include "Alien.h"
 #include "FrameTime.h"
 #include "Vec2.h"
+#include "Font.h"
 
 class Game
 {
@@ -58,20 +58,21 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+public:
+	static constexpr int houseCount = 5;
+	static constexpr int tankShotMax = 30;
+	static constexpr int startLives = 3;
+	static constexpr int alienShotMax = Alien::columns;
+	static constexpr int alienShotChance = 5;
+	static constexpr int alienRows = Alien::columns;
+	static constexpr Vec2<float> tankStartLoc = { 387.0f,495.0f };
+	static constexpr Vec2<int> houseStartLoc = { 180,465 };
+private:
 	std::random_device rd;
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
-	static constexpr int houseCount = 5;
-	static constexpr int tankShotMax = 30;
-	static constexpr int startLives = 3;
-	static constexpr int alienShotMax = 15;
-	static constexpr int alienShotChance = 5;
-	static constexpr int alienRows = 15;
-	static constexpr Vec2<float> tankStartLoc = { 387.0f,500.0f };
-	static constexpr Vec2<float> alienStartLoc = { 100.0f,100.0f };
-	static constexpr Vec2<int> houseStartLoc = { 180,465 };
-	const Rect<float> alienSpace;
+	const Rect<float> alienSpace = { 125.0f, gfx.ScreenWidth - 130.0f, 100.0f, gfx.ScreenHeight - 100.0f };
 	Tank* pTank = nullptr;
 	Alien* pAlien = nullptr;
 	House* pHouse[houseCount] = {};
@@ -80,6 +81,8 @@ private:
 	bool youWon = false;
 	int lives = startLives;
 	int livesOld = startLives;
+	unsigned int score = 0;
+	unsigned int hiScore = 0;
 	//Timing
 	static constexpr float deathTime = 2.5f;
 	FrameTime ft;
@@ -89,5 +92,11 @@ private:
 	Surface spriteTitle = Surface( "Sprites\\SpaceInvaders399x44.bmp" );
 	Surface spriteGameOver = Surface( "Sprites\\game_over84x64.bmp" );
 	Surface spriteYouWon = Surface( "Sprites\\YouWin180x180.bmp" );
+	Surface spriteBackground = Surface( "Sprites\\Background800x600.bmp" );
+	//Text
+	Font font = Font( "Sprites\\Text16x28.bmp" );
+	const Vec2<int> scorePos = Vec2<int>( 10, 5 );
+	const Vec2<int> hiScorePos = Vec2<int>( 550, 5 );
+	const Vec2<int> livesPos = Vec2<int>( 10, 550 );
 	/********************************/
 };
