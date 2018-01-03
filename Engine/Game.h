@@ -67,7 +67,7 @@ public:
 	static constexpr int alienRows = Alien::columns;
 	static constexpr Vec2<float> tankStartLoc = { 387.0f,495.0f };
 	static constexpr Vec2<float> alienStartLoc = { 123.0f,110.0f };
-	static constexpr Vec2<int> houseStartLoc = { 180,465 };
+	static constexpr Vec2<int> houseStartLoc = { 180,464 };
 private:
 	std::random_device rd;
 	std::mt19937 rng;

@@ -43,7 +43,7 @@ private:
 	std::mt19937 rng;
 	std::uniform_int_distribution<int> chanceDist;
 	std::uniform_int_distribution<int> shotDist;
-	const int shotChance;
+	int shotChance;
 	const Rect<float>* pPlaySpace = nullptr;
 	Vec2<int> dim;
 	Vec2<float> loc;
@@ -58,6 +58,7 @@ private:
 	const int shotMax;
 	std::vector<AlienShot> shot;
 	bool columnClean[columns] = {};
+	int columnsNotClean = columns;
 	bool invaderAlive[n_small + n_mid + n_big] = {};
 	Vec2<float> delta_loc = { float(alienSpacing),0 };
 	//Timing
