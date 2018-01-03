@@ -15,7 +15,7 @@ void AlienShot::Draw( Graphics & gfx )
 		if ( toggle )
 		{
 			//Shot1
-			gfx.DrawSprite( int( loc.x ), int( loc.y ), spriteRect, sprite, SpriteEffect::Chroma{ Colors::Magenta } );
+			gfx.DrawSprite( int( loc.x ), int( loc.y ), spriteRect, clip, sprite, SpriteEffect::Chroma{ Colors::Magenta } );
 
 			if ( toggleIndex >= toggleTime )
 			{
@@ -54,7 +54,7 @@ void AlienShot::Update( const float dt )
 	if ( isAlive )
 	{
 		loc.y += vShot * dt;
-		if ( loc.y + dim.y >= screenHeight )
+		if ( loc.y + dim.y >= (float)clip.bottom )
 		{
 			isAlive = false;
 		}

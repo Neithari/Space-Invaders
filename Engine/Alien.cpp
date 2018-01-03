@@ -1,6 +1,6 @@
 #include "Alien.h"
 
-Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance, const Rect<float>& playSpace )
+Alien::Alien( Graphics& gfx, const int shotMax, const int shotChance, const Rect<float>& in_playSpace )
 	:
 	gfx( gfx ),
 	shotMax( shotMax ),
@@ -8,14 +8,11 @@ Alien::Alien( Graphics & gfx, const int shotMax, const int shotChance, const Rec
 	chanceDist( 1,100 ),
 	shotDist( 0,columns - 1 ),
 	shotChance( shotChance ),
-	playSpace( playSpace )
+	playSpace( in_playSpace )
 {
 	//set start loc
-	if( !playSpace.Contains( loc ) )
-	{
-		loc.x = (float)playSpace.left;
-		loc.y = (float)playSpace.top;
-	}
+	loc.x = (float)playSpace.left;
+	loc.y = (float)playSpace.top;
 	//reserve space
 	invaderSmall.reserve( n_small );
 	invaderMid.reserve( n_mid );
@@ -186,9 +183,9 @@ bool Alien::Update( const float dt )
 				//Get bottom Alien
 				Vec2<float> shotLoc;
 				Vec2<int> shotDim;
-				if( invaderBig[col + 15].IsAlive() )
+				if( invaderBig[col + columns].IsAlive() )
 				{
-					shotLoc = invaderBig[col + 15].GetLoc();
+					shotLoc = invaderBig[col + columns].GetLoc();
 					shotDim = Invader::dimBig;
 				}
 				else if( invaderBig[col].IsAlive() )
@@ -196,9 +193,9 @@ bool Alien::Update( const float dt )
 					shotLoc = invaderBig[col].GetLoc();
 					shotDim = Invader::dimBig;
 				}
-				else if( invaderMid[col + 15].IsAlive() )
+				else if( invaderMid[col + columns].IsAlive() )
 				{
-					shotLoc = invaderMid[col + 15].GetLoc();
+					shotLoc = invaderMid[col + columns].GetLoc();
 					shotDim = Invader::dimMid;
 				}
 				else if( invaderMid[col].IsAlive() )
@@ -335,7 +332,7 @@ Rect<float> Alien::GetRectForRow( const int row ) const
 	bool colClean = true;
 	for( int x = 0; x < columns; x++ )
 	{
-		if( invaderAlive[(row - 1)*columns + x] )
+		if( invaderAlive[( row - 1 )*columns + x] )
 		{
 			colClean = false;
 		}
@@ -353,7 +350,7 @@ Rect<float> Alien::GetRectForRow( const int row ) const
 	colClean = true;
 	for( int x = columns - 1; x >= 0; x-- )
 	{
-		if( invaderAlive[(row - 1)*columns + x] )
+		if( invaderAlive[( row - 1 )*columns + x] )
 		{
 			colClean = false;
 		}

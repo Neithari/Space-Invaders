@@ -28,10 +28,9 @@ Game::Game( MainWindow& wnd )
 	rng( rd() ),
 	xDist( 0.0f, 800.0f ),
 	yDist( 0.0f, 600.0f ),
-	pTank( new Tank( gfx, tankStartLoc ) ),
-	alienSpace( alienStartLoc.x, gfx.ScreenWidth - alienStartLoc.x, alienStartLoc.y, gfx.ScreenHeight - alienStartLoc.y ),
-	pAlien( new Alien( gfx, alienShotMax, alienShotChance, alienSpace ) )
+	pTank( new Tank( gfx, tankStartLoc ) )
 {
+	pAlien = new Alien( gfx, alienShotMax, alienShotChance, { 125.0f, gfx.ScreenWidth - 130.0f, 100.0f, gfx.ScreenHeight - 100.0f } );
 	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
 	{
@@ -133,9 +132,11 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	// background
+	gfx.DrawSprite( 0, 0, spriteBackground, SpriteEffect::Chroma{ Colors::Magenta } );
 	// highscore text
 	std::string hiScoreText = "Highscore: " + std::to_string( hiScore );
-	font.DrawText( hiScoreText, hiScorePos, Colors::Gray, gfx );
+	font.DrawText( hiScoreText, hiScorePos, Colors::White, gfx );
 	if( !gameOver && gameStart && !youWon)
 	{
 		if( lives == livesOld )
