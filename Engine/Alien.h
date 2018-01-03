@@ -24,7 +24,8 @@ public:
 	const Rect<float>& GetRect() const;
 	Rect<float> GetRectForRow( const int row ) const;
 	int GetBottomRow() const;
-
+	// for collision with house
+	std::vector<Rect<float>> GetAliensForRow( const int row ) const;
 private:
 	void IncreaseSpeed();
 	void SetArea();

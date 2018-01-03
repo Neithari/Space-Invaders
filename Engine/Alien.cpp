@@ -396,6 +396,50 @@ int Alien::GetBottomRow() const
 	return bottom;
 }
 
+std::vector<Rect<float>> Alien::GetAliensForRow( const int row ) const
+{
+	std::vector<Rect<float>> alienRects;
+	for( int x = 0; x < columns; x++ )
+	{
+		if( row > 4 )
+		{
+			if( invaderBig[x + columns].IsAlive() )
+			{
+				alienRects.emplace_back( invaderBig[x + columns].GetRect() );
+			}
+		}
+		else if( row > 3 )
+		{
+			if( invaderBig[x].IsAlive() )
+			{
+				alienRects.emplace_back( invaderBig[x].GetRect() );
+			}
+		}
+		else if( row > 2 )
+		{
+			if( invaderMid[x + columns].IsAlive() )
+			{
+				alienRects.emplace_back( invaderMid[x + columns].GetRect() );
+			}
+		}
+		else if( row > 1 )
+		{
+			if( invaderMid[x].IsAlive() )
+			{
+				alienRects.emplace_back( invaderMid[x].GetRect() );
+			}
+		}
+		else
+		{
+			if( invaderSmall[x].IsAlive() )
+			{
+				alienRects.emplace_back( invaderSmall[x].GetRect() );
+			}
+		}
+	}
+	return alienRects;
+}
+
 void Alien::IncreaseSpeed()
 {
 	if( !( moveSpeed > 0.95f ) )

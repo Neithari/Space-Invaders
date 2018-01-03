@@ -76,12 +76,21 @@ void Game::UpdateModel()
 				//Alien shot collision
 				CollisionAlienShot();
 				//Alien collision with house
-				Rect<float> alienBottomRect = pAlien->GetRectForRow( pAlien->GetBottomRow() );
 				if( pAlien->GetRect().bottom >= houseStartLoc.y )
 				{
+					std::vector<Rect<float>> alienBottomRects = pAlien->GetAliensForRow( pAlien->GetBottomRow() );
+					std::vector<Rect<float>> alienBottom2Rects = pAlien->GetAliensForRow( pAlien->GetBottomRow() - 1 );
 					for( int h = 0; h < houseCount; h++ )
 					{
-						pHouse[h]->IsColliding( alienBottomRect );
+						for( auto alienRect : alienBottomRects )
+						{
+							pHouse[h]->IsColliding( alienRect );
+						}
+						// check for 2. bottom row
+						for( auto alienRect : alienBottom2Rects )
+						{
+							pHouse[h]->IsColliding( alienRect );
+						}
 					}
 				}
 				//check for win
