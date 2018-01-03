@@ -332,9 +332,15 @@ Rect<float> Alien::GetRectForRow( const int row ) const
 	//get bottom
 	bottom = top + Invader::dimBig.y;
 	//get left
+	bool colClean = true;
 	for( int x = 0; x < columns; x++ )
 	{
-		if( !invaderAlive[row*columns + x] )
+		if( invaderAlive[(row - 1)*columns + x] )
+		{
+			colClean = false;
+		}
+		
+		if( colClean )
 		{
 			left += Invader::dimBig.x + alienSpacing;
 		}
@@ -344,9 +350,15 @@ Rect<float> Alien::GetRectForRow( const int row ) const
 		}
 	}
 	//get right
-	for( int x = 0; x < columns; x++ )
+	colClean = true;
+	for( int x = columns - 1; x >= 0; x-- )
 	{
-		if( !invaderAlive[row*columns + x] )
+		if( invaderAlive[(row - 1)*columns + x] )
+		{
+			colClean = false;
+		}
+		
+		if( colClean )
 		{
 			right -= Invader::dimBig.x + alienSpacing;
 		}
