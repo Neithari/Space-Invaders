@@ -29,12 +29,12 @@ Game::Game( MainWindow& wnd )
 	xDist( 0.0f, 800.0f ),
 	yDist( 0.0f, 600.0f ),
 	pTank( new Tank( gfx, tankStartLoc ) ),
-	pAlien( new Alien( gfx, alienShotMax, alienShotChance, &alienSpace ) )
-{
 	// there is a bug with the in_playspace not upating correctly after change of a parameter in game.cpp or game.h
 	// bug occurse even with a couple diffrent code locations. It's maybe a compiler didn't initialize the variable
-	// yet problem not sure. Thats the reason why pALien is declare with hardcoded values in constructor and inside
-	// the brackets and not like pTank
+	// yet problem not sure.
+	// only occuring in release. Everything is fine in develop.
+	pAlien( new Alien( gfx, alienShotMax, alienShotChance, &alienSpace ) )
+{
 	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
 	{
