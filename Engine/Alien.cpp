@@ -325,15 +325,12 @@ Rect<float> Alien::GetRectForRow( const int row ) const
 	float top = loc.y;
 	float bottom = loc.y + dim.y;
 	//get top
-	for( int y = 0; y < row; y++ )
+	for( int y = 0; y < row - 1; y++ )
 	{
 		top += Invader::dimBig.y + alienSpacing;
 	}
 	//get bottom
-	for( int y = rows - 1; y > row; y-- )
-	{
-		bottom -= Invader::dimBig.y + alienSpacing;
-	}
+	bottom = top + Invader::dimBig.y;
 	//get left
 	for( int x = 0; x < columns; x++ )
 	{

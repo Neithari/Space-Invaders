@@ -96,5 +96,8 @@ private:
 	const Vec2<int> scorePos = Vec2<int>( 10, 10 );
 	const Vec2<int> hiScorePos = Vec2<int>( 310, 10 );
 	const Vec2<int> livesPos = Vec2<int>( 10, 550 );
+	int bottomRow;
+	Rect<float> alienRect;
+	Rect<float> alienBottomRect;
 	/********************************/
 };

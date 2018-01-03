@@ -75,6 +75,17 @@ void Game::UpdateModel()
 				CollisionTankShot();
 				//Alien shot collision
 				CollisionAlienShot();
+				//Alien collide with house
+				bottomRow = pAlien->GetBottomRow();
+				alienRect = pAlien->GetRect();
+				alienBottomRect = pAlien->GetRectForRow( bottomRow );
+				if( alienRect.bottom >= houseStartLoc.y )
+				{
+					for( int h = 0; h < houseCount; h++ )
+					{
+						pHouse[h]->IsColliding( alienBottomRect );
+					}
+				}
 				//check for win
 				if( pAlien->Count() <= 0 )
 				{
