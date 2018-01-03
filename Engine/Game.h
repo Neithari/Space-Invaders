@@ -66,13 +66,14 @@ public:
 	static constexpr int alienShotChance = 5;
 	static constexpr int alienRows = Alien::columns;
 	static constexpr Vec2<float> tankStartLoc = { 387.0f,495.0f };
+	static constexpr Vec2<float> alienStartLoc = { 125.0f,100.0f };
 	static constexpr Vec2<int> houseStartLoc = { 180,465 };
 private:
 	std::random_device rd;
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
-	const Rect<float> alienSpace = { 125.0f, gfx.ScreenWidth - 130.0f, 100.0f, gfx.ScreenHeight - 100.0f };
+	const Rect<float> alienSpace = { alienStartLoc.x, gfx.ScreenWidth - alienStartLoc.x - 5, alienStartLoc.y, gfx.ScreenHeight - alienStartLoc.y };
 	Tank* pTank = nullptr;
 	Alien* pAlien = nullptr;
 	House* pHouse[houseCount] = {};

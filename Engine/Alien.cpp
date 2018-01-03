@@ -1,6 +1,6 @@
 #include "Alien.h"
 
-Alien::Alien( Graphics& gfx, const int shotMax, const int shotChance, const Rect<float>& in_playSpace )
+Alien::Alien( Graphics& gfx, const int shotMax, const int shotChance, const Rect<float>* in_pPlaySpace )
 	:
 	gfx( gfx ),
 	shotMax( shotMax ),
@@ -11,11 +11,11 @@ Alien::Alien( Graphics& gfx, const int shotMax, const int shotChance, const Rect
 	// there is a bug with the in_playspace not upating correctly after change of a parameter in game.cpp or game.h
 	// bug occurse even with a couple diffrent code locations. It's maybe a compiler didn't initialize the variable
 	// yet problem not sure
-	playSpace( in_playSpace )
+	pPlaySpace( in_pPlaySpace )
 {
 	//set start loc
-	loc.x = (float)playSpace.left;
-	loc.y = (float)playSpace.top;
+	loc.x = (float)pPlaySpace->left;
+	loc.y = (float)pPlaySpace->top;
 	//reserve space
 	invaderSmall.reserve( n_small );
 	invaderMid.reserve( n_mid );
@@ -149,7 +149,7 @@ bool Alien::Update( const float dt )
 		Rect<float> alienField = area;
 		alienField.left += delta_loc.x;
 		alienField.top += delta_loc.y;
-		if ( !alienField.IsContainedBy( playSpace ) )
+		if ( !alienField.IsContainedBy( *pPlaySpace ) )
 		{
 			delta_loc.x = -delta_loc.x;
 			delta_loc.y = alienSpacing;
@@ -157,7 +157,7 @@ bool Alien::Update( const float dt )
 			delta_loc.y = 0;
 			//check if bottom row reached earth
 			SetArea();
-			if( area.bottom > playSpace.bottom )
+			if( area.bottom > pPlaySpace->bottom )
 			{
 				return false;
 			}

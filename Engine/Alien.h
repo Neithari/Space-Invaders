@@ -10,7 +10,7 @@
 class Alien
 {
 public:
-	Alien( Graphics& gfx , const int shotMax, const int shotChance, const Rect<float>& in_playSpace );
+	Alien( Graphics& gfx , const int shotMax, const int shotChance, const Rect<float>* in_pPlaySpace );
 	void Draw();
 	bool Update( const float dt );
 	bool Collision( const Vec2<float>& in_loc,const Vec2<int>& in_dim, unsigned int& score );
@@ -43,7 +43,7 @@ private:
 	std::uniform_int_distribution<int> chanceDist;
 	std::uniform_int_distribution<int> shotDist;
 	const int shotChance;
-	const Rect<float> playSpace;
+	const Rect<float>* pPlaySpace = nullptr;
 	Vec2<int> dim;
 	Vec2<float> loc;
 	Rect<float> area;
