@@ -28,6 +28,7 @@ Game::Game( MainWindow& wnd )
 	rng( rd() ),
 	xDist( 0.0f, 800.0f ),
 	yDist( 0.0f, 600.0f ),
+	playSpace( alienStartLoc.x, gfx.ScreenWidth - alienStartLoc.x - 7, alienStartLoc.y, tankStartLoc.y ),
 	pTank( new Tank( gfx, tankStartLoc, &playSpace, tankShotMax ) ),
 	// there is a bug with the in_playspace not upating correctly after change of a parameter in game.cpp or game.h
 	// bug occurse even with a couple diffrent code locations. It's maybe a compiler didn't initialize the variable
