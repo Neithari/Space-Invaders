@@ -73,7 +73,7 @@ private:
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
-	const Rect<float> playSpace = { alienStartLoc.x, gfx.ScreenWidth - alienStartLoc.x - 7, alienStartLoc.y, tankStartLoc.y };
+	const Rect<float> playSpace;
 	Tank* pTank = nullptr;
 	Alien* pAlien = nullptr;
 	House* pHouse[houseCount] = {};
