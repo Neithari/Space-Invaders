@@ -13,8 +13,7 @@
 class Tank
 {
 public:
-	Tank( Graphics& gfx );
-	Tank( Graphics& gfx,const Vec2<float>& in_loc );
+	Tank( Graphics& gfx,const Vec2<float>& in_loc, const Rect<float>* in_pPlaySpace, const int in_maxShotCount );
 	Tank( const Tank& ) = delete;
 	Tank& operator=( const Tank& ) = delete;
 
@@ -33,13 +32,17 @@ public:
 	const int GetShotCount() const;
 	void CreateShot( const Vec2<float>& origin );
 	void DeleteShot( const int i );
+	~Tank();
 private:
-	float ClampToScreen();
+	float ClampToPlaySpace();
+public:
+	static constexpr Vec2<int> dim = { 20,18 };
+	static constexpr float speed = 90.0f;
 private:
 	Graphics& gfx;
 	const Surface sprite = Surface( "Sprites\\Tank20x18.bmp" );
-	static constexpr Vec2<int> dim = { 20,18 };
-	static constexpr float speed = 90.0f;
+	const Rect<float>* pPlaySpace = nullptr;
+	const int maxShotCount;
 	const Vec2<float> startLoc;
 	Vec2<float> loc;
 	bool rapidShotPrevent = false;
