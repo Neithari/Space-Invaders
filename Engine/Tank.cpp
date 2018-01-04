@@ -1,18 +1,12 @@
 #include "Tank.h"
 
-Tank::Tank( Graphics& gfx )
-	:
-	gfx( gfx ),
-	startLoc( 387.0f, 500.0f ),
-	loc( startLoc )
-{
-}
-
-Tank::Tank( Graphics& gfx ,const Vec2<float>& in_loc )
+Tank::Tank( Graphics& gfx ,const Vec2<float>& in_loc, const Rect<float>* in_pPlaySpace, const int in_maxShotCount )
 	:
 	gfx( gfx ),
 	startLoc( in_loc ),
-	loc( startLoc )
+	loc( startLoc ),
+	pPlaySpace( in_pPlaySpace ),
+	maxShotCount( in_maxShotCount )
 {
 }
 
@@ -46,32 +40,32 @@ void Tank::DrawHit()
 	gfx.DrawSprite( (int)loc.x, (int)loc.y, sprite, SpriteEffect::Substitution{ Colors::Magenta, Colors::Red } );
 }
 
-float Tank::ClampToScreen()
+float Tank::ClampToPlaySpace()
 {
 	const float left = loc.x;
 	const float right = loc.x + dim.x;
 	const float top = loc.y;
 	const float bottom = loc.y + dim.y;
 
-	if( left < 0 )
+	if( left < pPlaySpace->left )
 	{
-		return 0.0f;
+		return pPlaySpace->left;
 	}
-	if( right >= gfx.ScreenWidth )
+	if( right >= pPlaySpace->right )
 	{
-		return gfx.ScreenWidth - float( dim.x + 1 );
+		return pPlaySpace->right - float( dim.x + 1 );
 	}
 	else
 	{
 		return loc.x;
 	}
-	if( top < 0 )
+	if( top < pPlaySpace->top )
 	{
-		return 0.0f;
+		return pPlaySpace->top;
 	}
-	if( bottom >= gfx.ScreenHeight )
+	if( bottom >= pPlaySpace->bottom )
 	{
-		return gfx.ScreenHeight - float( dim.y + 1 );
+		return pPlaySpace->bottom - float( dim.y + 1 );
 	}
 	else
 	{
@@ -91,16 +85,16 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 	if( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
 		loc.x += speed * dt;
-		loc.x = ClampToScreen();
+		loc.x = ClampToPlaySpace();
 	}
 	if( kbd.KeyIsPressed( VK_LEFT ) )
 	{
 		loc.x -= speed * dt;
-		loc.x = ClampToScreen();
+		loc.x = ClampToPlaySpace();
 	}
 	if( kbd.KeyIsPressed( VK_SPACE ) )
 	{
-		if( !rapidShotPrevent )
+		if( !rapidShotPrevent && GetShotCount() < maxShotCount )
 		{
 			rapidShotPrevent = true;
 			CreateShot( loc );
@@ -161,10 +155,15 @@ const int Tank::GetShotCount() const
 
 void Tank::CreateShot( const Vec2<float>& origin )
 {
-	shot.emplace_back( origin );
+	shot.emplace_back( origin, pPlaySpace );
 }
 
 void Tank::DeleteShot( const int i )
 {
 	shot.erase( shot.begin() + i );
+}
+
+Tank::~Tank()
+{
+	pPlaySpace = nullptr;
 }

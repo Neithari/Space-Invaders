@@ -176,9 +176,18 @@ bool Alien::Update( const float dt )
 	}
 	//Shot creation
 	int roll = chanceDist( rng );
+	if( columnsNotClean < 2 )
+	{
+		shotChance = 3;
+	}
 	if ( roll <= shotChance )
 	{
 		int col = shotDist( rng );
+		// try again if column is empty
+		while( columnClean[col] )
+		{
+			col = shotDist( rng );
+		}
 		//find a free shot
 		for( int i = 0; i < shotMax; i++ )
 		{
@@ -215,6 +224,7 @@ bool Alien::Update( const float dt )
 				else
 				{
 					columnClean[col] = true;
+					columnsNotClean--;
 				}
 				if( !columnClean[col] )
 				{

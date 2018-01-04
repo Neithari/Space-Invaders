@@ -28,12 +28,12 @@ Game::Game( MainWindow& wnd )
 	rng( rd() ),
 	xDist( 0.0f, 800.0f ),
 	yDist( 0.0f, 600.0f ),
-	pTank( new Tank( gfx, tankStartLoc ) ),
+	pTank( new Tank( gfx, tankStartLoc, &playSpace, tankShotMax ) ),
 	// there is a bug with the in_playspace not upating correctly after change of a parameter in game.cpp or game.h
 	// bug occurse even with a couple diffrent code locations. It's maybe a compiler didn't initialize the variable
 	// yet problem not sure.
 	// only occuring in release. Everything is fine in develop.
-	pAlien( new Alien( gfx, alienShotMax, alienShotChance, &alienSpace ) )
+	pAlien( new Alien( gfx, alienShotMax, alienShotChance, &playSpace ) )
 {
 	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
@@ -138,9 +138,6 @@ void Game::ComposeFrame()
 {
 	// background
 	gfx.DrawSprite( 0, 0, spriteBackground, SpriteEffect::Chroma{ Colors::Magenta } );
-	// highscore text
-	std::string hiScoreText = "Highscore: " + std::to_string( hiScore );
-	font.DrawText( hiScoreText, hiScorePos, Colors::White, gfx );
 	if( !gameOver && gameStart && !youWon)
 	{
 		if( lives == livesOld )
@@ -159,6 +156,9 @@ void Game::ComposeFrame()
 		// score text
 		std::string scoreText = "Score: " + std::to_string( score );
 		font.DrawText( scoreText, scorePos, Colors::White, gfx );
+		// highscore text
+		std::string hiScoreText = "Highscore: " + std::to_string( hiScore );
+		font.DrawText( hiScoreText, hiScorePos, Colors::White, gfx );
 		// lives text
 		std::string livesText = "Lives: " + std::to_string( lives );
 		font.DrawText( livesText, livesPos, Colors::White, gfx );
@@ -187,9 +187,9 @@ void Game::RestartGame()
 	gameStart = true;
 	score = 0;
 	delete pAlien;
-	pAlien = new Alien( gfx, alienShotMax, alienShotChance, &alienSpace );
+	pAlien = new Alien( gfx, alienShotMax, alienShotChance, &playSpace );
 	delete pTank;
-	pTank = new Tank( gfx, tankStartLoc );
+	pTank = new Tank( gfx, tankStartLoc, &playSpace, tankShotMax );
 	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
 	{
