@@ -165,14 +165,40 @@ void Game::ComposeFrame()
 		}
 		pAlien->Draw();
 		// score text
-		std::string scoreText = "Score:" + std::to_string( score );
+		std::string scoreText = "Score:";
+		if( score < 10 )
+		{
+			scoreText += "000";
+		}
+		else if( score < 100 )
+		{
+			scoreText += "00";
+		}
+		else if( score < 1000 )
+		{
+			scoreText += "0";
+		}
+		scoreText += std::to_string( score );
 		font.DrawText( scoreText, scorePos, Colors::White, gfx );
 		// highscore text
-		std::string hiScoreText = "Highscore:" + std::to_string( hiScore );
+		std::string hiScoreText = "Highscore:";
+		if( hiScore < 10 )
+		{
+			hiScoreText += "000";
+		}
+		else if( hiScore < 100 )
+		{
+			hiScoreText += "00";
+		}
+		else if( hiScore < 1000 )
+		{
+			hiScoreText += "0";
+		}
+		hiScoreText += std::to_string( hiScore );
 		font.DrawText( hiScoreText, hiScorePos, Colors::White, gfx );
 		// lives text
-		std::string livesText = "Lives: " + std::to_string( lives );
-		font.DrawText( livesText, livesPos, Colors::Green, gfx );
+		std::string livesText = "Lives:" + std::to_string( lives );
+		font.DrawText( livesText, livesPos, Colors::Red, gfx );
 		
 	}
 	else

@@ -67,7 +67,7 @@ public:
 	static constexpr int alienShotChance = 5;
 	static constexpr int alienRows = Alien::columns;
 	static constexpr Vec2<float> tankStartLoc = { 387.0f,495.0f };
-	static constexpr Vec2<float> alienStartLoc = { 123.0f,115.0f };
+	static constexpr Vec2<float> alienStartLoc = { 123.0f,125.0f };
 	static constexpr Vec2<int> houseStartLoc = { 180,464 };
 private:
 	std::random_device rd;
@@ -97,9 +97,9 @@ private:
 	Surface spriteBackground = Surface( "Sprites\\Background800x600.bmp" );
 	//Text
 	Font font = Font( "Sprites\\Text16x28.bmp" );
-	const Vec2<int> scorePos = Vec2<int>( 120, 90 );
-	const Vec2<int> hiScorePos = Vec2<int>( 450, 90 );
-	const Vec2<int> livesPos = Vec2<int>( 120, 560 );
+	const Vec2<int> scorePos = Vec2<int>( 120, 100 );
+	const Vec2<int> hiScorePos = Vec2<int>( 450, 100 );
+	const Vec2<int> livesPos = Vec2<int>( 122, 570 );
 	// Sound
 	Sound soundInvaderKilled;
 	Sound soundExplosion;

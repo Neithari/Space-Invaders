@@ -258,6 +258,7 @@ bool Alien::Collision( const Rect<float>& other, unsigned int& score )
 			{
 				count_big--;
 				score += 10;
+				gfx.DrawSprite( int( invaderBig[i].GetLoc().x ), int( invaderBig[i].GetLoc().y ), spriteExplosion, SpriteEffect::Chroma{ Colors::White } );
 				return true;
 			}
 		}
@@ -270,6 +271,7 @@ bool Alien::Collision( const Rect<float>& other, unsigned int& score )
 			{
 				count_mid--;
 				score += 20;
+				gfx.DrawSprite( int( invaderMid[i].GetLoc().x ), int( invaderMid[i].GetLoc().y ), spriteExplosion, SpriteEffect::Chroma{ Colors::White } );
 				return true;
 			}
 		}
@@ -282,6 +284,7 @@ bool Alien::Collision( const Rect<float>& other, unsigned int& score )
 			{
 				count_small--;
 				score += 30;
+				gfx.DrawSprite( int( invaderSmall[i].GetLoc().x ), int( invaderSmall[i].GetLoc().y ), spriteExplosion, SpriteEffect::Chroma{ Colors::White } );
 				return true;
 			}
 		}

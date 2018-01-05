@@ -68,4 +68,6 @@ private:
 	float increaseSpeed = 0.05f;
 	bool speedIncreased = false;
 	float moveTime = 0.0f;
+	// Explosion Drawing
+	Surface spriteExplosion{ "Sprites\\Explosion20x16.bmp" };
 };
