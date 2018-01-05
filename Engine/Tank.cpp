@@ -6,7 +6,8 @@ Tank::Tank( Graphics& gfx ,const Vec2<float>& in_loc, const Rect<float>* in_pPla
 	startLoc( in_loc ),
 	loc( startLoc ),
 	pPlaySpace( in_pPlaySpace ),
-	maxShotCount( in_maxShotCount )
+	maxShotCount( in_maxShotCount ),
+	soundShot( L"Sounds\\shoot.wav" )
 {
 }
 
@@ -98,6 +99,7 @@ void Tank::Update( const Keyboard& kbd,const float dt )
 		{
 			rapidShotPrevent = true;
 			CreateShot( loc );
+			soundShot.Play( 1.0f, 0.5f );
 		}
 	}
 	else

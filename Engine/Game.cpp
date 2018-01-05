@@ -30,11 +30,9 @@ Game::Game( MainWindow& wnd )
 	yDist( 0.0f, 600.0f ),
 	playSpace( alienStartLoc.x, gfx.ScreenWidth - alienStartLoc.x - 7, alienStartLoc.y, tankStartLoc.y ),
 	pTank( new Tank( gfx, tankStartLoc, &playSpace, tankShotMax ) ),
-	// there is a bug with the in_playspace not upating correctly after change of a parameter in game.cpp or game.h
-	// bug occurse even with a couple diffrent code locations. It's maybe a compiler didn't initialize the variable
-	// yet problem not sure.
-	// only occuring in release. Everything is fine in develop.
-	pAlien( new Alien( gfx, alienShotMax, alienShotChance, &playSpace ) )
+	pAlien( new Alien( gfx, alienShotMax, alienShotChance, &playSpace ) ),
+	soundInvaderKilled( L"Sounds\\invaderkilled.wav" ),
+	soundExplosion( L"Sounds\\explosion.wav" )
 {
 	Vec2<int> loc = houseStartLoc;
 	for( int i = 0; i < houseCount; i++ )
@@ -72,42 +70,54 @@ void Game::UpdateModel()
 	{
 		//check if tank got hit
 		if( lives == livesOld )
+		{
+			pTank->Update( wnd.kbd,dt );
+			gameOver = !pAlien->Update( dt );
+			// Alien sound
+			if( pAlien->GetMoveTime() <= pAlien->GetMoveSpeed() )
 			{
-				pTank->Update( wnd.kbd,dt );
-				gameOver = !pAlien->Update( dt );
-				//Tank shot collision
-				CollisionTankShot();
-				//Alien shot collision
-				CollisionAlienShot();
-				//Alien collision with house
-				if( pAlien->GetRect().bottom >= houseStartLoc.y )
+				// play Invader Sound
+				soundInvader[playSound].Play( 1.0f, 0.5f );
+				// increment the index to play the 4 different sounds
+				playSound++;
+				if( playSound == 4 )
 				{
-					std::vector<Rect<float>> alienBottomRects = pAlien->GetAliensForRow( pAlien->GetBottomRow() );
-					std::vector<Rect<float>> alienBottom2Rects = pAlien->GetAliensForRow( pAlien->GetBottomRow() - 1 );
-					for( int h = 0; h < houseCount; h++ )
-					{
-						for( auto alienRect : alienBottomRects )
-						{
-							pHouse[h]->IsColliding( alienRect );
-						}
-						// check for 2. bottom row
-						for( auto alienRect : alienBottom2Rects )
-						{
-							pHouse[h]->IsColliding( alienRect );
-						}
-					}
-				}
-				//check for win
-				if( pAlien->Count() <= 0 )
-				{
-					youWon = true;
-				}
-				//check for loss
-				if( lives <= 0 )
-				{
-					gameOver = true;
+					playSound = 0;
 				}
 			}
+			//Tank shot collision
+			CollisionTankShot();
+			//Alien shot collision
+			CollisionAlienShot();
+			//Alien collision with house
+			if( pAlien->GetRect().bottom >= houseStartLoc.y )
+			{
+				std::vector<Rect<float>> alienBottomRects = pAlien->GetAliensForRow( pAlien->GetBottomRow() );
+				std::vector<Rect<float>> alienBottom2Rects = pAlien->GetAliensForRow( pAlien->GetBottomRow() - 1 );
+				for( int h = 0; h < houseCount; h++ )
+				{
+					for( auto alienRect : alienBottomRects )
+					{
+						pHouse[h]->IsColliding( alienRect );
+					}
+					// check for 2. bottom row
+					for( auto alienRect : alienBottom2Rects )
+					{
+						pHouse[h]->IsColliding( alienRect );
+					}
+				}
+			}
+			//check for win
+			if( pAlien->Count() <= 0 )
+			{
+				youWon = true;
+			}
+			//check for loss
+			if( lives <= 0 )
+			{
+				gameOver = true;
+			}
+		}
 		else //if tank got hit update death time
 		{
 			if( deathTimer <= 0.0f )
@@ -155,14 +165,40 @@ void Game::ComposeFrame()
 		}
 		pAlien->Draw();
 		// score text
-		std::string scoreText = "Score: " + std::to_string( score );
+		std::string scoreText = "Score:";
+		if( score < 10 )
+		{
+			scoreText += "000";
+		}
+		else if( score < 100 )
+		{
+			scoreText += "00";
+		}
+		else if( score < 1000 )
+		{
+			scoreText += "0";
+		}
+		scoreText += std::to_string( score );
 		font.DrawText( scoreText, scorePos, Colors::White, gfx );
 		// highscore text
-		std::string hiScoreText = "Highscore: " + std::to_string( hiScore );
+		std::string hiScoreText = "Highscore:";
+		if( hiScore < 10 )
+		{
+			hiScoreText += "000";
+		}
+		else if( hiScore < 100 )
+		{
+			hiScoreText += "00";
+		}
+		else if( hiScore < 1000 )
+		{
+			hiScoreText += "0";
+		}
+		hiScoreText += std::to_string( hiScore );
 		font.DrawText( hiScoreText, hiScorePos, Colors::White, gfx );
 		// lives text
-		std::string livesText = "Lives: " + std::to_string( lives );
-		font.DrawText( livesText, livesPos, Colors::White, gfx );
+		std::string livesText = "Lives:" + std::to_string( lives );
+		font.DrawText( livesText, livesPos, Colors::Red, gfx );
 		
 	}
 	else
@@ -187,6 +223,7 @@ void Game::RestartGame()
 	gameOver = false;
 	gameStart = true;
 	score = 0;
+	playSound = 0;
 	delete pAlien;
 	pAlien = new Alien( gfx, alienShotMax, alienShotChance, &playSpace );
 	delete pTank;
@@ -236,6 +273,7 @@ void Game::CollisionTankShot()
 		{
 			if( pAlien->Collision( tankShot, score ) )
 			{
+				soundInvaderKilled.Play( 1.0f, 0.5f );
 				pTank->DeleteShot( s );
 				break;
 			}
@@ -263,6 +301,7 @@ void Game::CollisionAlienShot()
 		{
 			pAlien->DeleteShot( i );
 			lives--;
+			soundExplosion.Play( 1.0f, 0.5f );
 			break;
 		}
 	}

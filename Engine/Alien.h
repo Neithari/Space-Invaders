@@ -26,6 +26,8 @@ public:
 	int GetBottomRow() const;
 	// for collision with house
 	std::vector<Rect<float>> GetAliensForRow( const int row ) const;
+	float GetMoveSpeed() const;
+	float GetMoveTime() const;
 	~Alien();
 private:
 	void IncreaseSpeed();
@@ -66,4 +68,6 @@ private:
 	float increaseSpeed = 0.05f;
 	bool speedIncreased = false;
 	float moveTime = 0.0f;
+	// Explosion Drawing
+	Surface spriteExplosion{ "Sprites\\Explosion20x16.bmp" };
 };

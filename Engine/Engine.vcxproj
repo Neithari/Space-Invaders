@@ -253,9 +253,31 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Chili.ico" />
+    <Image Include="Sprites\Aliens26x18.bmp" />
+    <Image Include="Sprites\AlienShot6x12.bmp" />
+    <Image Include="Sprites\Background800x600.bmp" />
+    <Image Include="Sprites\Explosion20x16.bmp" />
+    <Image Include="Sprites\game_over84x64.bmp" />
+    <Image Include="Sprites\SpaceInvaders399x44.bmp" />
+    <Image Include="Sprites\Tank20x18.bmp" />
+    <Image Include="Sprites\TankShell4x8.bmp" />
+    <Image Include="Sprites\Text16x28.bmp" />
+    <Image Include="Sprites\UFO30x14.bmp" />
+    <Image Include="Sprites\YouWin180x180.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="house.g" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sounds\explosion.wav" />
+    <Media Include="Sounds\fastinvader1.wav" />
+    <Media Include="Sounds\fastinvader2.wav" />
+    <Media Include="Sounds\fastinvader3.wav" />
+    <Media Include="Sounds\fastinvader4.wav" />
+    <Media Include="Sounds\invaderkilled.wav" />
+    <Media Include="Sounds\shoot.wav" />
+    <Media Include="Sounds\ufo_highpitch.wav" />
+    <Media Include="Sounds\ufo_lowpitch.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
