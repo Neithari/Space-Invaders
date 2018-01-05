@@ -23,11 +23,12 @@ public:
 	Rect<float> GetRect() const;
 	bool Collision( const Vec2<float>& in_loc, const Vec2<int>& in_dim );
 	bool Collision( const Rect<float>& other );
+public:
+	static constexpr int toggleTime = 50;
 private:
 	Vec2<int> dim;
 	Vec2<float> loc;
 	bool isAlive = true;
-	static constexpr int toggleTime = 60;
 	int toggleIndex = 0;
 	bool toggle = true;
 	Surface sprite = Surface( "Sprites\\Aliens26x18.bmp" );

@@ -16,6 +16,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sounds">
+      <UniqueIdentifier>{87e37d4d-5f8b-45a7-902c-08dd69711816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprites">
+      <UniqueIdentifier>{e6a816ca-46fa-47b6-85c0-df7f7dd86794}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -179,8 +185,72 @@
     <Image Include="Chili.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Sprites\Aliens26x18.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\AlienShot6x12.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\Background800x600.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\Explosion20x16.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\game_over84x64.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\SpaceInvaders399x44.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\Tank20x18.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\TankShell4x8.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\Text16x28.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\UFO30x14.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\YouWin180x180.bmp">
+      <Filter>Sprites</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="house.g" />
+    <Media Include="Sounds\explosion.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\fastinvader1.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\fastinvader2.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\fastinvader3.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\fastinvader4.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\invaderkilled.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\shoot.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\ufo_highpitch.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\ufo_lowpitch.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="house.g">
+      <Filter>Sprites</Filter>
+    </Text>
   </ItemGroup>
 </Project>

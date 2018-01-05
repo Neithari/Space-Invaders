@@ -8,10 +8,6 @@ Alien::Alien( Graphics& gfx, const int shotMax, const int shotChance, const Rect
 	chanceDist( 1,100 ),
 	shotDist( 0,columns - 1 ),
 	shotChance( shotChance ),
-	// there is a bug with the in_playspace not upating correctly after change of a parameter in game.cpp or game.h
-	// bug occurse even with a couple diffrent code locations. It's maybe a compiler didn't initialize the variable
-	// yet problem not sure
-	// only occuring in release. Everything is fine in develop.
 	pPlaySpace( in_pPlaySpace )
 {
 	//set start loc
@@ -449,6 +445,16 @@ std::vector<Rect<float>> Alien::GetAliensForRow( const int row ) const
 		}
 	}
 	return alienRects;
+}
+
+float Alien::GetMoveSpeed() const
+{
+	return moveSpeed;
+}
+
+float Alien::GetMoveTime() const
+{
+	return moveTime;
 }
 
 Alien::~Alien()

@@ -9,6 +9,7 @@
 #include "TankShot.h"
 #include <vector>
 #include "Rect.h"
+#include "Sound.h"
 
 class Tank
 {
@@ -48,4 +49,5 @@ private:
 	bool rapidShotPrevent = false;
 	std::vector<TankShot> shot;
 	bool isAlive = true;
+	Sound soundShot;
 };
