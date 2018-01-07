@@ -77,16 +77,42 @@ void Game::UpdateModel()
 			if( pAlien->GetMoveTime() <= pAlien->GetMoveSpeed() )
 			{
 				// play Invader Sound
-				soundInvader[playSound].Play( 1.0f, 0.5f );
+				soundInvader[playSoundInvader].Play( 1.0f, 0.5f );
 				// increment the index to play the 4 different sounds
-				playSound++;
-				if( playSound == 4 )
+				playSoundInvader++;
+				if( playSoundInvader == 4 )
 				{
-					playSound = 0;
+					playSoundInvader = 0;
 				}
 			}
-			//Tank shot collision
+			// UFO sound
+			if( soundUFOTime >= 2.0f && pAlien->IsUFOAlive() )
+			{
+				// play UFO Sound
+				soundUFO.Play( 1.0f, 0.5f );
+				soundUFOTime = 0.0f;
+			}
+			soundUFOTime += dt;
+			// delete collisionLoc after set time
+			if( !collisionTime.empty() )
+			{
+				for( int i = 0; i < collisionTime.size(); i++ )
+				{
+					collisionTime[i] += dt;
+					if( collisionTime[i] >= 0.1f && !collisionLoc.empty() )
+					{
+						collisionLoc.pop_front();
+						collisionTime.erase( collisionTime.begin() + i );
+					}
+				}
+			}
+			// Tank shot collision
 			CollisionTankShot();
+			// if tankshot killed a UFO stop the sound
+			if( !pAlien->IsUFOAlive() )
+			{
+				soundUFO.StopAll();
+			}
 			//Alien shot collision
 			CollisionAlienShot();
 			//Alien collision with house
@@ -164,6 +190,14 @@ void Game::ComposeFrame()
 			pHouse[i]->Draw( gfx );
 		}
 		pAlien->Draw();
+		// explosion draw
+		if( !collisionLoc.empty() )
+		{
+			for( auto cLoc : collisionLoc )
+			{
+				gfx.DrawSprite( cLoc.x, cLoc.y, spriteExplosion, SpriteEffect::Chroma{ Colors::White } );
+			}
+		}
 		// score text
 		std::string scoreText = "Score:";
 		if( score < 10 )
@@ -223,7 +257,9 @@ void Game::RestartGame()
 	gameOver = false;
 	gameStart = true;
 	score = 0;
-	playSound = 0;
+	collisionLoc.clear();
+	collisionTime.clear();
+	playSoundInvader = 0;
 	delete pAlien;
 	pAlien = new Alien( gfx, alienShotMax, alienShotChance, &playSpace );
 	delete pTank;
@@ -275,6 +311,8 @@ void Game::CollisionTankShot()
 			{
 				soundInvaderKilled.Play( 1.0f, 0.5f );
 				pTank->DeleteShot( s );
+				collisionLoc.emplace_back( pAlien->GetCollisionLoc() );
+				collisionTime.emplace_back( 0.0f );
 				break;
 			}
 		}

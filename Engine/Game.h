@@ -35,6 +35,7 @@
 #include "Vec2.h"
 #include "Font.h"
 #include "Sound.h"
+#include <list>
 
 class Game
 {
@@ -95,6 +96,7 @@ private:
 	Surface spriteGameOver = Surface( "Sprites\\game_over84x64.bmp" );
 	Surface spriteYouWon = Surface( "Sprites\\YouWin180x180.bmp" );
 	Surface spriteBackground = Surface( "Sprites\\Background800x600.bmp" );
+	Surface spriteExplosion{ "Sprites\\Explosion20x16.bmp" };
 	//Text
 	Font font = Font( "Sprites\\Text16x28.bmp" );
 	const Vec2<int> scorePos = Vec2<int>( 120, 100 );
@@ -104,6 +106,11 @@ private:
 	Sound soundInvaderKilled;
 	Sound soundExplosion;
 	Sound soundInvader[4]{ L"Sounds\\fastinvader1.wav", L"Sounds\\fastinvader2.wav", L"Sounds\\fastinvader3.wav", L"Sounds\\fastinvader4.wav" };
-	int playSound = 0;
+	int playSoundInvader = 0;
+	Sound soundUFO{ L"Sounds\\ufo_lowpitch.wav" };
+	float soundUFOTime = 0.0f;
+	// explosion drawing
+	std::list<Vec2<int>> collisionLoc;
+	std::vector<float> collisionTime;
 	/********************************/
 };
