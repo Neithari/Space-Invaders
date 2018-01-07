@@ -135,10 +135,34 @@ void Alien::Draw()
 			shot[i].Draw( gfx );
 		}
 	}
+	// UFO
+	if( !( pUFO == nullptr ) )
+	{
+		const Rect<int> playSpace{ (int)pPlaySpace->left,(int)pPlaySpace->right,(int)pPlaySpace->top,(int)pPlaySpace->bottom };
+		pUFO->Draw( gfx );
+	}
 }
 
 bool Alien::Update( const float dt )
 {
+	// check if a UFO must be created and update it if one is already there
+	if( pUFO == nullptr )
+	{
+		if( chanceDist( rng ) <= ufoChance && loc.y > pPlaySpace->top + ( Invader::dimBig.y + alienSpacing ) * 2 && cooldown >= ufoCD )
+		{
+   			pUFO = new UFO( *pPlaySpace );
+			cooldown = 0.0f;
+		}
+		cooldown += dt;
+	}
+	else
+	{
+		if( pUFO->Update( dt ) )
+		{
+			delete pUFO;
+			pUFO = nullptr;
+		}
+	}
 	//Move invader
 	if ( moveTime <= moveSpeed )
 	{
@@ -254,11 +278,11 @@ bool Alien::Collision( const Rect<float>& other, unsigned int& score )
 	{
 		if( invaderBig[i].IsAlive() )
 		{
+			collisionLoc = { int( invaderBig[i].GetLoc().x ), int( invaderBig[i].GetLoc().y ) };
 			if( invaderBig[i].Collision( other ) )
 			{
 				count_big--;
 				score += 10;
-				gfx.DrawSprite( int( invaderBig[i].GetLoc().x ), int( invaderBig[i].GetLoc().y ), spriteExplosion, SpriteEffect::Chroma{ Colors::White } );
 				return true;
 			}
 		}
@@ -267,11 +291,11 @@ bool Alien::Collision( const Rect<float>& other, unsigned int& score )
 	{
 		if( invaderMid[i].IsAlive() )
 		{
+			collisionLoc = { int( invaderMid[i].GetLoc().x ), int( invaderMid[i].GetLoc().y ) };
 			if( invaderMid[i].Collision( other ) )
 			{
 				count_mid--;
 				score += 20;
-				gfx.DrawSprite( int( invaderMid[i].GetLoc().x ), int( invaderMid[i].GetLoc().y ), spriteExplosion, SpriteEffect::Chroma{ Colors::White } );
 				return true;
 			}
 		}
@@ -280,13 +304,24 @@ bool Alien::Collision( const Rect<float>& other, unsigned int& score )
 	{
 		if( invaderSmall[i].IsAlive() )
 		{
+			collisionLoc = { int( invaderSmall[i].GetLoc().x ), int( invaderSmall[i].GetLoc().y ) };
 			if( invaderSmall[i].Collision( other ) )
 			{
 				count_small--;
 				score += 30;
-				gfx.DrawSprite( int( invaderSmall[i].GetLoc().x ), int( invaderSmall[i].GetLoc().y ), spriteExplosion, SpriteEffect::Chroma{ Colors::White } );
 				return true;
 			}
+		}
+	}
+	if( !( pUFO == nullptr ) )
+	{
+		collisionLoc = { int( pUFO->GetLoc().x ) + 5, int( pUFO->GetLoc().y ) };
+		if( pUFO->Collision( other ) )
+		{
+			score += 100;
+			delete pUFO;
+			pUFO = nullptr;
+			return true;
 		}
 	}
 	
@@ -458,6 +493,16 @@ float Alien::GetMoveSpeed() const
 float Alien::GetMoveTime() const
 {
 	return moveTime;
+}
+
+bool Alien::IsUFOAlive() const
+{
+	return !( pUFO == nullptr );
+}
+
+const Vec2<int>& Alien::GetCollisionLoc() const
+{
+	return collisionLoc;
 }
 
 Alien::~Alien()

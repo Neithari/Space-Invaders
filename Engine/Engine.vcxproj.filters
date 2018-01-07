@@ -105,6 +105,9 @@
     <ClInclude Include="Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UFO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -165,6 +168,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UFO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -239,9 +245,6 @@
       <Filter>Sounds</Filter>
     </Media>
     <Media Include="Sounds\shoot.wav">
-      <Filter>Sounds</Filter>
-    </Media>
-    <Media Include="Sounds\ufo_highpitch.wav">
       <Filter>Sounds</Filter>
     </Media>
     <Media Include="Sounds\ufo_lowpitch.wav">

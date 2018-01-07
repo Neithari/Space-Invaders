@@ -162,6 +162,7 @@
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TankShot.h" />
     <ClInclude Include="FrameTime.h" />
+    <ClInclude Include="UFO.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +186,7 @@
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankShot.cpp" />
     <ClCompile Include="FrameTime.cpp" />
+    <ClCompile Include="UFO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
@@ -276,7 +278,6 @@
     <Media Include="Sounds\fastinvader4.wav" />
     <Media Include="Sounds\invaderkilled.wav" />
     <Media Include="Sounds\shoot.wav" />
-    <Media Include="Sounds\ufo_highpitch.wav" />
     <Media Include="Sounds\ufo_lowpitch.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

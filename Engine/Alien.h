@@ -6,6 +6,8 @@
 #include "AlienShot.h"
 #include <random>
 #include <vector>
+#include "UFO.h"
+#include "Sound.h"
 
 class Alien
 {
@@ -28,6 +30,8 @@ public:
 	std::vector<Rect<float>> GetAliensForRow( const int row ) const;
 	float GetMoveSpeed() const;
 	float GetMoveTime() const;
+	bool IsUFOAlive() const;
+	const Vec2<int>& GetCollisionLoc() const;
 	~Alien();
 private:
 	void IncreaseSpeed();
@@ -39,6 +43,8 @@ public:
 	static constexpr int n_small = columns;
 	static constexpr int n_mid = columns * 2;
 	static constexpr int n_big = columns * 2;
+	static constexpr int ufoChance = 5;
+	static constexpr int alienSpacing = 10;
 private:
 	Graphics& gfx;
 	std::random_device rd;
@@ -50,24 +56,27 @@ private:
 	Vec2<int> dim;
 	Vec2<float> loc;
 	Rect<float> area;
-	static constexpr int alienSpacing = 10;
 	int count_small = n_small;
 	int count_mid = n_mid;
 	int count_big = n_big;
 	std::vector<Invader> invaderSmall;
 	std::vector<Invader> invaderMid;
 	std::vector<Invader> invaderBig;
+	UFO* pUFO = nullptr;
+	bool ufoAlive;
+	const float ufoCD = 9.0f;
+	float cooldown = 7.0f;
 	const int shotMax;
 	std::vector<AlienShot> shot;
 	bool columnClean[columns] = {};
 	int columnsNotClean = columns;
 	bool invaderAlive[n_small + n_mid + n_big] = {};
-	Vec2<float> delta_loc = { float(alienSpacing),0 };
+	Vec2<float> delta_loc{ float( alienSpacing ),0 };
 	//Timing
 	float moveSpeed = 0.5f;
 	float increaseSpeed = 0.05f;
 	bool speedIncreased = false;
 	float moveTime = 0.0f;
 	// Explosion Drawing
-	Surface spriteExplosion{ "Sprites\\Explosion20x16.bmp" };
+	Vec2<int> collisionLoc{ 0,0 };
 };

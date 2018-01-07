@@ -38,7 +38,7 @@ public:
 	}
 
 	template<typename C>
-	explicit Rect( const Rect<C>& src )
+	const Rect( const Rect<C>& src )
 		:
 		Rect( (T)src.left, (T)src.right, (T)src.top, (T)src.bottom )
 	{
